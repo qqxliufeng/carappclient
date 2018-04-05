@@ -1,1 +1,4 @@
 /build
+/.svn
+/.DS_Store
+/carappclient.iml
