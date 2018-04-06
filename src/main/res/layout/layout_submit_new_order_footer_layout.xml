@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@drawable/recycler_view_height_divider" />
+
+    <com.android.ql.lf.carapp.ui.views.SelectPayTypeView
+        android:id="@+id/mStvPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:isShowAccount="true" />
+</LinearLayout>
