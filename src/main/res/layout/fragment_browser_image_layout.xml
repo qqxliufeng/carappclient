@@ -5,7 +5,7 @@
     android:background="#333"
     android:orientation="vertical">
 
-    <com.android.ql.lf.carapp.ui.views.HackyViewPager
+    <com.android.ql.lf.carappclient.ui.view.HackyViewPager
         android:id="@+id/mHVPImageContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
