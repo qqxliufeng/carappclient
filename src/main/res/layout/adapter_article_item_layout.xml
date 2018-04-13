@@ -50,7 +50,7 @@
         android:textColor="@color/text_deep_dark_color"
         android:textSize="@dimen/sp_14" />
 
-    <com.android.ql.lf.carappclient.ui.view.ImageContainerLinearLayout
+    <com.android.ql.lf.carappclient.ui.views.ImageContainerLinearLayout
         android:id="@+id/mLlArticleItemImageContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

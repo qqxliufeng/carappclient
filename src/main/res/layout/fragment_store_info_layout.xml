@@ -32,19 +32,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true">
 
-                        <ImageView
-                            android:id="@+id/mIvSearchGoodsBack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingBottom="@dimen/dp_10"
-                            android:paddingRight="@dimen/dp_10"
-                            android:paddingTop="@dimen/dp_10"
-                            android:src="@drawable/back" />
-
-                        <com.android.ql.lf.carapp.ui.views.EditTextWithDel
+                        <com.android.ql.lf.carappclient.ui.views.EditTextWithDel
                             android:id="@+id/mEtSearchContent"
                             android:layout_width="0dp"
                             android:layout_height="30dp"

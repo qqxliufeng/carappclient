@@ -201,6 +201,14 @@ public class SelectAddressActivity extends BaseActivity implements TabLayout.OnT
                         mTabLayout.addTab(tab.setText("请选择"));
                         tab.select();
                     }
+                    //如果没有第三级城市 直接返回
+                    if (areaList.isEmpty()) {
+                        SelectAddressItemBean resultItemBean = new SelectAddressItemBean();
+                        resultItemBean.setName(provinceItemBean.getName() + cityItemBean.getName());
+                        resultItemBean.setId(provinceItemBean.getId() + "," + cityItemBean.getId());
+                        RxBus.getDefault().post(resultItemBean);
+                        finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

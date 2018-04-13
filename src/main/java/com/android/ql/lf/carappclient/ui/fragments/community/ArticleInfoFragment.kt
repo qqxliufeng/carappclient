@@ -14,9 +14,9 @@ import com.android.ql.lf.carappclient.data.ArticleBean
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.ArticleCommentListAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseRecyclerViewFragment
-import com.android.ql.lf.carappclient.ui.view.ImageContainerLinearLayout
-import com.android.ql.lf.carappclient.ui.view.PopupWindowDialog
-import com.android.ql.lf.carappclient.ui.view.PraiseView
+import com.android.ql.lf.carappclient.ui.views.ImageContainerLinearLayout
+import com.android.ql.lf.carappclient.ui.views.PopupWindowDialog
+import com.android.ql.lf.carappclient.ui.views.PraiseView
 import com.android.ql.lf.carappclient.utils.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

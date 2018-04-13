@@ -3,21 +3,26 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/img_bottom_order_icon"
-        android:title="订单大厅" />
+        android:icon="@drawable/img_bottom_mall_icon"
+        android:title="首页" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_classify"
+        android:icon="@drawable/img_bottom_community_icon"
+        android:title="分类" />
+
+    <item
+        android:id="@+id/navigation_store"
+        android:icon="@drawable/img_bottom_community_icon"
+        android:title="门店" />
+
+    <item
+        android:id="@+id/navigation_community"
         android:icon="@drawable/img_bottom_community_icon"
         android:title="社区论坛" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/img_bottom_mall_icon"
-        android:title="批发商城" />
-
-    <item
-        android:id="@+id/navigation_message"
+        android:id="@+id/navigation_mine"
         android:icon="@drawable/img_bottom_mine_icon"
         android:title="个人中心" />
 

@@ -1,4 +1,4 @@
-package com.android.ql.lf.carappclient.ui.view;
+package com.android.ql.lf.carappclient.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

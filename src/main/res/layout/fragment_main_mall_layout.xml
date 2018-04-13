@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:minHeight="?actionBarSize"
-            android:text="商城"
+            android:text="首页"
             android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -72,11 +72,11 @@
                 android:id="@+id/id_rv_base_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:descendantFocusability="afterDescendants"/>
+                android:descendantFocusability="afterDescendants" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <!--<android.support.design.widget.FloatingActionButton
             android:id="@+id/mFabShoppingCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_marginRight="20dp"
             android:clickable="true"
             android:src="@drawable/img_icon_shoppingcart_white_null"
-            app:layout_behavior="com.android.ql.lf.carapp.ui.views.FloatingBarBehavior" />
+            app:layout_behavior="com.android.ql.lf.carappclient.ui.views.FloatingBarBehavior" />-->
 
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

@@ -32,7 +32,7 @@
                     android:paddingTop="@dimen/dp_10"
                     android:src="@drawable/back" />
 
-                <com.android.ql.lf.carapp.ui.views.EditTextWithDel
+                <com.android.ql.lf.carappclient.ui.views.EditTextWithDel
                     android:id="@+id/mEtSearchContent"
                     android:layout_width="0dp"
                     android:layout_height="30dp"

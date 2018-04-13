@@ -3,7 +3,7 @@ package com.android.ql.lf.carappclient.ui.adapters
 import android.view.View
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.ArticleBean
-import com.android.ql.lf.carappclient.ui.view.ImageContainerLinearLayout
+import com.android.ql.lf.carappclient.ui.views.ImageContainerLinearLayout
 import com.android.ql.lf.carappclient.utils.GlideManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
