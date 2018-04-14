@@ -21,7 +21,7 @@ public class Constants {
     public static final String IMAGE_PATH = APP_PATH + "/image/";
     public static final String FILE_PROVIDE_PATH = "com.android.ql.lf.carapp.fileProvider";
 
-    public static final String TENCENT_ID = "1106743534";
+    public static final String TENCENT_ID = "1106763425";
     public static final String WX_APP_ID = "wx0b6a3be07b8ed6a0";
     public static final String BUGLY_APP_ID = "c73cdb2f24";
 
