@@ -83,6 +83,7 @@ class RequestParamsHelper {
         /**              member model  start           **/
 
         val MEMBER_MODEL = "member"
+        val MERCHANT_MEMBER_MODEL = "merchantMember"
         val ACT_EDIT_PW = "edit_pw"
         fun getEditPWParams(pw: String, newpw: String): ApiParams {
             val param = getWithIdParams()
