@@ -1,13 +1,9 @@
 package com.android.ql.lf.carappclient.action;
 
-import android.text.TextUtils;
-
 import com.android.ql.lf.carapp.action.IViewUserAction;
 import com.android.ql.lf.carappclient.application.CarAppClientApplication;
 import com.android.ql.lf.carappclient.data.UserInfo;
 import com.android.ql.lf.carappclient.utils.PreferenceUtils;
-import com.google.gson.Gson;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -20,31 +16,29 @@ import org.json.JSONObject;
 public class ViewUserAction implements IViewUserAction {
 
     @Override
-    public boolean onLogin(@NotNull JSONObject result, JSONObject shopInfo) {
+    public boolean onLogin(@NotNull JSONObject result) {
         try {
-            UserInfo.getInstance().setMemberId(result.optString("member_id"));
-            UserInfo.getInstance().setMemberName(result.optString("member_name"));
-            UserInfo.getInstance().setMemberPhone(result.optString("member_phone"));
-            UserInfo.getInstance().setMemberPic(result.optString("member_pic"));
-            UserInfo.getInstance().setMemberAddress(result.optString("member_address"));
-            UserInfo.getInstance().setMemberGrade(result.optString("member_grade"));
-            UserInfo.getInstance().setMemberInviteCode(result.optString("member_invite_code"));
-            UserInfo.getInstance().setMemberOrderNum(result.optString("member_order_num"));
-            UserInfo.getInstance().setMemberMyInviteCode(result.optString("member_mycode"));
-            UserInfo.getInstance().setMemberIsEnsureMoney(result.optString("member_is_ensure_money"));
-            UserInfo.getInstance().setMemberIsMaster(result.optString("member_ismaster"));
-            UserInfo.getInstance().setMemberOpenid(result.optString("member_openid"));
-            UserInfo.getInstance().setMemberRank(result.optString("member_rank"));
-            UserInfo.getInstance().setMemberIdCard(result.optString("member_idcard"));
-            UserInfo.getInstance().setMemberAuthentication(result.optString("member_authentication"));
-            UserInfo.getInstance().setMemberQQOpenid(result.optString("member_qqopenid"));
-            UserInfo.getInstance().setMemberAlias(result.optString("member_alias"));
-            UserInfo.getInstance().setMemberIswxAuth(result.optString("member_iswxauth"));
+            UserInfo.getInstance().setMemberId(result.optString("users_id"));
+            UserInfo.getInstance().setMemberName(result.optString("users_name"));
+            UserInfo.getInstance().setMemberPhone(result.optString("users_phone"));
+            UserInfo.getInstance().setMemberPic(result.optString("users_pic"));
+            UserInfo.getInstance().setMemberRank(result.optString("users_rank"));
+            UserInfo.getInstance().setMemberAddress(result.optString("users_address"));
+            UserInfo.getInstance().setMemberGrade(result.optString("users_grade"));
+            UserInfo.getInstance().setMemberIdCard(result.optString("users_idcard"));
+            UserInfo.getInstance().setMemberInviteCode(result.optString("users_invite_code"));
+            UserInfo.getInstance().setMemberOrderNum(result.optString("users_order_num"));
+            UserInfo.getInstance().setMemberMyInviteCode(result.optString("users_mycode"));
+            UserInfo.getInstance().setMemberOpenid(result.optString("users_openid"));
+            UserInfo.getInstance().setMemberQQOpenid(result.optString("users_qqopenid"));
+            UserInfo.getInstance().setMemberAlias(result.optString("users_alias"));
+            UserInfo.getInstance().setMemberIswxAuth(result.optString("users_iswxauth"));
+
+            UserInfo.getInstance().setGoodsCollectionNum(result.optString("users_product_collect"));
+            UserInfo.getInstance().setStoreCollectionNum(result.optString("users_product_concerm"));
+            UserInfo.getInstance().setFootsCollectionNum(result.optString("users_product_spoor"));
+
             PreferenceUtils.setPrefString(CarAppClientApplication.application, UserInfo.USER_ID_FLAG, UserInfo.getInstance().getMemberId());
-            if (shopInfo != null && !TextUtils.isEmpty(shopInfo.toString()) && !"null".equals(shopInfo.toString())) {
-                UserInfo.ShopInfo shopInoBean = new Gson().fromJson(shopInfo.toString(), UserInfo.ShopInfo.class);
-                UserInfo.getInstance().setShopInfo(shopInoBean);
-            }
             return true;
         } catch (Exception e) {
             return false;

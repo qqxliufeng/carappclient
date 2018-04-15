@@ -68,7 +68,7 @@
                     android:background="@drawable/shape_tv_bg3"
                     android:drawableLeft="@drawable/img_wallet_icon_rmd"
                     android:drawablePadding="@dimen/dp_10"
-                    android:text="保 证 金 "
+                    android:text="充   值"
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>

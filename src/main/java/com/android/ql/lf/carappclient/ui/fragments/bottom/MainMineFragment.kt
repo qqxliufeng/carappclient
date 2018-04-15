@@ -13,6 +13,7 @@ import com.android.ql.lf.carappclient.present.UserPresent
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineWalletFragment
 import com.android.ql.lf.carappclient.utils.*
 import kotlinx.android.synthetic.main.fragment_main_mine_layout.*
 import org.json.JSONObject
@@ -72,15 +73,15 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         RxBus.getDefault().toObservable(RefreshData::class.java).subscribe {
             if (it.isRefresh) {
                 if (it.any == MINE_GOODS_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().goodsCollectionNum++
+                    UserInfo.getInstance().goodsCollectionNum = "${UserInfo.getInstance().goodsCollectionNum.toInt()+1}"
                     mTvMainMineCollectionGoodsCount.text = "${UserInfo.getInstance().goodsCollectionNum}"
                 }
                 if (it.any == MINE_STORE_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().storeCollectionNum++
+                    UserInfo.getInstance().storeCollectionNum = "${UserInfo.getInstance().storeCollectionNum.toInt()+1}"
                     mTvMainMineCollectionStoreCount.text = "${UserInfo.getInstance().storeCollectionNum}"
                 }
                 if (it.any == MINE_FOOTS_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().footsCollectionNum++
+                    UserInfo.getInstance().footsCollectionNum = "${UserInfo.getInstance().footsCollectionNum.toInt()+1}"
                     mTvMainMineCollectionFootPrintCount.text = "${UserInfo.getInstance().footsCollectionNum}"
                 }
             }
@@ -132,9 +133,12 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         mTvMainMineSetting.doClickWithUserStatusStart(MINE_SETTING_TOKEN) {
             FragmentContainerActivity.startFragmentContainerActivity(mContext, "设置", SettingFragment::class.java)
         }
-        mTvMainWallet.doClickWithUserStatusStart(MY_WALLET_TOKEN) {
-//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的帖子", MineArticleFragment::class.java)
+        mTvMainWallet.setOnClickListener{
+            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的钱包", MineWalletFragment::class.java)
         }
+//        mTvMainWallet.doClickWithUserStatusStart(MY_WALLET_TOKEN) {
+//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的帖子", MineWalletFragment::class.java)
+//        }
         mTvMainMineEvaluate.doClickWithUserStatusStart(MINE_EVALUATE_TOKEN) {
 //            FragmentContainerActivity.from(mContext).setClazz(MimeEvaluateFragment::class.java).setTitle("我的评价").start()
         }
@@ -172,15 +176,15 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
                 val arr1 = json.optJSONObject("arr1")
                 val s1 = arr1.optString("s1")
                 if (!TextUtils.isEmpty(s1)) {
-                    UserInfo.getInstance().goodsCollectionNum = s1.toInt()
+                    UserInfo.getInstance().goodsCollectionNum = s1
                 }
                 val s2 = arr1.optString("s2")
                 if (!TextUtils.isEmpty(s2)) {
-                    UserInfo.getInstance().storeCollectionNum = s2.toInt()
+                    UserInfo.getInstance().storeCollectionNum = s2
                 }
                 val s3 = arr1.optString("s3")
                 if (!TextUtils.isEmpty(s3)) {
-                    UserInfo.getInstance().footsCollectionNum = s3.toInt()
+                    UserInfo.getInstance().footsCollectionNum = s3
                 }
                 mTvMainMineCollectionGoodsCount.text = "${UserInfo.getInstance().goodsCollectionNum}"
                 mTvMainMineCollectionStoreCount.text = "${UserInfo.getInstance().storeCollectionNum}"

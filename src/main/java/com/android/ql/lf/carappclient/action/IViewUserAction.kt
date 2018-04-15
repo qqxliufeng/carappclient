@@ -8,7 +8,7 @@ import org.json.JSONObject
  */
 interface IViewUserAction {
 
-    fun onLogin(result: JSONObject, shopInfo: JSONObject): Boolean
+    fun onLogin(result: JSONObject): Boolean
 
     fun onLogout(): Boolean
 

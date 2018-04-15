@@ -62,31 +62,31 @@ public class UserInfo {
     //    private String memberWxIs
     private ShopInfo shopInfo;
 
-    private int goodsCollectionNum = 0;
-    private int storeCollectionNum = 0;
-    private int footsCollectionNum = 0;
+    private String goodsCollectionNum = "0";
+    private String storeCollectionNum = "0";
+    private String footsCollectionNum = "0";
 
-    public int getGoodsCollectionNum() {
+    public String getGoodsCollectionNum() {
         return goodsCollectionNum;
     }
 
-    public void setGoodsCollectionNum(int goodsCollectionNum) {
+    public void setGoodsCollectionNum(String goodsCollectionNum) {
         this.goodsCollectionNum = goodsCollectionNum;
     }
 
-    public int getStoreCollectionNum() {
+    public String getStoreCollectionNum() {
         return storeCollectionNum;
     }
 
-    public void setStoreCollectionNum(int storeCollectionNum) {
+    public void setStoreCollectionNum(String storeCollectionNum) {
         this.storeCollectionNum = storeCollectionNum;
     }
 
-    public int getFootsCollectionNum() {
+    public String getFootsCollectionNum() {
         return footsCollectionNum;
     }
 
-    public void setFootsCollectionNum(int footsCollectionNum) {
+    public void setFootsCollectionNum(String footsCollectionNum) {
         this.footsCollectionNum = footsCollectionNum;
     }
 

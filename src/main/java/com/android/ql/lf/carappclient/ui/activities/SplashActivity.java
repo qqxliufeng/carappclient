@@ -154,7 +154,7 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
         try {
             JSONObject json = new JSONObject(result.toString());
             if ("200".equals(json.optString("code"))) {
-                userPresent.onLogin(json.optJSONObject("result"), json.optJSONObject("arr"));
+                userPresent.onLogin(json.optJSONObject("result"));
                 startMain();
             } else {
                 startMain();

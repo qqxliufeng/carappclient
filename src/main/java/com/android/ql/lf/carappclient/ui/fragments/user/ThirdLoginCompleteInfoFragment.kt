@@ -123,7 +123,7 @@ class ThirdLoginCompleteInfoFragment : BaseNetWorkingFragment() {
                 if (check.code != SUCCESS_CODE) {
                     toast((check.obj as JSONObject).optString("msg"))
                 } else {
-                    userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"), (check.obj as JSONObject).optJSONObject("arr"))
+                    userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"))
                     finish()
                 }
             }

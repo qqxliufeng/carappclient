@@ -21,14 +21,14 @@ public class UserPresent {
         userAction = new ViewUserAction();
     }
 
-    public void onLogin(JSONObject memberInfo,JSONObject shopInfo) {
-        if (userAction.onLogin(memberInfo,shopInfo)) {
+    public void onLogin(JSONObject memberInfo) {
+        if (userAction.onLogin(memberInfo)) {
             sendLoginSuccessMessage();
         }
     }
 
     public void onLoginNoBus(JSONObject memberInfo,JSONObject shopInfo) {
-        userAction.onLogin(memberInfo,shopInfo);
+        userAction.onLogin(memberInfo);
     }
 
     public void onLogout() {

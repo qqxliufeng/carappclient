@@ -36,10 +36,10 @@ class RequestParamsHelper {
 
         /**              login model  start           **/
         val LOGIN_MODEL = "login"
-        val ACT_REGISTER = "Register"
+        val ACT_REGISTER = "userRegister"
+        val ACT_LOGIN = "userLogin"
         val ACT_CODE = "getcode"
-        val ACT_LOGIN = "Login"
-        val ACT_FORGETPW = "forgetpw"
+        val ACT_FORGETPW = "user_forgetpw"
         fun getCodeParams(tel: String = ""): ApiParams {
             val params = getBaseParams()
             return params.addParam("tel", tel)
@@ -64,11 +64,11 @@ class RequestParamsHelper {
         }
 
 
-        val ACT_QQLOGIN = "qqlogin"
+        val ACT_QQLOGIN = "user_qqlogin"
         fun getQQloginParam(phone: String, openid: String, accessToken: String) =
                 getBaseParams().addParam("phone", phone).addParam("openid", openid).addParam("access_token", accessToken)
 
-        val ACT_WX_PERFECT = "wx_perfect"
+        val ACT_WX_PERFECT = "user_wx_perfect"
         fun getWXCompleteDataParam(phone: String, headimgurl: String, openid: String, nickname: String): ApiParams {
             val params = getBaseParams()
             params.addParam("phone", phone)

@@ -22,7 +22,6 @@ import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
 import kotlinx.android.synthetic.main.fragment_login_layout.*
 import org.jetbrains.anko.bundleOf
-import org.jetbrains.anko.support.v4.toast
 import org.json.JSONObject
 
 /**
@@ -126,7 +125,7 @@ class LoginFragment : BaseNetWorkingFragment(), IUiListener {
                 val jsonObject = checkResult.obj as JSONObject
                 if (SUCCESS_CODE == checkResult.code) {
                     toast("登录成功")
-                    userPresent.onLogin(jsonObject.optJSONObject("result"), jsonObject.optJSONObject("arr"))
+                    userPresent.onLogin(jsonObject.optJSONObject("result"))
                 } else {
                     toast(jsonObject.optString("msg"))
                 }
@@ -138,7 +137,7 @@ class LoginFragment : BaseNetWorkingFragment(), IUiListener {
             if (check != null) {
                 when (check.code) {
                     SUCCESS_CODE -> {
-                        userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"), (check.obj as JSONObject).optJSONObject("arr"))
+                        userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"))
                     }
                     "202" -> { //需要完善资料
                         FragmentContainerActivity.from(mContext)
@@ -155,7 +154,7 @@ class LoginFragment : BaseNetWorkingFragment(), IUiListener {
             if (check != null) {
                 when (check.code) {
                     SUCCESS_CODE -> {
-                        userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"), (check.obj as JSONObject).optJSONObject("arr"))
+                        userPresent.onLogin((check.obj as JSONObject).optJSONObject("result"))
                     }
                     "202" -> { // 授权成功 需要完善资料
                         wxLoginInfo = Gson().fromJson((check.obj as JSONObject).optJSONObject("result").toString(), ThirdLoginManager.WXUserInfo::class.java)
