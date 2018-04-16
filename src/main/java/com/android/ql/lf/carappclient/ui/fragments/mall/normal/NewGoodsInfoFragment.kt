@@ -97,7 +97,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                 mPresent.getDataByPost(0x1,
                         RequestParamsHelper.PRODUCT_MODEL,
                         RequestParamsHelper.ACT_COLLECT_PRODUCT,
-                        RequestParamsHelper.getCollectProductParam(goodsInfoBean!!.result!!.product_id))
+                        RequestParamsHelper.getCollectProductParam(goodsInfoBean!!.result!!.merchant_product_id))
             }
         }
         val linearLayoutManager = ScrollLinearLayoutManager(mContext)
@@ -121,7 +121,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         })
         mCBPersonalGoodsInfo.setOnBannerListener {
             if (goodsInfoBean != null) {
-                BrowserImageFragment.startBrowserImage(context, goodsInfoBean!!.result!!.product_pic, it)
+                BrowserImageFragment.startBrowserImage(context, goodsInfoBean!!.result!!.merchant_product_pic, it)
             }
         }
         mTvCommentAll.setOnClickListener {
@@ -131,7 +131,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         .setTitle("订单评价")
                         .setClazz(OrderCommentListFragment::class.java)
                         .setNeedNetWorking(true)
-                        .setExtraBundle(bundleOf(Pair(OrderCommentListFragment.GID_FLAG, goodsInfoBean!!.result!!.product_id)))
+                        .setExtraBundle(bundleOf(Pair(OrderCommentListFragment.GID_FLAG, goodsInfoBean!!.result!!.merchant_product_id)))
                         .start()
             }
         }
@@ -148,7 +148,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                             "margin-left:10px;" +
                             "}" +
                             "</style>"
-                    val htmlContent = "<html><header>" + linkCss + "</header>" + goodsInfoBean!!.result!!.product_content + "</body></html>"
+                    val htmlContent = "<html><header>" + linkCss + "</header>" + goodsInfoBean!!.result!!.merchant_product_content + "</body></html>"
                     mWebGoodsInfo.loadData(htmlContent, "text/html", "UTF-8")
                 }
             }
@@ -160,29 +160,29 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
             if (paramsDialog == null) {
                 paramsDialog = BottomGoodsParamDialog(mContext)
                 paramsDialog!!.bindDataToView(
-                        "￥${goodsInfoBean!!.result!!.product_price}",
-                        "库存${goodsInfoBean!!.result!!.product_entrepot}件",
-                        goodsInfoBean!!.result!!.product_name,
-                        goodsInfoBean!!.result!!.product_pic[0],
-                        goodsInfoBean!!.result!!.product_specification)
+                        "￥${goodsInfoBean!!.result!!.merchant_product_price}",
+                        "库存${goodsInfoBean!!.result!!.merchant_product_entrepot}件",
+                        goodsInfoBean!!.result!!.merchant_product_name,
+                        goodsInfoBean!!.result!!.merchant_product_pic[0],
+                        goodsInfoBean!!.result!!.merchant_product_specification)
                 paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num ->
                     if (actionMode == ACTION_MODE.SHOPPING_CAR) {
                         mPresent.getDataByPost(0x2,
                                 RequestParamsHelper.MEMBER_MODEL,
                                 RequestParamsHelper.ACT_ADD_SHOPCART,
                                 RequestParamsHelper.getAddShopcartParam(
-                                        goodsInfoBean!!.result!!.product_id,
+                                        goodsInfoBean!!.result!!.merchant_product_id,
                                         goodsInfoBean!!.arr1!!.wholesale_shop_id,
                                         num,
                                         picPath + "," + specification
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
-                        shoppingCarItem.shopcart_mdprice = goodsInfoBean!!.result!!.product_mdprice
+                        shoppingCarItem.shopcart_mdprice = goodsInfoBean!!.result!!.merchant_product_mdprice
                         shoppingCarItem.shopcart_num = num
-                        shoppingCarItem.shopcart_price = goodsInfoBean!!.result!!.product_price
-                        shoppingCarItem.shopcart_name = goodsInfoBean!!.result!!.product_name
-                        shoppingCarItem.shopcart_gid = goodsInfoBean!!.result!!.product_id
+                        shoppingCarItem.shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
+                        shoppingCarItem.shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
+                        shoppingCarItem.shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
                         if (goodsInfoBean!!.arr1!!.wholesale_shop_pic != null && !goodsInfoBean!!.arr1!!.wholesale_shop_pic.isEmpty()) {
                             shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.wholesale_shop_pic[0]
                         } else {
@@ -191,7 +191,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         shoppingCarItem.shop_shopname = goodsInfoBean!!.arr1!!.wholesale_shop_name
                         shoppingCarItem.shopcart_id = ""
                         if (TextUtils.isEmpty(picPath)) {
-                            shoppingCarItem.shopcart_pic = goodsInfoBean!!.result!!.product_pic as ArrayList<String>
+                            shoppingCarItem.shopcart_pic = goodsInfoBean!!.result!!.merchant_product_pic as ArrayList<String>
                         } else {
                             shoppingCarItem.shopcart_pic = arrayListOf(picPath)
                         }
@@ -263,14 +263,14 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
     }
 
     private fun bindData() {
-        mCBPersonalGoodsInfo.setImages(goodsInfoBean!!.result!!.product_pic).setDelayTime(3000).setBannerStyle(BannerConfig.CIRCLE_INDICATOR).start()
-        mCibGoodsInfoCollection.isChecked = goodsInfoBean!!.result!!.product_collect != "0"
-        mTvGoodsInfoPrice.text = "￥ ${goodsInfoBean!!.result!!.product_price}"
+        mCBPersonalGoodsInfo.setImages(goodsInfoBean!!.result!!.merchant_product_pic).setDelayTime(3000).setBannerStyle(BannerConfig.CIRCLE_INDICATOR).start()
+        mCibGoodsInfoCollection.isChecked = goodsInfoBean!!.result!!.merchant_product_collect != "0"
+        mTvGoodsInfoPrice.text = "￥ ${goodsInfoBean!!.result!!.merchant_product_price}"
         mTvGoodsInfoOldPrice.paint.flags = TextPaint.STRIKE_THRU_TEXT_FLAG
-        mTvGoodsInfoOldPrice.text = "￥ ${goodsInfoBean!!.result!!.product_yprice}"
-        mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.product_entrepot
-        mTvGoodsInfoTitle.text = goodsInfoBean!!.result!!.product_name
-        mTvGoodsInfoDescription.text = Html.fromHtml(goodsInfoBean!!.result!!.product_description)
+        mTvGoodsInfoOldPrice.text = "￥ ${goodsInfoBean!!.result!!.merchant_product_yprice}"
+        mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.merchant_product_entrepot
+        mTvGoodsInfoTitle.text = goodsInfoBean!!.result!!.merchant_product_name
+        mTvGoodsInfoDescription.text = Html.fromHtml(goodsInfoBean!!.result!!.merchant_product_description)
         if (goodsInfoBean!!.arr1!!.wholesale_shop_pic != null && !goodsInfoBean!!.arr1!!.wholesale_shop_pic.isEmpty()) {
             GlideManager.loadImage(mContext, goodsInfoBean!!.arr1!!.wholesale_shop_pic[0], mIvGoodsInfoStorePic)
         }

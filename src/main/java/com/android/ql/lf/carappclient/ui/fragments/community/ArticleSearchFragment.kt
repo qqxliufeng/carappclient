@@ -104,7 +104,7 @@ class ArticleSearchFragment : BaseRecyclerViewFragment<ArticleBean>() {
 
     class ArticleSearchAdapter(resId: Int, list: ArrayList<ArticleBean>) : BaseQuickAdapter<ArticleBean, BaseViewHolder>(resId, list) {
         override fun convert(helper: BaseViewHolder?, item: ArticleBean?) {
-            helper!!.setText(android.R.id.text1, item!!.quiz_title)
+            helper!!.setText(android.R.id.text1, item!!.merchant_quiz_title)
         }
     }
 }

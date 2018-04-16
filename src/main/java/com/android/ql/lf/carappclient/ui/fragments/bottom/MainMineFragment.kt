@@ -13,6 +13,8 @@ import com.android.ql.lf.carappclient.present.UserPresent
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
+import com.android.ql.lf.carappclient.ui.fragments.message.MineMessageListFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.mine.MinePersonalInfoFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineWalletFragment
 import com.android.ql.lf.carappclient.utils.*
 import kotlinx.android.synthetic.main.fragment_main_mine_layout.*
@@ -26,6 +28,7 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
 
     companion object {
         val MINE_PERSONAL_INFO_TOKEN = "personal_info_token"
+        val MINE_PERSONAL_INFO_TOKEN2 = "personal_info_token2"
         val MINE_STORE_COLLECTION_TOKEN = "store_collection_token"
         val MINE_GOODS_COLLECTION_TOKEN = "goods_collection_token"
         val MINE_FOOT_PRINT_TOKEN = "foot_print_token"
@@ -36,6 +39,7 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         val MINE_EVALUATE_TOKEN = "mine_evaluate_token"
 
         val MINE_SETTING_TOKEN = "setting_token"
+        val MINE_MESSAGE_TOKEN = "mine_message_token"
 
         val MINE_GOODS_COLLECTION_NUM_TOKEN = "mine_goods_collection_num_token"
         val MINE_STORE_COLLECTION_NUM_TOKEN = "mine_store_collection_num_token"
@@ -73,15 +77,15 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         RxBus.getDefault().toObservable(RefreshData::class.java).subscribe {
             if (it.isRefresh) {
                 if (it.any == MINE_GOODS_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().goodsCollectionNum = "${UserInfo.getInstance().goodsCollectionNum.toInt()+1}"
+                    UserInfo.getInstance().goodsCollectionNum = "${UserInfo.getInstance().goodsCollectionNum.toInt() + 1}"
                     mTvMainMineCollectionGoodsCount.text = "${UserInfo.getInstance().goodsCollectionNum}"
                 }
                 if (it.any == MINE_STORE_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().storeCollectionNum = "${UserInfo.getInstance().storeCollectionNum.toInt()+1}"
+                    UserInfo.getInstance().storeCollectionNum = "${UserInfo.getInstance().storeCollectionNum.toInt() + 1}"
                     mTvMainMineCollectionStoreCount.text = "${UserInfo.getInstance().storeCollectionNum}"
                 }
                 if (it.any == MINE_FOOTS_COLLECTION_NUM_TOKEN) {
-                    UserInfo.getInstance().footsCollectionNum = "${UserInfo.getInstance().footsCollectionNum.toInt()+1}"
+                    UserInfo.getInstance().footsCollectionNum = "${UserInfo.getInstance().footsCollectionNum.toInt() + 1}"
                     mTvMainMineCollectionFootPrintCount.text = "${UserInfo.getInstance().footsCollectionNum}"
                 }
             }
@@ -114,36 +118,39 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         //接受收藏数量
         updateCollectionNumSubscription
         setUserInfo(UserInfo.getInstance())
-        mFlMainMineMessageNotifyContainer.setOnClickListener {
+        mFlMainMineMessageNotifyContainer.doClickWithUserStatusStart(MINE_MESSAGE_TOKEN) {
             RxBus.getDefault().post(UpdateNotifyBean(View.GONE))
-//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的消息", true, false, MineMessageListFragment::class.java)
+            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的消息", true, false, MineMessageListFragment::class.java)
         }
         mLlMainMinePersonalInfoContainer.doClickWithUserStatusStart(MINE_PERSONAL_INFO_TOKEN) {
-//            FragmentContainerActivity.from(mContext).setClazz(MinePersonalInfoFragment::class.java).setTitle("个人中心").setNeedNetWorking(true).start()
+            FragmentContainerActivity.from(mContext).setClazz(MinePersonalInfoFragment::class.java).setTitle("个人中心").setNeedNetWorking(true).start()
+        }
+        mTvMainMinePersonal.doClickWithUserStatusStart(MINE_PERSONAL_INFO_TOKEN2) {
+            FragmentContainerActivity.from(mContext).setClazz(MinePersonalInfoFragment::class.java).setTitle("个人中心").setNeedNetWorking(true).start()
         }
         mLlMainMineStoreContainer.doClickWithUserStatusStart(MINE_STORE_COLLECTION_TOKEN) {
-//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "店铺收藏", MineStoreCollectionFragment::class.java)
+            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "店铺收藏", MineStoreCollectionFragment::class.java)
         }
         mLlMainMineGoodsContainer.doClickWithUserStatusStart(MINE_GOODS_COLLECTION_TOKEN) {
-//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "商品收藏", MineGoodsCollectionFragment::class.java)
+            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "商品收藏", MineGoodsCollectionFragment::class.java)
         }
         mLlMainMineFootPrintContainer.doClickWithUserStatusStart(MINE_FOOT_PRINT_TOKEN) {
-//            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的足迹", MineFootPrintFragment::class.java)
+            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的足迹", MineFootPrintFragment::class.java)
         }
         mTvMainMineSetting.doClickWithUserStatusStart(MINE_SETTING_TOKEN) {
             FragmentContainerActivity.startFragmentContainerActivity(mContext, "设置", SettingFragment::class.java)
         }
-        mTvMainWallet.setOnClickListener{
+        mTvMainWallet.doClickWithUserStatusStart(MY_WALLET_TOKEN) {
             FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的钱包", MineWalletFragment::class.java)
         }
 //        mTvMainWallet.doClickWithUserStatusStart(MY_WALLET_TOKEN) {
 //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的帖子", MineWalletFragment::class.java)
 //        }
         mTvMainMineEvaluate.doClickWithUserStatusStart(MINE_EVALUATE_TOKEN) {
-//            FragmentContainerActivity.from(mContext).setClazz(MimeEvaluateFragment::class.java).setTitle("我的评价").start()
+            //            FragmentContainerActivity.from(mContext).setClazz(MimeEvaluateFragment::class.java).setTitle("我的评价").start()
         }
         mTvMainMineShopOrder.doClickWithUserStatusStart(MINE_MALL_ORDER_FLAG_TOKEN) {
-//            FragmentContainerActivity.from(mContext).setTitle("购物订单").setClazz(MineMallOrderFragment::class.java).start()
+            //            FragmentContainerActivity.from(mContext).setTitle("购物订单").setClazz(MineMallOrderFragment::class.java).start()
         }
         onRefresh()
     }
@@ -211,33 +218,27 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
         if (it != null) {
             setUserInfo(it)
             when (UserInfo.loginToken) {
-//                MINE_PERSONAL_INFO_TOKEN -> {
-//                    mLlMainMinePersonalInfoContainer.doClickWithUseStatusEnd()
-//                }
-//                MINE_STORE_COLLECTION_TOKEN -> {
-//                    mLlMainMineStoreContainer.doClickWithUseStatusEnd()
-//                }
-//                MINE_GOODS_COLLECTION_TOKEN -> {
-//                    mLlMainMineGoodsContainer.doClickWithUseStatusEnd()
-//                }
-//                MINE_GRADE_TOKEN -> {
-//                    mTvMainMineGrade.doClickWithUseStatusEnd()
-//                }
-//                MINE_PERSONAL_EDIT_INFO_TOKEN -> {
-//                    mTvMainServiceEdit.doClickWithUseStatusEnd()
-//                }
-//                MINE_Q_CODE_TOKEN -> {
-//                    mTvMainMineQCode.doClickWithUseStatusEnd()
-//                }
-//                MINE_FOOT_PRINT_TOKEN -> {
-//                    mLlMainMineFootPrintContainer.doClickWithUseStatusEnd()
-//                }
-//                MINE_SETTING_TOKEN -> {
-//                    mTvMainMineSetting.doClickWithUseStatusEnd()
-//                }
-//                MINE_APPLY_MASTER_TOKEN -> {
-//                    mTvMainMineApplyMaster.doClickWithUseStatusEnd()
-//                }
+                MINE_PERSONAL_INFO_TOKEN, MINE_PERSONAL_INFO_TOKEN2 -> {
+                    mLlMainMinePersonalInfoContainer.doClickWithUseStatusEnd()
+                }
+                MINE_MESSAGE_TOKEN -> {
+                    mFlMainMineMessageNotifyContainer.doClickWithUseStatusEnd()
+                }
+                MINE_STORE_COLLECTION_TOKEN -> {
+                    mLlMainMineStoreContainer.doClickWithUseStatusEnd()
+                }
+                MINE_GOODS_COLLECTION_TOKEN -> {
+                    mLlMainMineGoodsContainer.doClickWithUseStatusEnd()
+                }
+                MINE_FOOT_PRINT_TOKEN -> {
+                    mLlMainMineFootPrintContainer.doClickWithUseStatusEnd()
+                }
+                MINE_SETTING_TOKEN -> {
+                    mTvMainMineSetting.doClickWithUseStatusEnd()
+                }
+                MY_WALLET_TOKEN -> {
+                    mTvMainWallet.doClickWithUseStatusEnd()
+                }
             }
         }
     }

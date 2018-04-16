@@ -76,7 +76,9 @@ public class PraiseView extends FrameLayout implements Checkable {
             if (ONLY_ONE_TEXT.equals(tvPraiseCount.getText())) {
                 tvPraiseCount.setText(PRAISE_TEXT);
             } else {
-                tvPraiseCount.setText(String.valueOf(Integer.parseInt(tvPraiseCount.getText().toString()) - 1));
+                if (TextUtils.isDigitsOnly(tvPraiseCount.getText().toString())) {
+                    tvPraiseCount.setText(String.valueOf(Integer.parseInt(tvPraiseCount.getText().toString()) - 1));
+                }
             }
         }
     }

@@ -51,12 +51,12 @@ class AddNewAddressFragment : BaseNetWorkingFragment() {
         if (arguments != null) {
             arguments.classLoader = this.javaClass.classLoader
             addressBean = arguments.getParcelable(ADDRESS_BEAN_FLAG)
-            mEtAddNewAddressName.setText(addressBean!!.address_name)
-            mEtAddNewAddressPhone.setText(addressBean!!.address_phone)
-            addressInfo = addressBean!!.address_addres
-            mEtAddNewAddressAddress.text = addressBean!!.address_addres
-            mEtAddNewAddressCode.setText(addressBean!!.address_postcode)
-            mEtAddNewAddressAddressDetail.setText(addressBean!!.address_detail)
+            mEtAddNewAddressName.setText(addressBean!!.merchant_address_name)
+            mEtAddNewAddressPhone.setText(addressBean!!.merchant_address_phone)
+            addressInfo = addressBean!!.merchant_address_addres
+            mEtAddNewAddressAddress.text = addressBean!!.merchant_address_addres
+            mEtAddNewAddressCode.setText(addressBean!!.merchant_address_postcode)
+            mEtAddNewAddressAddressDetail.setText(addressBean!!.merchant_address_detail)
         }
     }
 
@@ -94,7 +94,7 @@ class AddNewAddressFragment : BaseNetWorkingFragment() {
                     RequestParamsHelper.MEMBER_MODEL,
                     RequestParamsHelper.ACT_ADD_ADDRESS,
                     RequestParamsHelper.getAddAddressListParams(
-                            addressBean?.address_id ?: "",
+                            addressBean?.merchant_address_id ?: "",
                             name = mEtAddNewAddressName.getTextString(),
                             phone = mEtAddNewAddressPhone.getTextString(),
                             addressInfo = addressInfo!!,

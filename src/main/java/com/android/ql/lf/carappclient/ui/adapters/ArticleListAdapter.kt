@@ -14,21 +14,21 @@ import com.chad.library.adapter.base.BaseViewHolder
  */
 class ArticleListAdapter(resId: Int, list: ArrayList<ArticleBean>) : BaseQuickAdapter<ArticleBean, BaseViewHolder>(resId, list) {
     override fun convert(helper: BaseViewHolder?, item: ArticleBean?) {
-        helper!!.setText(R.id.mTvArticleItemTime, item!!.quiz_time)
-        helper.setText(R.id.mCtvArticleItemSeeCount, item.quiz_look)
-        helper.setText(R.id.mCtvArticleItemCommentCount, item.quiz_replies)
-        helper.setText(R.id.mCtvArticleItemPraiseCount, item.quiz_click)
-        helper.setText(R.id.mTvArticleItemContent, item.quiz_title)
+        helper!!.setText(R.id.mTvArticleItemTime, item!!.merchant_quiz_time)
+        helper.setText(R.id.mCtvArticleItemSeeCount, item.merchant_quiz_look)
+        helper.setText(R.id.mCtvArticleItemCommentCount, item.merchant_quiz_replies)
+        helper.setText(R.id.mCtvArticleItemPraiseCount, item.merchant_quiz_click)
+        helper.setText(R.id.mTvArticleItemContent, item.merchant_quiz_title)
         if (item.member_pic != null) {
             GlideManager.loadFaceCircleImage(mContext, item.member_pic, helper.getView(R.id.mIvArticleItemUserFace))
         }
         helper.setText(R.id.mTvArticleItemUserName, item.member_name ?: "暂无")
         val imageContainer = helper.getView<ImageContainerLinearLayout>(R.id.mLlArticleItemImageContainer)
-        if (item.quiz_pic.isEmpty()) {
-            imageContainer.visibility = View.GONE
-        } else {
+        if (item.merchant_quiz_pic != null && !item.merchant_quiz_pic.isEmpty()) {
             imageContainer.visibility = View.VISIBLE
-            imageContainer.setImages(item.quiz_pic)
+            imageContainer.setImages(item.merchant_quiz_pic)
+        } else {
+            imageContainer.visibility = View.GONE
         }
     }
 }

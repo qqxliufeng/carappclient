@@ -73,7 +73,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
     private val orderSubscription by lazy {
         RxBus.getDefault().toObservable(RefreshData::class.java).subscribe {
             if (it.isRefresh && it.any == REFRESH_ORDER_FLAG) {
-                if (mallOrderInfoContainer!!.order_token == MallOrderPresent.MallOrderStatus.MALL_ORDER_APPLY_BACK.index) {
+                if (mallOrderInfoContainer!!.merchant_order_token == MallOrderPresent.MallOrderStatus.MALL_ORDER_APPLY_BACK.index) {
                     finish()
                 }
             }
@@ -131,7 +131,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                 }
                 0x2 -> {
                     if (check.code == SUCCESS_CODE) {
-                        MallOrderPresent.onOrderPaySuccess(mContext, (check.obj as JSONObject), payType, mallOrderInfoContainer!!.order_id, handle)
+                        MallOrderPresent.onOrderPaySuccess(mContext, (check.obj as JSONObject), payType, mallOrderInfoContainer!!.merchant_order_id, handle)
                         finish()
                     } else {
                         toast((check.obj as JSONObject).optString(MSG_FLAG))
@@ -150,31 +150,31 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
     }
 
     private fun bindData() {
-        if (mallOrderInfoContainer != null && !TextUtils.isEmpty(mallOrderInfoContainer!!.order_token)) {
-            mTvOrderInfoTopState.text = MallOrderPresent.MallOrderStatus.getDescriptionByIndex(mallOrderInfoContainer!!.order_token)
+        if (mallOrderInfoContainer != null && !TextUtils.isEmpty(mallOrderInfoContainer!!.merchant_order_token)) {
+            mTvOrderInfoTopState.text = MallOrderPresent.MallOrderStatus.getDescriptionByIndex(mallOrderInfoContainer!!.merchant_order_token)
             mTvOrderInfoTopState1.text = mTvOrderInfoTopState.text
-            mTvOrderInfoPhone.text = "手机号码  ${mallOrderInfoContainer!!.address_phone}"
-            mTvOrderInfoAddress.text = "收货地址  ${mallOrderInfoContainer!!.address_addres}"
+            mTvOrderInfoPhone.text = "手机号码  ${mallOrderInfoContainer!!.merchant_address_phone}"
+            mTvOrderInfoAddress.text = "收货地址  ${mallOrderInfoContainer!!.merchant_address_addres}"
 
-            GlideManager.loadImage(mContext, mallOrderInfoContainer!!.product_pic[0], mIvOrderListItemPic)
-            mTvOrderListItemTitle.text = mallOrderInfoContainer!!.product_name
-            mTvOrderListItemSpecification.text = mallOrderInfoContainer!!.order_specification
-            mIvOrderListItemNum.text = "X${mallOrderInfoContainer!!.order_num}"
-            mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.product_price}"
-            mTvOrderInfoExpressMoney.text = "￥${mallOrderInfoContainer!!.order_mdprice}"
+            GlideManager.loadImage(mContext, mallOrderInfoContainer!!.merchant_product_pic[0], mIvOrderListItemPic)
+            mTvOrderListItemTitle.text = mallOrderInfoContainer!!.merchant_product_name
+            mTvOrderListItemSpecification.text = mallOrderInfoContainer!!.merchant_order_specification
+            mIvOrderListItemNum.text = "X${mallOrderInfoContainer!!.merchant_order_num}"
+            mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.merchant_product_price}"
+            mTvOrderInfoExpressMoney.text = "￥${mallOrderInfoContainer!!.merchant_order_mdprice}"
 
-            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.order_num.toInt() * mallOrderInfoContainer!!.product_price.toFloat() + mallOrderInfoContainer!!.order_mdprice.toFloat()}"
-            mTvOrderInfoDetailOrderNum.text = mallOrderInfoContainer!!.order_sn
-            mTvOrderInfoDetailGoodsOrderTime.text = mallOrderInfoContainer!!.order_ctime
+            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_num.toInt() * mallOrderInfoContainer!!.merchant_product_price.toFloat() + mallOrderInfoContainer!!.merchant_order_mdprice.toFloat()}"
+            mTvOrderInfoDetailOrderNum.text = mallOrderInfoContainer!!.merchant_order_sn
+            mTvOrderInfoDetailGoodsOrderTime.text = mallOrderInfoContainer!!.merchant_order_ctime
 
             mTvOrderInfoRemark.text = Html.fromHtml("<font color='${ContextCompat.getColor(mContext, R.color.colorPrimary)}'>备注：</font>" +
-                    if (TextUtils.isEmpty(mallOrderInfoContainer!!.order_mliuyan)) {
+                    if (TextUtils.isEmpty(mallOrderInfoContainer!!.merchant_order_mliuyan)) {
                         "暂无"
                     } else {
-                        mallOrderInfoContainer!!.order_mliuyan
+                        mallOrderInfoContainer!!.merchant_order_mliuyan
                     })
-            mTvOrderInfoDetailOrderName.text = mallOrderInfoContainer!!.address_name
-            when (mallOrderInfoContainer!!.order_token) {
+            mTvOrderInfoDetailOrderName.text = mallOrderInfoContainer!!.merchant_address_name
+            when (mallOrderInfoContainer!!.merchant_order_token) {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index -> {
                     mBtOrderInfoAction1.visibility = View.VISIBLE
                     mBtOrderInfoAction2.visibility = View.VISIBLE
@@ -187,13 +187,13 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                             mPresent.getDataByPost(0x1,
                                     RequestParamsHelper.MEMBER_MODEL,
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
-                                    RequestParamsHelper.getEditOrderStatusParam(mallOrderInfoContainer!!.order_id, MallOrderPresent.MallOrderStatus.MALL_ORDER_CANCEL.index))
+                                    RequestParamsHelper.getEditOrderStatusParam(mallOrderInfoContainer!!.merchant_order_id, MallOrderPresent.MallOrderStatus.MALL_ORDER_CANCEL.index))
                         }
                     }
                     mBtOrderInfoAction2.setOnClickListener {
                         MallOrderPresent.showPayDialog(mContext) {
                             mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_PAY,
-                                    RequestParamsHelper.getPayParam(mallOrderInfoContainer!!.order_id, mallOrderInfoContainer!!.product_id, it))
+                                    RequestParamsHelper.getPayParam(mallOrderInfoContainer!!.merchant_order_id, mallOrderInfoContainer!!.merchant_product_id, it))
                         }
                     }
                 }
@@ -210,7 +210,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                                     .setClazz(RefundFragment::class.java)
                                     .setTitle("申请退款")
                                     .setNeedNetWorking(true)
-                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, mallOrderInfoContainer!!.order_id)))
+                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, mallOrderInfoContainer!!.merchant_order_id)))
                                     .start()
                         }
                     }
@@ -226,7 +226,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                             mPresent.getDataByPost(0x4,
                                     RequestParamsHelper.MEMBER_MODEL,
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
-                                    RequestParamsHelper.getEditOrderStatusParam(mallOrderInfoContainer!!.order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
+                                    RequestParamsHelper.getEditOrderStatusParam(mallOrderInfoContainer!!.merchant_order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
                         }
                     }
                 }
@@ -242,8 +242,8 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                                 .setTitle("评价")
                                 .setNeedNetWorking(true)
                                 .setClazz(OrderCommentSubmitFragment::class.java)
-                                .setExtraBundle(bundleOf(Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, mallOrderInfoContainer!!.order_id),
-                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, mallOrderInfoContainer!!.product_id)))
+                                .setExtraBundle(bundleOf(Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, mallOrderInfoContainer!!.merchant_order_id),
+                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, mallOrderInfoContainer!!.merchant_product_id)))
                                 .start()
                     }
                 }

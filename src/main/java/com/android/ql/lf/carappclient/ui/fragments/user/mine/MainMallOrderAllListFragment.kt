@@ -140,7 +140,7 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
             0x2 -> {
                 val check = checkResultCode(result)
                 if (check != null && check.code == SUCCESS_CODE) {
-                    MallOrderPresent.onOrderPaySuccess(mContext, (check.obj as JSONObject), payType, currentOrder!!.order_id, handle)
+                    MallOrderPresent.onOrderPaySuccess(mContext, (check.obj as JSONObject), payType, currentOrder!!.merchant_order_id, handle)
                 } else {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
@@ -160,8 +160,8 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
 
     override fun onMyItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         currentOrder = mArrayList[position]
-        if (!TextUtils.isEmpty(currentOrder!!.order_token)) {
-            when (currentOrder!!.order_token) {
+        if (!TextUtils.isEmpty(currentOrder!!.merchant_order_token)) {
+            when (currentOrder!!.merchant_order_token) {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index -> {
                     if (view!!.id == R.id.mBtOrderListItemAction1) {
                         //取消订单
@@ -169,13 +169,13 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                             mPresent.getDataByPost(0x1,
                                     RequestParamsHelper.MEMBER_MODEL,
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
-                                    RequestParamsHelper.getEditOrderStatusParam(currentOrder!!.order_id, MallOrderPresent.MallOrderStatus.MALL_ORDER_CANCEL.index))
+                                    RequestParamsHelper.getEditOrderStatusParam(currentOrder!!.merchant_order_id, MallOrderPresent.MallOrderStatus.MALL_ORDER_CANCEL.index))
                         }
                     } else if (view.id == R.id.mBtOrderListItemAction2) {
                         //去支付
                         MallOrderPresent.showPayDialog(mContext) {
                             mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_PAY,
-                                    RequestParamsHelper.getPayParam(currentOrder!!.order_id, currentOrder!!.product_id, it))
+                                    RequestParamsHelper.getPayParam(currentOrder!!.merchant_order_id, currentOrder!!.merchant_product_id, it))
                         }
                     }
                 }
@@ -188,7 +188,7 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                                     .setClazz(RefundFragment::class.java)
                                     .setTitle("申请退款")
                                     .setNeedNetWorking(true)
-                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, currentOrder!!.order_id)))
+                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, currentOrder!!.merchant_order_id)))
                                     .start()
                         }
                     }
@@ -200,7 +200,7 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                             mPresent.getDataByPost(0x4,
                                     RequestParamsHelper.MEMBER_MODEL,
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
-                                    RequestParamsHelper.getEditOrderStatusParam(currentOrder!!.order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
+                                    RequestParamsHelper.getEditOrderStatusParam(currentOrder!!.merchant_order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
                         }
                     }
                 }
@@ -212,8 +212,8 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                                 .setTitle("评价")
                                 .setNeedNetWorking(true)
                                 .setClazz(OrderCommentSubmitFragment::class.java)
-                                .setExtraBundle(bundleOf(Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, currentOrder!!.order_id),
-                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, currentOrder!!.product_id)))
+                                .setExtraBundle(bundleOf(Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, currentOrder!!.merchant_order_id),
+                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, currentOrder!!.merchant_product_id)))
                                 .start()
                     }
                 }
@@ -224,7 +224,7 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                                 .from(mContext)
                                 .setNeedNetWorking(true)
                                 .setClazz(OrderInfoFragment::class.java)
-                                .setExtraBundle(bundleOf(Pair(OrderInfoFragment.OID_FLAG, currentOrder!!.order_id)))
+                                .setExtraBundle(bundleOf(Pair(OrderInfoFragment.OID_FLAG, currentOrder!!.merchant_order_id)))
                                 .setTitle("订单详情")
                                 .start()
                     }
@@ -240,7 +240,7 @@ class MainMallOrderAllListFragment : BaseRecyclerViewFragment<MallSaleOrderBean>
                 .from(mContext)
                 .setNeedNetWorking(true)
                 .setClazz(OrderInfoFragment::class.java)
-                .setExtraBundle(bundleOf(Pair(OrderInfoFragment.OID_FLAG, currentOrder!!.order_id)))
+                .setExtraBundle(bundleOf(Pair(OrderInfoFragment.OID_FLAG, currentOrder!!.merchant_order_id)))
                 .setTitle("订单详情")
                 .start()
     }

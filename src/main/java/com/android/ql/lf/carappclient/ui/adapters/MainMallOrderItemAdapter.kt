@@ -17,19 +17,19 @@ import com.chad.library.adapter.base.BaseViewHolder
 class MainMallOrderItemAdapter(layoutId: Int, list: ArrayList<MallSaleOrderBean>) : BaseQuickAdapter<MallSaleOrderBean, BaseViewHolder>(layoutId, list) {
 
     override fun convert(helper: BaseViewHolder?, item: MallSaleOrderBean?) {
-        GlideManager.loadImage(mContext, item!!.product_shoppic, helper!!.getView(R.id.mIvMallOrderListItemStorePic))
-        if (!item.product_pic.isEmpty()) {
-            GlideManager.loadImage(mContext, item.product_pic[0], helper.getView(R.id.mIvOrderListItemPic))
+        GlideManager.loadImage(mContext, item!!.merchant_product_shoppic, helper!!.getView(R.id.mIvMallOrderListItemStorePic))
+        if (!item.merchant_product_pic.isEmpty()) {
+            GlideManager.loadImage(mContext, item.merchant_product_pic[0], helper.getView(R.id.mIvOrderListItemPic))
         }
-        helper.setText(R.id.mTvOrderListItemTitle, item.product_name)
-        helper.setText(R.id.mTvOrderListItemSpecification, item.order_specification)
-        helper.setText(R.id.mIvOrderListItemNum, "X${item.order_num}")
-        helper.setText(R.id.mTvOrderListItemPrice, "￥${item.product_price}")
-        helper.setText(R.id.mTvMallOrderListItemStoreName, item.product_shopname)
+        helper.setText(R.id.mTvOrderListItemTitle, item.merchant_product_name)
+        helper.setText(R.id.mTvOrderListItemSpecification, item.merchant_order_specification)
+        helper.setText(R.id.mIvOrderListItemNum, "X${item.merchant_order_num}")
+        helper.setText(R.id.mTvOrderListItemPrice, "￥${item.merchant_product_price}")
+        helper.setText(R.id.mTvMallOrderListItemStoreName, item.merchant_product_shopname)
         val bt_action1 = helper.getView<Button>(R.id.mBtOrderListItemAction1)
         val bt_action2 = helper.getView<Button>(R.id.mBtOrderListItemAction2)
-        if (!TextUtils.isEmpty(item.order_token)) {
-            when (item.order_token) {
+        if (!TextUtils.isEmpty(item.merchant_order_token)) {
+            when (item.merchant_order_token) {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index -> {
                     bt_action1.visibility = View.VISIBLE
                     bt_action2.visibility = View.VISIBLE

@@ -56,7 +56,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
             mPresent.getDataByPost(0x4,
                     RequestParamsHelper.QAA_MODEL,
                     RequestParamsHelper.ACT_ARTICLE_PRAISE,
-                    RequestParamsHelper.getArticlePraiseParam(articleBean!!.quiz_id))
+                    RequestParamsHelper.getArticlePraiseParam(articleBean!!.merchant_quiz_id))
         }
     }
 
@@ -65,24 +65,24 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
         if (articleBean!!.member_pic != null) {
             GlideManager.loadFaceCircleImage(mContext, articleBean!!.member_pic, topView.findViewById(R.id.mIvAnswerTopViewFace))
         }
-        mBottomPraiseView.setPraiseText(articleBean!!.quiz_click)
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewTitle).text = articleBean!!.quiz_title
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewTime).text = articleBean!!.quiz_time
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewContent).text = articleBean!!.quiz_content
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewSeeCount).text = articleBean!!.quiz_look
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewCommentCount).text = articleBean!!.quiz_replies
-        topView.findViewById<TextView>(R.id.mTvPraiseText).text = articleBean!!.quiz_click
-        topView.findViewById<ImageContainerLinearLayout>(R.id.mLlAnswerTopViewPics).setImages(articleBean!!.quiz_pic)
+        mBottomPraiseView.setPraiseText(articleBean!!.merchant_quiz_click)
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewTitle).text = articleBean!!.merchant_quiz_title
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewTime).text = articleBean!!.merchant_quiz_time
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewContent).text = articleBean!!.merchant_quiz_content
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewSeeCount).text = articleBean!!.merchant_quiz_look
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewCommentCount).text = articleBean!!.merchant_quiz_replies
+        topView.findViewById<TextView>(R.id.mTvPraiseText).text = articleBean!!.merchant_quiz_click
+        topView.findViewById<ImageContainerLinearLayout>(R.id.mLlAnswerTopViewPics).setImages(articleBean!!.merchant_quiz_pic)
         val praiseView = topView.findViewById<PraiseView>(R.id.mAnswerTopViewPraiseView)
         praiseView.setOnClickListener {
             praiseView.toggle()
             mPresent.getDataByPost(0x4,
                     RequestParamsHelper.QAA_MODEL,
                     RequestParamsHelper.ACT_ARTICLE_PRAISE,
-                    RequestParamsHelper.getArticlePraiseParam(articleBean!!.quiz_id))
+                    RequestParamsHelper.getArticlePraiseParam(articleBean!!.merchant_quiz_id))
         }
-        mTvAnswerInfoSeeCount.text = articleBean!!.quiz_look
-        mTvAnswerInfoCommentCount.text = articleBean!!.quiz_replies
+        mTvAnswerInfoSeeCount.text = articleBean!!.merchant_quiz_look
+        mTvAnswerInfoCommentCount.text = articleBean!!.merchant_quiz_replies
     }
 
     override fun getEmptyMessage() = "暂没有评价哦~~"
@@ -100,7 +100,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
         mPresent.getDataByPost(0x0,
                 RequestParamsHelper.QAA_MODEL,
                 RequestParamsHelper.ACT_QUIZ_DETAIL,
-                RequestParamsHelper.getQuizDetailParams(articleBean!!.quiz_id, currentPage))
+                RequestParamsHelper.getQuizDetailParams(articleBean!!.merchant_quiz_id, currentPage))
     }
 
     override fun onRequestStart(requestID: Int) {
@@ -122,7 +122,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
                     val json = check.obj as JSONObject
                     articleBean = Gson().fromJson(json.optJSONObject("arr").toString(), ArticleBean::class.java)
                     setArticleInfo()
-                    mPresent.getDataByPost(0x1, RequestParamsHelper.QAA_MODEL, RequestParamsHelper.ACT_QUIZ_LOOK, RequestParamsHelper.getQuizLookParams(articleBean!!.quiz_id))
+                    mPresent.getDataByPost(0x1, RequestParamsHelper.QAA_MODEL, RequestParamsHelper.ACT_QUIZ_LOOK, RequestParamsHelper.getQuizLookParams(articleBean!!.merchant_quiz_id))
                 } else if (check.code == "400") {
                     mTvArticleInfoDelete.visibility = View.VISIBLE
                     id_srl_base_recycler_view.visibility = View.GONE
@@ -150,7 +150,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
                 val builder = AlertDialog.Builder(mContext)
                 builder.setMessage("是否要删除此回帖？")
                 builder.setPositiveButton("删除") { _, _ ->
-                    mPresent.getDataByPost(0x3, RequestParamsHelper.QAA_MODEL, RequestParamsHelper.ACT_DEL_QAA, RequestParamsHelper.getDelQaaParam(aid = mArrayList[position].answer_id))
+                    mPresent.getDataByPost(0x3, RequestParamsHelper.QAA_MODEL, RequestParamsHelper.ACT_DEL_QAA, RequestParamsHelper.getDelQaaParam(aid = mArrayList[position].merchant_answer_id))
                 }
                 builder.setNegativeButton("否", null)
                 builder.create().show()
@@ -160,7 +160,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
                 mPresent.getDataByPost(0x4,
                         RequestParamsHelper.QAA_MODEL,
                         RequestParamsHelper.ACT_PRAISE,
-                        RequestParamsHelper.getPraiseParams(mArrayList[position].answer_id))
+                        RequestParamsHelper.getPraiseParams(mArrayList[position].merchant_answer_id))
             }
         }
     }
@@ -170,7 +170,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
         mPresent.getDataByPost(0x0,
                 RequestParamsHelper.QAA_MODEL,
                 RequestParamsHelper.ACT_QUIZ_DETAIL,
-                RequestParamsHelper.getQuizDetailParams(articleBean!!.quiz_id, currentPage))
+                RequestParamsHelper.getQuizDetailParams(articleBean!!.merchant_quiz_id, currentPage))
     }
 
     private fun showReplyDialog() {
@@ -186,7 +186,7 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
                 }
                 popupWindow.dismiss()
                 mPresent.getDataByPost(0x2, RequestParamsHelper.QAA_MODEL, RequestParamsHelper.ACT_ADD_ANSWER,
-                        RequestParamsHelper.getAddAnswerParams(articleBean!!.quiz_id, et_content.getTextString()))
+                        RequestParamsHelper.getAddAnswerParams(articleBean!!.merchant_quiz_id, et_content.getTextString()))
             }
         }
     }

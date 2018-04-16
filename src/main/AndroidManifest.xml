@@ -51,6 +51,20 @@
 
         <activity android:name=".ui.activities.SelectAddressActivity" />
 
+        <activity
+            android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:theme="@style/CropImageTheme" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public" />
+        </provider>
+
         <!--                                   腾讯登录                                     -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -71,6 +85,25 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!--              微信                 -->
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoDisplay" />
+
+
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wx0b6a3be07b8ed6a0" />
+            </intent-filter>
+        </activity>
 
     </application>
 

@@ -269,10 +269,10 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     private fun refreshCollectionStatus() {
         if (tempGoodsBean != null) {
-            if (tempGoodsBean!!.product_collect == "0") {
-                tempGoodsBean!!.product_collect = "1"
+            if (tempGoodsBean!!.merchant_product_collect == "0") {
+                tempGoodsBean!!.merchant_product_collect = "1"
             } else {
-                tempGoodsBean!!.product_collect = "0"
+                tempGoodsBean!!.merchant_product_collect = "0"
             }
             mBaseAdapter.notifyItemChanged(mArrayList.indexOf(tempGoodsBean) + 1)
         }
@@ -291,8 +291,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
     override fun onMyItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         tempGoodsBean = mArrayList[position]
         if (UserInfo.getInstance().isLogin) {
-//            enterGoodsInfo(tempGoodsBean!!)
-            FragmentContainerActivity.from(mContext).setNeedNetWorking(true).setTitle("物流信息").setClazz(ExpressInfoFragment::class.java).start()
+            enterGoodsInfo(tempGoodsBean!!)
         } else {
             UserInfo.loginToken = MAIN_MALL_ENTER_GOODS_INFO_FLAG
             LoginFragment.startLogin(mContext)
@@ -322,7 +321,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
         mPresent.getDataByPost(0x1,
                 RequestParamsHelper.PRODUCT_MODEL,
                 RequestParamsHelper.ACT_COLLECT_PRODUCT,
-                RequestParamsHelper.getCollectProductParam(goodsBean.product_id))
+                RequestParamsHelper.getCollectProductParam(goodsBean.merchant_product_id))
     }
 
     /**
@@ -344,7 +343,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
 //                .setExtraBundle(bundleOf(Pair(GoodsInfoFragment.GOODS_ID_FLAG, goodsBean.product_id)))
 //                .setClazz(GoodsInfoFragment::class.java)
 //                .start()
-        FragmentContainerActivity.from(mContext).setTitle("详情").setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.product_id))).setClazz(NewGoodsInfoFragment::class.java).setNeedNetWorking(true).start()
+        FragmentContainerActivity.from(mContext).setTitle("详情").setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.merchant_product_id))).setClazz(NewGoodsInfoFragment::class.java).setNeedNetWorking(true).start()
     }
 
     override fun onLoginSuccess(userInfo: UserInfo?) {

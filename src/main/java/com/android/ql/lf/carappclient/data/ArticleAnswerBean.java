@@ -8,71 +8,71 @@ package com.android.ql.lf.carappclient.data;
 
 public class ArticleAnswerBean {
 
-    private String answer_id;
-    private String answer_content;
-    private String answer_title;
-    private String answer_qid;
-    private String answer_uid;
-    private String answer_click;
-    private String answer_time;
+    private String merchant_answer_id;
+    private String merchant_answer_content;
+    private String merchant_answer_title;
+    private String merchant_answer_qid;
+    private String merchant_answer_uid;
+    private String merchant_answer_click;
+    private String merchant_answer_time;
     private String member_id;
     private String member_name;
     private String member_pic;
 
-    public String getAnswer_id() {
-        return answer_id;
+    public String getMerchant_answer_id() {
+        return merchant_answer_id;
     }
 
-    public void setAnswer_id(String answer_id) {
-        this.answer_id = answer_id;
+    public void setMerchant_answer_id(String merchant_answer_id) {
+        this.merchant_answer_id = merchant_answer_id;
     }
 
-    public String getAnswer_content() {
-        return answer_content;
+    public String getMerchant_answer_content() {
+        return merchant_answer_content;
     }
 
-    public void setAnswer_content(String answer_content) {
-        this.answer_content = answer_content;
+    public void setMerchant_answer_content(String merchant_answer_content) {
+        this.merchant_answer_content = merchant_answer_content;
     }
 
-    public String getAnswer_title() {
-        return answer_title;
+    public String getMerchant_answer_title() {
+        return merchant_answer_title;
     }
 
-    public void setAnswer_title(String answer_title) {
-        this.answer_title = answer_title;
+    public void setMerchant_answer_title(String merchant_answer_title) {
+        this.merchant_answer_title = merchant_answer_title;
     }
 
-    public String getAnswer_qid() {
-        return answer_qid;
+    public String getMerchant_answer_qid() {
+        return merchant_answer_qid;
     }
 
-    public void setAnswer_qid(String answer_qid) {
-        this.answer_qid = answer_qid;
+    public void setMerchant_answer_qid(String merchant_answer_qid) {
+        this.merchant_answer_qid = merchant_answer_qid;
     }
 
-    public String getAnswer_uid() {
-        return answer_uid;
+    public String getMerchant_answer_uid() {
+        return merchant_answer_uid;
     }
 
-    public void setAnswer_uid(String answer_uid) {
-        this.answer_uid = answer_uid;
+    public void setMerchant_answer_uid(String merchant_answer_uid) {
+        this.merchant_answer_uid = merchant_answer_uid;
     }
 
-    public String getAnswer_click() {
-        return answer_click;
+    public String getMerchant_answer_click() {
+        return merchant_answer_click;
     }
 
-    public void setAnswer_click(String answer_click) {
-        this.answer_click = answer_click;
+    public void setMerchant_answer_click(String merchant_answer_click) {
+        this.merchant_answer_click = merchant_answer_click;
     }
 
-    public String getAnswer_time() {
-        return answer_time;
+    public String getMerchant_answer_time() {
+        return merchant_answer_time;
     }
 
-    public void setAnswer_time(String answer_time) {
-        this.answer_time = answer_time;
+    public void setMerchant_answer_time(String merchant_answer_time) {
+        this.merchant_answer_time = merchant_answer_time;
     }
 
     public String getMember_id() {

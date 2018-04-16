@@ -82,8 +82,7 @@ class RequestParamsHelper {
 
         /**              member model  start           **/
 
-        val MEMBER_MODEL = "member"
-        val MERCHANT_MEMBER_MODEL = "merchantMember"
+        val MEMBER_MODEL = "merchantMember"
         val ACT_EDIT_PW = "edit_pw"
         fun getEditPWParams(pw: String, newpw: String): ApiParams {
             val param = getWithIdParams()
@@ -289,7 +288,7 @@ class RequestParamsHelper {
 
         /**              product model start         **/
 
-        val PRODUCT_MODEL = "product"
+        val PRODUCT_MODEL = "merchantProduct"
 
         val ACT_PRODUCT = "product"
         fun getProductParams(page: Int) = getWithPageParams(page)
@@ -358,7 +357,7 @@ class RequestParamsHelper {
 
 
         /**              qaa model  start           **/
-        val QAA_MODEL = "qaa"
+        val QAA_MODEL = "merchantQaa"
         val ACT_QUIZ = "quiz"
 
         fun getQuizParam(ktype: Int, page: Int): ApiParams {
@@ -429,7 +428,7 @@ class RequestParamsHelper {
         /**              qaa model  end           **/
         /**              order model start        **/
 
-        val ORDER_MODEL = "order"
+        val ORDER_MODEL = "merchantOrder"
         val ACT_QORDER = "qorder"
         fun getQorderParam(location: String = "", page: Int): ApiParams {
             return getWithPageParams(page).addParam("location", location)

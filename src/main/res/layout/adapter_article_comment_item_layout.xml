@@ -30,7 +30,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/sp_14" />
 
-            <com.android.ql.lf.carapp.ui.views.PraiseView
+            <com.android.ql.lf.carappclient.ui.views.PraiseView
                 android:id="@+id/mPraiseView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                     android:textSize="@dimen/sp_12"
                     android:visibility="invisible" />
 
-            </com.android.ql.lf.carapp.ui.views.PraiseView>
+            </com.android.ql.lf.carappclient.ui.views.PraiseView>
         </RelativeLayout>
 
         <TextView

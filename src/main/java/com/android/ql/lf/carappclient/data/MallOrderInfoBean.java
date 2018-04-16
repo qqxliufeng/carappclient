@@ -10,229 +10,229 @@ import java.util.List;
 
 public class MallOrderInfoBean {
 
-    private String product_id;
-    private String product_name;
-    private String product_hname;
-    private String product_price;
-    private String product_md;
-    private String product_mdprice;
-    private String order_specification;
-    private String order_num;
-    private String order_sn;
-    private String order_oprice;
-    private String order_fc;
-    private String order_token;
-    private String order_id;
-    private String order_ctime;
-    private String order_ftime;
-    private String order_htime;
-    private String order_fintime;
-    private String order_tn;
-    private String order_mdprice;
-    private String order_mliuyan;
-    private String address_name;
-    private String address_phone;
-    private String address_addres;
-    private String address_detail;
-    private List<String> product_pic;
+    private String merchant_product_id;
+    private String merchant_product_name;
+    private String merchant_product_hname;
+    private String merchant_product_price;
+    private String merchant_product_md;
+    private String merchant_product_mdprice;
+    private String merchant_order_specification;
+    private String merchant_order_num;
+    private String merchant_order_sn;
+    private String merchant_order_oprice;
+    private String merchant_order_fc;
+    private String merchant_order_token;
+    private String merchant_order_id;
+    private String merchant_order_ctime;
+    private String merchant_order_ftime;
+    private String merchant_order_htime;
+    private String merchant_order_fintime;
+    private String merchant_order_tn;
+    private String merchant_order_mdprice;
+    private String merchant_order_mliuyan;
+    private String merchant_address_name;
+    private String merchant_address_phone;
+    private String merchant_address_addres;
+    private String merchant_address_detail;
+    private List<String> merchant_product_pic;
 
-    public String getProduct_id() {
-        return product_id;
+    public String getMerchant_product_id() {
+        return merchant_product_id;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setMerchant_product_id(String merchant_product_id) {
+        this.merchant_product_id = merchant_product_id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getMerchant_product_name() {
+        return merchant_product_name;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setMerchant_product_name(String merchant_product_name) {
+        this.merchant_product_name = merchant_product_name;
     }
 
-    public String getProduct_hname() {
-        return product_hname;
+    public String getMerchant_product_hname() {
+        return merchant_product_hname;
     }
 
-    public void setProduct_hname(String product_hname) {
-        this.product_hname = product_hname;
+    public void setMerchant_product_hname(String merchant_product_hname) {
+        this.merchant_product_hname = merchant_product_hname;
     }
 
-    public String getProduct_price() {
-        return product_price;
+    public String getMerchant_product_price() {
+        return merchant_product_price;
     }
 
-    public void setProduct_price(String product_price) {
-        this.product_price = product_price;
+    public void setMerchant_product_price(String merchant_product_price) {
+        this.merchant_product_price = merchant_product_price;
     }
 
-    public String getProduct_md() {
-        return product_md;
+    public String getMerchant_product_md() {
+        return merchant_product_md;
     }
 
-    public void setProduct_md(String product_md) {
-        this.product_md = product_md;
+    public void setMerchant_product_md(String merchant_product_md) {
+        this.merchant_product_md = merchant_product_md;
     }
 
-    public String getProduct_mdprice() {
-        return product_mdprice;
+    public String getMerchant_product_mdprice() {
+        return merchant_product_mdprice;
     }
 
-    public void setProduct_mdprice(String product_mdprice) {
-        this.product_mdprice = product_mdprice;
+    public void setMerchant_product_mdprice(String merchant_product_mdprice) {
+        this.merchant_product_mdprice = merchant_product_mdprice;
     }
 
-    public String getOrder_specification() {
-        return order_specification;
+    public String getMerchant_order_specification() {
+        return merchant_order_specification;
     }
 
-    public void setOrder_specification(String order_specification) {
-        this.order_specification = order_specification;
+    public void setMerchant_order_specification(String merchant_order_specification) {
+        this.merchant_order_specification = merchant_order_specification;
     }
 
-    public String getOrder_num() {
-        return order_num;
+    public String getMerchant_order_num() {
+        return merchant_order_num;
     }
 
-    public void setOrder_num(String order_num) {
-        this.order_num = order_num;
+    public void setMerchant_order_num(String merchant_order_num) {
+        this.merchant_order_num = merchant_order_num;
     }
 
-    public String getOrder_sn() {
-        return order_sn;
+    public String getMerchant_order_sn() {
+        return merchant_order_sn;
     }
 
-    public void setOrder_sn(String order_sn) {
-        this.order_sn = order_sn;
+    public void setMerchant_order_sn(String merchant_order_sn) {
+        this.merchant_order_sn = merchant_order_sn;
     }
 
-    public String getOrder_oprice() {
-        return order_oprice;
+    public String getMerchant_order_oprice() {
+        return merchant_order_oprice;
     }
 
-    public void setOrder_oprice(String order_oprice) {
-        this.order_oprice = order_oprice;
+    public void setMerchant_order_oprice(String merchant_order_oprice) {
+        this.merchant_order_oprice = merchant_order_oprice;
     }
 
-    public String getOrder_fc() {
-        return order_fc;
+    public String getMerchant_order_fc() {
+        return merchant_order_fc;
     }
 
-    public void setOrder_fc(String order_fc) {
-        this.order_fc = order_fc;
+    public void setMerchant_order_fc(String merchant_order_fc) {
+        this.merchant_order_fc = merchant_order_fc;
     }
 
-    public String getOrder_token() {
-        return order_token;
+    public String getMerchant_order_token() {
+        return merchant_order_token;
     }
 
-    public void setOrder_token(String order_token) {
-        this.order_token = order_token;
+    public void setMerchant_order_token(String merchant_order_token) {
+        this.merchant_order_token = merchant_order_token;
     }
 
-    public String getOrder_id() {
-        return order_id;
+    public String getMerchant_order_id() {
+        return merchant_order_id;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setMerchant_order_id(String merchant_order_id) {
+        this.merchant_order_id = merchant_order_id;
     }
 
-    public String getOrder_ctime() {
-        return order_ctime;
+    public String getMerchant_order_ctime() {
+        return merchant_order_ctime;
     }
 
-    public void setOrder_ctime(String order_ctime) {
-        this.order_ctime = order_ctime;
+    public void setMerchant_order_ctime(String merchant_order_ctime) {
+        this.merchant_order_ctime = merchant_order_ctime;
     }
 
-    public String getOrder_ftime() {
-        return order_ftime;
+    public String getMerchant_order_ftime() {
+        return merchant_order_ftime;
     }
 
-    public void setOrder_ftime(String order_ftime) {
-        this.order_ftime = order_ftime;
+    public void setMerchant_order_ftime(String merchant_order_ftime) {
+        this.merchant_order_ftime = merchant_order_ftime;
     }
 
-    public String getOrder_htime() {
-        return order_htime;
+    public String getMerchant_order_htime() {
+        return merchant_order_htime;
     }
 
-    public void setOrder_htime(String order_htime) {
-        this.order_htime = order_htime;
+    public void setMerchant_order_htime(String merchant_order_htime) {
+        this.merchant_order_htime = merchant_order_htime;
     }
 
-    public String getOrder_fintime() {
-        return order_fintime;
+    public String getMerchant_order_fintime() {
+        return merchant_order_fintime;
     }
 
-    public void setOrder_fintime(String order_fintime) {
-        this.order_fintime = order_fintime;
+    public void setMerchant_order_fintime(String merchant_order_fintime) {
+        this.merchant_order_fintime = merchant_order_fintime;
     }
 
-    public String getOrder_tn() {
-        return order_tn;
+    public String getMerchant_order_tn() {
+        return merchant_order_tn;
     }
 
-    public void setOrder_tn(String order_tn) {
-        this.order_tn = order_tn;
+    public void setMerchant_order_tn(String merchant_order_tn) {
+        this.merchant_order_tn = merchant_order_tn;
     }
 
-    public String getOrder_mdprice() {
-        return order_mdprice;
+    public String getMerchant_order_mdprice() {
+        return merchant_order_mdprice;
     }
 
-    public void setOrder_mdprice(String order_mdprice) {
-        this.order_mdprice = order_mdprice;
+    public void setMerchant_order_mdprice(String merchant_order_mdprice) {
+        this.merchant_order_mdprice = merchant_order_mdprice;
     }
 
-    public String getAddress_name() {
-        return address_name;
+    public String getMerchant_order_mliuyan() {
+        return merchant_order_mliuyan;
     }
 
-    public void setAddress_name(String address_name) {
-        this.address_name = address_name;
+    public void setMerchant_order_mliuyan(String merchant_order_mliuyan) {
+        this.merchant_order_mliuyan = merchant_order_mliuyan;
     }
 
-    public String getAddress_phone() {
-        return address_phone;
+    public String getMerchant_address_name() {
+        return merchant_address_name;
     }
 
-    public void setAddress_phone(String address_phone) {
-        this.address_phone = address_phone;
+    public void setMerchant_address_name(String merchant_address_name) {
+        this.merchant_address_name = merchant_address_name;
     }
 
-    public String getAddress_addres() {
-        return address_addres;
+    public String getMerchant_address_phone() {
+        return merchant_address_phone;
     }
 
-    public void setAddress_addres(String address_addres) {
-        this.address_addres = address_addres;
+    public void setMerchant_address_phone(String merchant_address_phone) {
+        this.merchant_address_phone = merchant_address_phone;
     }
 
-    public String getAddress_detail() {
-        return address_detail;
+    public String getMerchant_address_addres() {
+        return merchant_address_addres;
     }
 
-    public void setAddress_detail(String address_detail) {
-        this.address_detail = address_detail;
+    public void setMerchant_address_addres(String merchant_address_addres) {
+        this.merchant_address_addres = merchant_address_addres;
     }
 
-    public List<String> getProduct_pic() {
-        return product_pic;
+    public String getMerchant_address_detail() {
+        return merchant_address_detail;
     }
 
-    public void setProduct_pic(List<String> product_pic) {
-        this.product_pic = product_pic;
+    public void setMerchant_address_detail(String merchant_address_detail) {
+        this.merchant_address_detail = merchant_address_detail;
     }
 
-    public String getOrder_mliuyan() {
-        return order_mliuyan;
+    public List<String> getMerchant_product_pic() {
+        return merchant_product_pic;
     }
 
-    public void setOrder_mliuyan(String order_mliuyan) {
-        this.order_mliuyan = order_mliuyan;
+    public void setMerchant_product_pic(List<String> merchant_product_pic) {
+        this.merchant_product_pic = merchant_product_pic;
     }
 }

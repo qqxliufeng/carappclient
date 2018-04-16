@@ -181,7 +181,7 @@ public class SplashActivity extends BaseActivity implements EasyPermissions.Perm
     private void isLogin() {
         if (UserInfo.isCacheUserId(this)) {
             mPresent.getDataByPost(0x0,
-                    RequestParamsHelper.Companion.getMERCHANT_MEMBER_MODEL(),
+                    RequestParamsHelper.Companion.getMEMBER_MODEL(),
                     RequestParamsHelper.Companion.getACT_PERSONAL(),
                     RequestParamsHelper.Companion.getPersonalParam(UserInfo.getUserIdFromCache(this)));
         } else {

@@ -13,108 +13,108 @@ import java.util.ArrayList;
 
 public class ArticleBean implements Parcelable {
 
-    private String quiz_id;
-    private String quiz_content;
-    private String quiz_type;
-    private String quiz_uid;
-    private String quiz_time;
-    private String quiz_token;
-    private String quiz_title;
-    private String quiz_click;
-    private String quiz_video;
-    private String quiz_look;
-    private String quiz_replies;
+    private String merchant_quiz_id;
+    private String merchant_quiz_content;
+    private String merchant_quiz_type;
+    private String merchant_quiz_uid;
+    private String merchant_quiz_time;
+    private String merchant_quiz_token;
+    private String merchant_quiz_title;
+    private String merchant_quiz_click;
+    private String merchant_quiz_video;
+    private String merchant_quiz_look;
+    private String merchant_quiz_replies;
     private String member_id;
     private String member_name;
     private String member_pic;
-    private ArrayList<String> quiz_pic;
+    private ArrayList<String> merchant_quiz_pic;
 
-    public String getQuiz_id() {
-        return quiz_id;
+    public String getMerchant_quiz_id() {
+        return merchant_quiz_id;
     }
 
-    public void setQuiz_id(String quiz_id) {
-        this.quiz_id = quiz_id;
+    public void setMerchant_quiz_id(String merchant_quiz_id) {
+        this.merchant_quiz_id = merchant_quiz_id;
     }
 
-    public String getQuiz_content() {
-        return quiz_content;
+    public String getMerchant_quiz_content() {
+        return merchant_quiz_content;
     }
 
-    public void setQuiz_content(String quiz_content) {
-        this.quiz_content = quiz_content;
+    public void setMerchant_quiz_content(String merchant_quiz_content) {
+        this.merchant_quiz_content = merchant_quiz_content;
     }
 
-    public String getQuiz_type() {
-        return quiz_type;
+    public String getMerchant_quiz_type() {
+        return merchant_quiz_type;
     }
 
-    public void setQuiz_type(String quiz_type) {
-        this.quiz_type = quiz_type;
+    public void setMerchant_quiz_type(String merchant_quiz_type) {
+        this.merchant_quiz_type = merchant_quiz_type;
     }
 
-    public String getQuiz_uid() {
-        return quiz_uid;
+    public String getMerchant_quiz_uid() {
+        return merchant_quiz_uid;
     }
 
-    public void setQuiz_uid(String quiz_uid) {
-        this.quiz_uid = quiz_uid;
+    public void setMerchant_quiz_uid(String merchant_quiz_uid) {
+        this.merchant_quiz_uid = merchant_quiz_uid;
     }
 
-    public String getQuiz_time() {
-        return quiz_time;
+    public String getMerchant_quiz_time() {
+        return merchant_quiz_time;
     }
 
-    public void setQuiz_time(String quiz_time) {
-        this.quiz_time = quiz_time;
+    public void setMerchant_quiz_time(String merchant_quiz_time) {
+        this.merchant_quiz_time = merchant_quiz_time;
     }
 
-    public String getQuiz_token() {
-        return quiz_token;
+    public String getMerchant_quiz_token() {
+        return merchant_quiz_token;
     }
 
-    public void setQuiz_token(String quiz_token) {
-        this.quiz_token = quiz_token;
+    public void setMerchant_quiz_token(String merchant_quiz_token) {
+        this.merchant_quiz_token = merchant_quiz_token;
     }
 
-    public String getQuiz_title() {
-        return quiz_title;
+    public String getMerchant_quiz_title() {
+        return merchant_quiz_title;
     }
 
-    public void setQuiz_title(String quiz_title) {
-        this.quiz_title = quiz_title;
+    public void setMerchant_quiz_title(String merchant_quiz_title) {
+        this.merchant_quiz_title = merchant_quiz_title;
     }
 
-    public String getQuiz_click() {
-        return quiz_click;
+    public String getMerchant_quiz_click() {
+        return merchant_quiz_click;
     }
 
-    public void setQuiz_click(String quiz_click) {
-        this.quiz_click = quiz_click;
+    public void setMerchant_quiz_click(String merchant_quiz_click) {
+        this.merchant_quiz_click = merchant_quiz_click;
     }
 
-    public String getQuiz_video() {
-        return quiz_video;
+    public String getMerchant_quiz_video() {
+        return merchant_quiz_video;
     }
 
-    public void setQuiz_video(String quiz_video) {
-        this.quiz_video = quiz_video;
+    public void setMerchant_quiz_video(String merchant_quiz_video) {
+        this.merchant_quiz_video = merchant_quiz_video;
     }
 
-    public String getQuiz_look() {
-        return quiz_look;
+    public String getMerchant_quiz_look() {
+        return merchant_quiz_look;
     }
 
-    public void setQuiz_look(String quiz_look) {
-        this.quiz_look = quiz_look;
+    public void setMerchant_quiz_look(String merchant_quiz_look) {
+        this.merchant_quiz_look = merchant_quiz_look;
     }
 
-    public String getQuiz_replies() {
-        return quiz_replies;
+    public String getMerchant_quiz_replies() {
+        return merchant_quiz_replies;
     }
 
-    public void setQuiz_replies(String quiz_replies) {
-        this.quiz_replies = quiz_replies;
+    public void setMerchant_quiz_replies(String merchant_quiz_replies) {
+        this.merchant_quiz_replies = merchant_quiz_replies;
     }
 
     public String getMember_id() {
@@ -141,12 +141,12 @@ public class ArticleBean implements Parcelable {
         this.member_pic = member_pic;
     }
 
-    public ArrayList<String> getQuiz_pic() {
-        return quiz_pic;
+    public ArrayList<String> getMerchant_quiz_pic() {
+        return merchant_quiz_pic;
     }
 
-    public void setQuiz_pic(ArrayList<String> quiz_pic) {
-        this.quiz_pic = quiz_pic;
+    public void setMerchant_quiz_pic(ArrayList<String> merchant_quiz_pic) {
+        this.merchant_quiz_pic = merchant_quiz_pic;
     }
 
     public ArticleBean() {
@@ -159,39 +159,39 @@ public class ArticleBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.quiz_id);
-        dest.writeString(this.quiz_content);
-        dest.writeString(this.quiz_type);
-        dest.writeString(this.quiz_uid);
-        dest.writeString(this.quiz_time);
-        dest.writeString(this.quiz_token);
-        dest.writeString(this.quiz_title);
-        dest.writeString(this.quiz_click);
-        dest.writeString(this.quiz_video);
-        dest.writeString(this.quiz_look);
-        dest.writeString(this.quiz_replies);
+        dest.writeString(this.merchant_quiz_id);
+        dest.writeString(this.merchant_quiz_content);
+        dest.writeString(this.merchant_quiz_type);
+        dest.writeString(this.merchant_quiz_uid);
+        dest.writeString(this.merchant_quiz_time);
+        dest.writeString(this.merchant_quiz_token);
+        dest.writeString(this.merchant_quiz_title);
+        dest.writeString(this.merchant_quiz_click);
+        dest.writeString(this.merchant_quiz_video);
+        dest.writeString(this.merchant_quiz_look);
+        dest.writeString(this.merchant_quiz_replies);
         dest.writeString(this.member_id);
         dest.writeString(this.member_name);
         dest.writeString(this.member_pic);
-        dest.writeStringList(this.quiz_pic);
+        dest.writeStringList(this.merchant_quiz_pic);
     }
 
     protected ArticleBean(Parcel in) {
-        this.quiz_id = in.readString();
-        this.quiz_content = in.readString();
-        this.quiz_type = in.readString();
-        this.quiz_uid = in.readString();
-        this.quiz_time = in.readString();
-        this.quiz_token = in.readString();
-        this.quiz_title = in.readString();
-        this.quiz_click = in.readString();
-        this.quiz_video = in.readString();
-        this.quiz_look = in.readString();
-        this.quiz_replies = in.readString();
+        this.merchant_quiz_id = in.readString();
+        this.merchant_quiz_content = in.readString();
+        this.merchant_quiz_type = in.readString();
+        this.merchant_quiz_uid = in.readString();
+        this.merchant_quiz_time = in.readString();
+        this.merchant_quiz_token = in.readString();
+        this.merchant_quiz_title = in.readString();
+        this.merchant_quiz_click = in.readString();
+        this.merchant_quiz_video = in.readString();
+        this.merchant_quiz_look = in.readString();
+        this.merchant_quiz_replies = in.readString();
         this.member_id = in.readString();
         this.member_name = in.readString();
         this.member_pic = in.readString();
-        this.quiz_pic = in.createStringArrayList();
+        this.merchant_quiz_pic = in.createStringArrayList();
     }
 
     public static final Creator<ArticleBean> CREATOR = new Creator<ArticleBean>() {

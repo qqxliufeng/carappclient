@@ -164,9 +164,9 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
                     topMarqueeView.setOnItemClickListener { position, textView ->
                         val firstBean = communityContainerBean.arr1[position]
                         val articleBean = ArticleBean()
-                        articleBean.quiz_title = firstBean.quiz_title
-                        articleBean.quiz_id = firstBean.quiz_id
-                        articleBean.quiz_token = firstBean.quiz_token
+                        articleBean.merchant_quiz_title = firstBean.quiz_title
+                        articleBean.merchant_quiz_id = firstBean.quiz_id
+                        articleBean.merchant_quiz_token = firstBean.quiz_token
                         FragmentContainerActivity
                                 .from(mContext)
                                 .setTitle("详情")

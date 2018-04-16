@@ -194,7 +194,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             }
             mArrayList.forEach {
                 val orderBean = MallOrderBean()
-                orderBean.address = addressBean!!.address_id
+                orderBean.address = addressBean!!.merchant_address_id
                 orderBean.gid = it.shopcart_gid
                 orderBean.cid = it.shopcart_id
                 orderBean.mliuyan = it.bbs
@@ -219,9 +219,9 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     }
 
     private fun setAddressInfo(addressBean: AddressBean) {
-        addressName.text = addressBean.address_name
-        addressPhone.text = addressBean.address_phone
-        addressDetail.text = addressBean.address_detail
+        addressName.text = addressBean.merchant_address_name
+        addressPhone.text = addressBean.merchant_address_phone
+        addressDetail.text = addressBean.merchant_address_detail
         emptyAddressButton.visibility = View.GONE
         selectAddressContainerView.visibility = View.VISIBLE
     }

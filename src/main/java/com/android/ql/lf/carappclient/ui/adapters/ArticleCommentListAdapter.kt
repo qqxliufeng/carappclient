@@ -24,8 +24,8 @@ class ArticleCommentListAdapter(resId: Int, list: ArrayList<ArticleAnswerBean>) 
         } else {
             item.member_name
         })
-        helper.setText(R.id.mTvAnswerInfoItemContent, item.answer_content)
-        helper.setText(R.id.mTvAnswerInfoItemTime, item.answer_time)
+        helper.setText(R.id.mTvAnswerInfoItemContent, item.merchant_answer_content)
+        helper.setText(R.id.mTvAnswerInfoItemTime, item.merchant_answer_time)
         val mTvDelete = helper.getView<TextView>(R.id.mTvAnswerInfoItemDelete)
         if (UserInfo.getInstance().memberId == item.member_id) {
             mTvDelete.visibility = View.VISIBLE
@@ -33,10 +33,10 @@ class ArticleCommentListAdapter(resId: Int, list: ArrayList<ArticleAnswerBean>) 
         } else {
             mTvDelete.visibility = View.GONE
         }
-        if (item.answer_click == "0") {
+        if (item.merchant_answer_click == "0") {
             helper.setText(R.id.mTvPraiseText, "赞")
         } else {
-            helper.setText(R.id.mTvPraiseText, item.answer_click)
+            helper.setText(R.id.mTvPraiseText, item.merchant_answer_click)
         }
         helper.addOnClickListener(R.id.mPraiseView)
     }

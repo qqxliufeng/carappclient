@@ -201,10 +201,10 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     private fun refreshCollectionStatus() {
         if (tempGoodsBean != null) {
-            if (tempGoodsBean!!.product_collect == "0") {
-                tempGoodsBean!!.product_collect = "1"
+            if (tempGoodsBean!!.merchant_product_collect == "0") {
+                tempGoodsBean!!.merchant_product_collect = "1"
             } else {
-                tempGoodsBean!!.product_collect = "0"
+                tempGoodsBean!!.merchant_product_collect = "0"
             }
             mBaseAdapter.notifyItemChanged(mArrayList.indexOf(tempGoodsBean))
         }
@@ -246,7 +246,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         mPresent.getDataByPost(0x2,
                 RequestParamsHelper.PRODUCT_MODEL,
                 RequestParamsHelper.ACT_COLLECT_PRODUCT,
-                RequestParamsHelper.getCollectProductParam(goodsBean.product_id))
+                RequestParamsHelper.getCollectProductParam(goodsBean.merchant_product_id))
     }
 
     /**
@@ -256,7 +256,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         FragmentContainerActivity.from(mContext)
                 .setNeedNetWorking(true)
                 .setTitle("商品详情")
-                .setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.product_id)))
+                .setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.merchant_product_id)))
                 .setClazz(NewGoodsInfoFragment::class.java)
                 .start()
     }

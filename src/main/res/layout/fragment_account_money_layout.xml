@@ -1,102 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:padding="@dimen/dp_10">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="充值金额"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/text_deep_dark_color"/>
+            android:text="充值金额"
+            android:textColor="@color/text_deep_dark_color"
+            android:textSize="@dimen/sp_14" />
 
         <EditText
             android:id="@+id/mEtAccountMoney"
-            android:layout_toLeftOf="@+id/mTvAccountMoneyFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_centerVertical="true"
-            android:inputType="numberDecimal"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@+id/mTvAccountMoneyFlag"
             android:background="@null"
+            android:gravity="right"
+            android:inputType="numberDecimal"
             android:minWidth="100dp"
-            android:gravity="right"/>
+            android:textColor="@color/colorPrimary" />
 
         <TextView
-            android:layout_centerVertical="true"
             android:id="@+id/mTvAccountMoneyFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/sp_14"
+            android:layout_centerVertical="true"
             android:text="元"
-            android:textColor="@color/text_dark_color"/>
+            android:textColor="@color/text_dark_color"
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#eee"/>
+        android:background="#eee" />
 
     <TextView
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="充值金额"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="@dimen/dp_10"
         android:padding="@dimen/dp_10"
-        android:textColor="@color/text_deep_dark_color"/>
+        android:text="充值金额"
+        android:textColor="@color/text_deep_dark_color"
+        android:textSize="@dimen/sp_14" />
 
     <RadioGroup
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/mRbAccountMoneyOne"
             style="@style/style_rb_account_money"
-            android:text="￥50"
-            android:checked="true"/>
+            android:checked="true"
+            android:text="￥50" />
+
         <RadioButton
             android:id="@+id/mRbAccountMoneyTwo"
             style="@style/style_rb_account_money"
-            android:text="￥100"/>
+            android:text="￥100" />
+
         <RadioButton
             android:id="@+id/mRbAccountMoneyThree"
             style="@style/style_rb_account_money"
-            android:text="￥500"/>
+            android:text="￥500" />
+
         <RadioButton
             android:id="@+id/mRbAccountMoneyFour"
             style="@style/style_rb_account_money"
-            android:text="￥1000"/>
+            android:text="￥1000" />
     </RadioGroup>
+
     <TextView
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="选择支付方式"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/sp_14"
-        android:padding="@dimen/dp_10"
-        android:textColor="@color/text_deep_dark_color"/>
-    <com.android.ql.lf.carappclient.ui.views.SelectPayTypeView
         android:layout_marginTop="@dimen/dp_10"
+        android:padding="@dimen/dp_10"
+        android:text="选择支付方式"
+        android:textColor="@color/text_deep_dark_color"
+        android:textSize="@dimen/sp_14" />
+
+    <com.android.ql.lf.carappclient.ui.views.SelectPayTypeView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10" />
 
     <Button
         android:id="@+id/mBtAccountMoneySubmit"
-        android:text="立即充值"
+        style="@style/style_button1"
         android:layout_marginTop="100dp"
-        style="@style/style_button1" />
+        android:text="立即充值" />
 
 </LinearLayout>

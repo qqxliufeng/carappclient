@@ -54,7 +54,7 @@
         android:lineSpacingExtra="3dp"
         android:textColor="#646464" />
 
-    <com.android.ql.lf.carapp.ui.views.ImageContainerLinearLayout
+    <com.android.ql.lf.carappclient.ui.views.ImageContainerLinearLayout
         android:id="@+id/mLlAnswerTopViewPics"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:textColor="@color/text_deep_dark_color"
             android:textSize="@dimen/sp_12" />
 
-        <com.android.ql.lf.carapp.ui.views.PraiseView
+        <com.android.ql.lf.carappclient.ui.views.PraiseView
             android:id="@+id/mAnswerTopViewPraiseView"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
@@ -127,7 +127,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/sp_12"
                 android:visibility="invisible" />
-        </com.android.ql.lf.carapp.ui.views.PraiseView>
+        </com.android.ql.lf.carappclient.ui.views.PraiseView>
     </RelativeLayout>
 
 </LinearLayout>

@@ -11,77 +11,77 @@ import android.os.Parcelable;
 
 public class AddressBean implements Parcelable {
 
-    private String address_id;
-    private String address_name;
-    private String address_phone;
-    private String address_addres;
-    private String address_user;
-    private String address_token;
-    private String address_detail;
-    private String address_postcode;
+    private String merchant_address_id;
+    private String merchant_address_name;
+    private String merchant_address_phone;
+    private String merchant_address_addres;
+    private String merchant_address_user;
+    private String merchant_address_token;
+    private String merchant_address_detail;
+    private String merchant_address_postcode;
 
-    public String getAddress_id() {
-        return address_id;
+    public String getMerchant_address_id() {
+        return merchant_address_id;
     }
 
-    public void setAddress_id(String address_id) {
-        this.address_id = address_id;
+    public void setMerchant_address_id(String merchant_address_id) {
+        this.merchant_address_id = merchant_address_id;
     }
 
-    public String getAddress_name() {
-        return address_name;
+    public String getMerchant_address_name() {
+        return merchant_address_name;
     }
 
-    public void setAddress_name(String address_name) {
-        this.address_name = address_name;
+    public void setMerchant_address_name(String merchant_address_name) {
+        this.merchant_address_name = merchant_address_name;
     }
 
-    public String getAddress_phone() {
-        return address_phone;
+    public String getMerchant_address_phone() {
+        return merchant_address_phone;
     }
 
-    public void setAddress_phone(String address_phone) {
-        this.address_phone = address_phone;
+    public void setMerchant_address_phone(String merchant_address_phone) {
+        this.merchant_address_phone = merchant_address_phone;
     }
 
-    public String getAddress_addres() {
-        return address_addres;
+    public String getMerchant_address_addres() {
+        return merchant_address_addres;
     }
 
-    public void setAddress_addres(String address_addres) {
-        this.address_addres = address_addres;
+    public void setMerchant_address_addres(String merchant_address_addres) {
+        this.merchant_address_addres = merchant_address_addres;
     }
 
-    public String getAddress_user() {
-        return address_user;
+    public String getMerchant_address_user() {
+        return merchant_address_user;
     }
 
-    public void setAddress_user(String address_user) {
-        this.address_user = address_user;
+    public void setMerchant_address_user(String merchant_address_user) {
+        this.merchant_address_user = merchant_address_user;
     }
 
-    public String getAddress_token() {
-        return address_token;
+    public String getMerchant_address_token() {
+        return merchant_address_token;
     }
 
-    public void setAddress_token(String address_token) {
-        this.address_token = address_token;
+    public void setMerchant_address_token(String merchant_address_token) {
+        this.merchant_address_token = merchant_address_token;
     }
 
-    public String getAddress_detail() {
-        return address_detail;
+    public String getMerchant_address_detail() {
+        return merchant_address_detail;
     }
 
-    public void setAddress_detail(String address_detail) {
-        this.address_detail = address_detail;
+    public void setMerchant_address_detail(String merchant_address_detail) {
+        this.merchant_address_detail = merchant_address_detail;
     }
 
-    public String getAddress_postcode() {
-        return address_postcode;
+    public String getMerchant_address_postcode() {
+        return merchant_address_postcode;
     }
 
-    public void setAddress_postcode(String address_postcode) {
-        this.address_postcode = address_postcode;
+    public void setMerchant_address_postcode(String merchant_address_postcode) {
+        this.merchant_address_postcode = merchant_address_postcode;
     }
 
     @Override
@@ -91,28 +91,28 @@ public class AddressBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.address_id);
-        dest.writeString(this.address_name);
-        dest.writeString(this.address_phone);
-        dest.writeString(this.address_addres);
-        dest.writeString(this.address_user);
-        dest.writeString(this.address_token);
-        dest.writeString(this.address_detail);
-        dest.writeString(this.address_postcode);
+        dest.writeString(this.merchant_address_id);
+        dest.writeString(this.merchant_address_name);
+        dest.writeString(this.merchant_address_phone);
+        dest.writeString(this.merchant_address_addres);
+        dest.writeString(this.merchant_address_user);
+        dest.writeString(this.merchant_address_token);
+        dest.writeString(this.merchant_address_detail);
+        dest.writeString(this.merchant_address_postcode);
     }
 
     public AddressBean() {
     }
 
     protected AddressBean(Parcel in) {
-        this.address_id = in.readString();
-        this.address_name = in.readString();
-        this.address_phone = in.readString();
-        this.address_addres = in.readString();
-        this.address_user = in.readString();
-        this.address_token = in.readString();
-        this.address_detail = in.readString();
-        this.address_postcode = in.readString();
+        this.merchant_address_id = in.readString();
+        this.merchant_address_name = in.readString();
+        this.merchant_address_phone = in.readString();
+        this.merchant_address_addres = in.readString();
+        this.merchant_address_user = in.readString();
+        this.merchant_address_token = in.readString();
+        this.merchant_address_detail = in.readString();
+        this.merchant_address_postcode = in.readString();
     }
 
     public static final Creator<AddressBean> CREATOR = new Creator<AddressBean>() {

@@ -91,10 +91,10 @@ class AddressManagerFragment : BaseRecyclerViewFragment<AddressBean>() {
                 if (json != null) {
                     mArrayList.addAll(ListParseHelper<AddressBean>().fromJson((json.obj as JSONObject).toString(), AddressBean::class.java))
                     if (mArrayList.size == 1) {
-                        mArrayList[0].address_token = "1"
+                        mArrayList[0].merchant_address_token = "1"
                     }
                     Collections.sort(mArrayList) { o1, o2 ->
-                        o2.address_token.toInt().compareTo(o1.address_token.toInt())
+                        o2.merchant_address_token.toInt().compareTo(o1.merchant_address_token.toInt())
                     }
                     mBaseAdapter.notifyDataSetChanged()
                 } else {
@@ -143,9 +143,9 @@ class AddressManagerFragment : BaseRecyclerViewFragment<AddressBean>() {
      * 设置默认地址
      */
     private fun setDefaultAddress() {
-        if ("1" != currentItem!!.address_token) {
+        if ("1" != currentItem!!.merchant_address_token) {
             for (item in mArrayList) {
-                if ("1" == item.address_token) {
+                if ("1" == item.merchant_address_token) {
                     topItem = item
                     break
                 }
@@ -156,7 +156,7 @@ class AddressManagerFragment : BaseRecyclerViewFragment<AddressBean>() {
             mPresent.getDataByPost(0x1,
                     RequestParamsHelper.MEMBER_MODEL,
                     RequestParamsHelper.ACT_DEFAULT_ADDRESS,
-                    RequestParamsHelper.getDefaultAddressParams(topItem!!.address_id, currentItem!!.address_id))
+                    RequestParamsHelper.getDefaultAddressParams(topItem!!.merchant_address_id, currentItem!!.merchant_address_id))
         }
     }
 
@@ -166,7 +166,7 @@ class AddressManagerFragment : BaseRecyclerViewFragment<AddressBean>() {
     private fun deleteAddress() {
         AlertDialog.Builder(mContext).setMessage("是否要删除当前地址？").setPositiveButton("删除") { _, _ ->
             mPresent.getDataByPost(0x2, RequestParamsHelper.MEMBER_MODEL,
-                    RequestParamsHelper.ACT_DEL_ADDRESS, RequestParamsHelper.getDelAddressParams(currentItem!!.address_id))
+                    RequestParamsHelper.ACT_DEL_ADDRESS, RequestParamsHelper.getDelAddressParams(currentItem!!.merchant_address_id))
         }.setNegativeButton("取消", null).create().show()
 
     }

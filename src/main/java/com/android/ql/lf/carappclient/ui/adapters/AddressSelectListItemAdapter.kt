@@ -12,10 +12,10 @@ import com.chad.library.adapter.base.BaseViewHolder
  */
 class AddressSelectListItemAdapter(layoutId: Int, list: ArrayList<AddressBean>) : BaseQuickAdapter<AddressBean, BaseViewHolder>(layoutId, list) {
     override fun convert(helper: BaseViewHolder?, item: AddressBean?) {
-        helper!!.setText(R.id.mTvAddressSelectName, item!!.address_name)
-        helper.setText(R.id.mTvAddressSelectPhone, item.address_phone)
-        val default = if (item.address_token == "1") { "[默认地址]" } else { "" }
-        val html = Html.fromHtml("<span style='color:#78BFFF'>$default</span> ${item.address_addres}  ${item.address_detail}")
+        helper!!.setText(R.id.mTvAddressSelectName, item!!.merchant_address_name)
+        helper.setText(R.id.mTvAddressSelectPhone, item.merchant_address_phone)
+        val default = if (item.merchant_address_token == "1") { "[默认地址]" } else { "" }
+        val html = Html.fromHtml("<span style='color:#78BFFF'>$default</span> ${item.merchant_address_addres}  ${item.merchant_address_detail}")
         helper.setText(R.id.mTvAddressSelectDetail, html)
     }
 }

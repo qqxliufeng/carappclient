@@ -130,6 +130,15 @@ class MainGoodsClassifyFragment : BaseNetWorkingFragment() {
                     .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
                     .start()
         }
+        mSrfMainMallClassifyContainer.setOnRefreshListener {
+            mMenuArrayList.clear()
+            mItemArrayList.clear()
+            mPresent.getDataByPost(
+                    0x0,
+                    RequestParamsHelper.PRODUCT_MODEL,
+                    RequestParamsHelper.ACT_PRODUCT_TYPE,
+                    RequestParamsHelper.getProductTypeParams(""))
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -143,7 +152,16 @@ class MainGoodsClassifyFragment : BaseNetWorkingFragment() {
 
     override fun onRequestStart(requestID: Int) {
         super.onRequestStart(requestID)
-        getFastProgressDialog("正在加载分类……")
+        mSrfMainMallClassifyContainer.post {
+            mSrfMainMallClassifyContainer.isRefreshing = true
+        }
+    }
+
+    override fun onRequestEnd(requestID: Int) {
+        super.onRequestEnd(requestID)
+        mSrfMainMallClassifyContainer.post {
+            mSrfMainMallClassifyContainer.isRefreshing = false
+        }
     }
 
     override fun <T : Any?> onRequestSuccess(requestID: Int, result: T) {
