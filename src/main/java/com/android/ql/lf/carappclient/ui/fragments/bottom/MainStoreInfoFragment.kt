@@ -71,7 +71,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 //        mTvStoreInfoFansCount.text = storeInfoBean.wholesale_shop_attention
         mTvStoreInfoFocus.setOnClickListener {
             mTvStoreInfoFocus.isEnabled = false
-            mPresent.getDataByPost(0x1, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_CONCERM_SHOP, RequestParamsHelper.getConcermShopParams(storeInfoBean!!.wholesale_shop_id))
+            mPresent.getDataByPost(0x1, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_CONCERM_SHOP, RequestParamsHelper.getConcermShopParams(storeInfoBean!!.shop_id))
         }
         mTvStoreInfoTopProductClassify.setOnClickListener {
 //            FragmentContainerActivity
@@ -140,7 +140,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         super.onLoadMore()
         mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH,
                 RequestParamsHelper.getWithPageParams(currentPage)
-                        .addParam("sid", storeInfoBean!!.wholesale_shop_id)
+                        .addParam("sid", storeInfoBean!!.shop_id)
                         .addParam("sort", sort)
                         .addParam("keyword", keyword))
     }

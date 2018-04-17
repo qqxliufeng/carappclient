@@ -71,14 +71,17 @@ public class MyFlexboxLayout extends LinearLayout {
         tvTitle.setText(title);
     }
 
-    public void addItems(final ArrayList<String> items) {
-        if (items != null && !items.isEmpty()) {
+    public void addItems(final ArrayList<String> items, final ArrayList<String> status) {
+        if (items != null && !items.isEmpty() && status != null && items.size() == status.size()) {
             int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-            for (final String item : items) {
+            for (int i = 0; i < items.size(); i++) {
+                final String item = items.get(i);
                 final CheckedTextView tv = new CheckedTextView(flexboxLayout.getContext());
                 FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT);
                 params.setMargins(margin, margin, margin, margin);
                 tv.setText(item);
+                // 1 为选中
+                tv.setChecked("1".equals(status.get(i)));
                 tv.setLayoutParams(params);
                 tv.setBackgroundResource(R.drawable.selector_tv_bg1);
                 tv.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.select_tv_color1));
@@ -102,6 +105,13 @@ public class MyFlexboxLayout extends LinearLayout {
                     }
                 });
                 flexboxLayout.addView(tv);
+            }
+            for (int i = 0; i < flexboxLayout.getChildCount(); i++) {
+                CheckedTextView checkedTextView = (CheckedTextView) flexboxLayout.getChildAt(i);
+                if (checkedTextView.isChecked()) {
+                    selectName = checkedTextView.getText().toString();
+                    break;
+                }
             }
             addView(flexboxLayout);
         }

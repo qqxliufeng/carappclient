@@ -43,7 +43,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/shape_ll_main_mall_search_bg"
+                android:background="@drawable/shape_ll_bg1"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -53,10 +53,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@null"
-                    android:drawableLeft="@drawable/img_icon_search_yellow"
+                    android:drawableLeft="@drawable/icon_search_black"
                     android:drawablePadding="15dp"
                     android:text="搜索店铺、商品和服务"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/text_dark_color"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 

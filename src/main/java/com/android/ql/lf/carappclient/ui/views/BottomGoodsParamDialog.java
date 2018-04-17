@@ -78,7 +78,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                         for (MyFlexboxLayout item : flexboxLayouts) {
                             if (item != null) {
                                 String selectName = item.getSelectName();
-                                if (TextUtils.isEmpty(selectName)) {
+                                if (TextUtils.isEmpty(selectName) && !"安装服务".equals(item.getTitle())) {
                                     Toast.makeText(getContext(), "请先选择" + item.getTitle(), Toast.LENGTH_SHORT).show();
                                     return;
                                 } else {
@@ -130,11 +130,9 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
             flexboxLayouts.clear();
             for (final SpecificationBean item : mSpecificationList) {
                 MyFlexboxLayout myFlexboxLayout = new MyFlexboxLayout(getContext());
-
                 flexboxLayouts.add(myFlexboxLayout);
-
                 myFlexboxLayout.setTitle(item.getName());
-                myFlexboxLayout.addItems(item.getItem());
+                myFlexboxLayout.addItems(item.getItem(),item.getStatus());
                 myFlexboxLayout.setOnItemClickListener(new MyFlexboxLayout.OnItemClickListener() {
                     @Override
                     public void onItemClick(int index) {

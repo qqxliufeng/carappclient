@@ -157,13 +157,13 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         return object : BaseQuickAdapter<ShoppingCarItemBean, BaseViewHolder>(R.layout.adapter_submit_order_info_item_layout, mArrayList) {
             override fun convert(helper: BaseViewHolder?, item: ShoppingCarItemBean?) {
                 val iv_pic = helper!!.getView<ImageView>(R.id.mIvSubmitOrderGoodsPic)
-                GlideManager.loadImage(iv_pic.context, if (item!!.shopcart_pic.isEmpty()) "" else item.shopcart_pic[0], iv_pic)
-                helper.setText(R.id.mIvSubmitOrderGoodsName, item.shopcart_name)
+                GlideManager.loadImage(iv_pic.context, if (item!!.merchant_shopcart_pic.isEmpty()) "" else item.merchant_shopcart_pic[0], iv_pic)
+                helper.setText(R.id.mIvSubmitOrderGoodsName, item.merchant_shopcart_name)
                 helper.setText(R.id.mTvSubmitOrderItemStoreName, item.shop_shopname)
                 GlideManager.loadImage(mContext, item.shop_shoppic, helper.getView(R.id.mIvSubmitOrderItemStorePic))
-                helper.setText(R.id.mIvSubmitOrderGoodsSpe, item.shopcart_specification)
-                helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.shopcart_price}")
-                helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.shopcart_num}")
+                helper.setText(R.id.mIvSubmitOrderGoodsSpe, item.merchant_shopcart_specification)
+                helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.merchant_shopcart_price}")
+                helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.merchant_shopcart_num}")
                 helper.setText(R.id.mTvSubmitOrderGoodsBBSContent, if (TextUtils.isEmpty(item.bbs)) "选填" else item.bbs)
                 helper.addOnClickListener(R.id.mRlSubmitOrderGoodsBBS)
             }
@@ -195,13 +195,13 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             mArrayList.forEach {
                 val orderBean = MallOrderBean()
                 orderBean.address = addressBean!!.merchant_address_id
-                orderBean.gid = it.shopcart_gid
-                orderBean.cid = it.shopcart_id
+                orderBean.gid = it.merchant_shopcart_gid
+                orderBean.cid = it.merchant_shopcart_id
                 orderBean.mliuyan = it.bbs
-                orderBean.num = it.shopcart_num
-                orderBean.specification = it.shopcart_specification
-                orderBean.price = it.shopcart_price
-                orderBean.mdprice = it.shopcart_mdprice
+                orderBean.num = it.merchant_shopcart_num
+                orderBean.specification = it.merchant_shopcart_specification
+                orderBean.price = it.merchant_shopcart_price
+                orderBean.mdprice = it.merchant_shopcart_mdprice
                 orderBean.bbs = it.bbs
                 orderList.add(orderBean)
             }
@@ -234,8 +234,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             var money = 0.00f
             var num = 0
             tempList!!.forEach {
-                money += ((it.shopcart_price.toFloat() * it.shopcart_num.toInt()) + it.shopcart_mdprice.toFloat())
-                num += it.shopcart_num.toInt()
+                money += ((it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat())
+                num += it.merchant_shopcart_num.toInt()
             }
             mTvSubmitOrderGoodsCount.text = Html.fromHtml("共<span style='color:#78BFFF'> $num </span>件")
             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)

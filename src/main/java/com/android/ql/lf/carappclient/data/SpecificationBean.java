@@ -8,12 +8,21 @@ import java.util.ArrayList;
 
 public class SpecificationBean {
 
-    private String  name;
+    private String name;
     private ArrayList<String> item;
     private ArrayList<String> pic;
     private ArrayList<String> repertory;
     private ArrayList<String> yprice;
     private ArrayList<String> price;
+    private ArrayList<String> status;
+
+    public ArrayList<String> getStatus() {
+        return status;
+    }
+
+    public void setStatus(ArrayList<String> status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;

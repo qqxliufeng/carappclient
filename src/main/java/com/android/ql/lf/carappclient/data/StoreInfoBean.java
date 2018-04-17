@@ -13,62 +13,59 @@ import java.util.ArrayList;
 
 public class StoreInfoBean implements Parcelable {
 
-    private String wholesale_shop_id;
-    private String wholesale_shop_name;
-    private ArrayList<String> wholesale_shop_pic;
-    private String wholesale_shop_attention;
-    private String wholesale_shop_uid;
-    private String wholesale_shop_num;
+    private String shop_id;
+    private String shop_name;
+    private ArrayList<String> shop_pic;
+    private String shop_attention;
+    private String shop_uid;
+    private String shop_num;
 
-    public String getWholesale_shop_id() {
-        return wholesale_shop_id;
+    public String getShop_id() {
+        return shop_id;
     }
 
-    public void setWholesale_shop_id(String wholesale_shop_id) {
-        this.wholesale_shop_id = wholesale_shop_id;
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
     }
 
-    public String getWholesale_shop_name() {
-        return wholesale_shop_name;
+    public String getShop_name() {
+        return shop_name;
     }
 
-    public void setWholesale_shop_name(String wholesale_shop_name) {
-        this.wholesale_shop_name = wholesale_shop_name;
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
     }
 
-    public ArrayList<String> getWholesale_shop_pic() {
-        return wholesale_shop_pic;
+    public ArrayList<String> getShop_pic() {
+        return shop_pic;
     }
 
-    public void setWholesale_shop_pic(ArrayList<String> wholesale_shop_pic) {
-        this.wholesale_shop_pic = wholesale_shop_pic;
+    public void setShop_pic(ArrayList<String> shop_pic) {
+        this.shop_pic = shop_pic;
     }
 
-    public String getWholesale_shop_attention() {
-        return wholesale_shop_attention;
+    public String getShop_attention() {
+        return shop_attention;
     }
 
-    public void setWholesale_shop_attention(String wholesale_shop_attention) {
-        this.wholesale_shop_attention = wholesale_shop_attention;
+    public void setShop_attention(String shop_attention) {
+        this.shop_attention = shop_attention;
     }
 
-    public String getWholesale_shop_uid() {
-        return wholesale_shop_uid;
+    public String getShop_uid() {
+        return shop_uid;
     }
 
-    public void setWholesale_shop_uid(String wholesale_shop_uid) {
-        this.wholesale_shop_uid = wholesale_shop_uid;
+    public void setShop_uid(String shop_uid) {
+        this.shop_uid = shop_uid;
     }
 
-    public String getWholesale_shop_num() {
-        return wholesale_shop_num;
+    public String getShop_num() {
+        return shop_num;
     }
 
-    public void setWholesale_shop_num(String wholesale_shop_num) {
-        this.wholesale_shop_num = wholesale_shop_num;
-    }
-
-    public StoreInfoBean() {
+    public void setShop_num(String shop_num) {
+        this.shop_num = shop_num;
     }
 
     @Override
@@ -78,21 +75,24 @@ public class StoreInfoBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.wholesale_shop_id);
-        dest.writeString(this.wholesale_shop_name);
-        dest.writeStringList(this.wholesale_shop_pic);
-        dest.writeString(this.wholesale_shop_attention);
-        dest.writeString(this.wholesale_shop_uid);
-        dest.writeString(this.wholesale_shop_num);
+        dest.writeString(this.shop_id);
+        dest.writeString(this.shop_name);
+        dest.writeStringList(this.shop_pic);
+        dest.writeString(this.shop_attention);
+        dest.writeString(this.shop_uid);
+        dest.writeString(this.shop_num);
+    }
+
+    public StoreInfoBean() {
     }
 
     protected StoreInfoBean(Parcel in) {
-        this.wholesale_shop_id = in.readString();
-        this.wholesale_shop_name = in.readString();
-        this.wholesale_shop_pic = in.createStringArrayList();
-        this.wholesale_shop_attention = in.readString();
-        this.wholesale_shop_uid = in.readString();
-        this.wholesale_shop_num = in.readString();
+        this.shop_id = in.readString();
+        this.shop_name = in.readString();
+        this.shop_pic = in.createStringArrayList();
+        this.shop_attention = in.readString();
+        this.shop_uid = in.readString();
+        this.shop_num = in.readString();
     }
 
     public static final Creator<StoreInfoBean> CREATOR = new Creator<StoreInfoBean>() {

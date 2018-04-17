@@ -172,30 +172,30 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                                 RequestParamsHelper.ACT_ADD_SHOPCART,
                                 RequestParamsHelper.getAddShopcartParam(
                                         goodsInfoBean!!.result!!.merchant_product_id,
-                                        goodsInfoBean!!.arr1!!.wholesale_shop_id,
+                                        goodsInfoBean!!.arr1!!.shop_id,
                                         num,
                                         picPath + "," + specification
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
-                        shoppingCarItem.shopcart_mdprice = goodsInfoBean!!.result!!.merchant_product_mdprice
-                        shoppingCarItem.shopcart_num = num
-                        shoppingCarItem.shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
-                        shoppingCarItem.shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
-                        shoppingCarItem.shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
-                        if (goodsInfoBean!!.arr1!!.wholesale_shop_pic != null && !goodsInfoBean!!.arr1!!.wholesale_shop_pic.isEmpty()) {
-                            shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.wholesale_shop_pic[0]
+                        shoppingCarItem.merchant_shopcart_mdprice = goodsInfoBean!!.result!!.merchant_product_mdprice
+                        shoppingCarItem.merchant_shopcart_num = num
+                        shoppingCarItem.merchant_shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
+                        shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
+                        shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
+                        if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
+                            shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.shop_pic[0]
                         } else {
                             shoppingCarItem.shop_shoppic = ""
                         }
-                        shoppingCarItem.shop_shopname = goodsInfoBean!!.arr1!!.wholesale_shop_name
-                        shoppingCarItem.shopcart_id = ""
+                        shoppingCarItem.shop_shopname = goodsInfoBean!!.arr1!!.shop_name
+                        shoppingCarItem.merchant_shopcart_id = ""
                         if (TextUtils.isEmpty(picPath)) {
-                            shoppingCarItem.shopcart_pic = goodsInfoBean!!.result!!.merchant_product_pic as ArrayList<String>
+                            shoppingCarItem.merchant_shopcart_pic = goodsInfoBean!!.result!!.merchant_product_pic as ArrayList<String>
                         } else {
-                            shoppingCarItem.shopcart_pic = arrayListOf(picPath)
+                            shoppingCarItem.merchant_shopcart_pic = arrayListOf(picPath)
                         }
-                        shoppingCarItem.shopcart_specification = specification
+                        shoppingCarItem.merchant_shopcart_specification = specification
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(OrderSubmitFragment.GOODS_ID_FLAG, arrayListOf(shoppingCarItem))
                         FragmentContainerActivity
@@ -271,13 +271,13 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.merchant_product_entrepot
         mTvGoodsInfoTitle.text = goodsInfoBean!!.result!!.merchant_product_name
         mTvGoodsInfoDescription.text = Html.fromHtml(goodsInfoBean!!.result!!.merchant_product_description)
-        if (goodsInfoBean!!.arr1!!.wholesale_shop_pic != null && !goodsInfoBean!!.arr1!!.wholesale_shop_pic.isEmpty()) {
-            GlideManager.loadImage(mContext, goodsInfoBean!!.arr1!!.wholesale_shop_pic[0], mIvGoodsInfoStorePic)
+        if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
+            GlideManager.loadImage(mContext, goodsInfoBean!!.arr1!!.shop_pic[0], mIvGoodsInfoStorePic)
         }
-        mTvGoodsInfoStoreName.text = goodsInfoBean!!.arr1!!.wholesale_shop_name
-        mTvGoodsInfoStoreAllGoodsNum.text = goodsInfoBean!!.arr1!!.wholesale_shop_num
-        mTvGoodsInfoStoreInfoFocusNum.text = goodsInfoBean!!.arr1!!.wholesale_shop_attention
-        mTvGoodsInfoStoreInfoCommentNum.text = goodsInfoBean!!.arr1!!.wholesale_shop_attention
+        mTvGoodsInfoStoreName.text = goodsInfoBean!!.arr1!!.shop_name
+        mTvGoodsInfoStoreAllGoodsNum.text = goodsInfoBean!!.arr1!!.shop_num
+        mTvGoodsInfoStoreInfoFocusNum.text = goodsInfoBean!!.arr1!!.shop_attention
+        mTvGoodsInfoStoreInfoCommentNum.text = goodsInfoBean!!.arr1!!.shop_attention
         footView.findViewById<TextView>(R.id.mTvGoodsInfoEnterStore).setOnClickListener {
             //            FragmentContainerActivity
 //                    .from(mContext)

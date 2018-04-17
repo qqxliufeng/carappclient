@@ -148,12 +148,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                             .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
                             .start()
                 } else {
-                    FragmentContainerActivity
-                            .from(mContext)
-                            .setNeedNetWorking(true)
-                            .setClazz(GoodsClassifyFragment::class.java)
-                            .setTitle("商品分类")
-                            .start()
+                    (mContext as MainActivity).navigationClassifyItem()
                 }
             }
         })

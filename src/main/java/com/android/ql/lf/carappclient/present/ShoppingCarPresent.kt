@@ -41,7 +41,7 @@ class ShoppingCarPresent(var shopItems: ArrayList<ShoppingCarItemBean>) {
         allMoney = 0.00f
         shopItems.forEach {
             if (it.isSelector) {
-                allMoney += (it.shopcart_price.toFloat() * it.shopcart_num.toInt())
+                allMoney += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt())
             }
         }
         return allMoney

@@ -141,9 +141,9 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             if (check != null) {
                 if (check.code == SUCCESS_CODE) {
                     if (currentEditMode == 0) {
-                        currentItem.shopcart_num = (currentItem.shopcart_num.toInt() + 1).toString()
+                        currentItem.merchant_shopcart_num = (currentItem.merchant_shopcart_num.toInt() + 1).toString()
                     } else {
-                        currentItem.shopcart_num = (currentItem.shopcart_num.toInt() - 1).toString()
+                        currentItem.merchant_shopcart_num = (currentItem.merchant_shopcart_num.toInt() - 1).toString()
                     }
                     mTvShoppingCarAllSelectMoney.text = "￥${DecimalFormat("0.00").format(shoppingCarPresent.calculateAllPrice())}"
                     mBaseAdapter.notifyItemChanged(mArrayList.indexOf(currentItem))
@@ -172,21 +172,21 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 mCivShoppingCarAllSelect.isChecked = mCalculate.isEnabled
             }
             R.id.mIvShoppingCarDeleteNum -> {
-                if (currentItem.shopcart_num.toInt() <= 1) {
+                if (currentItem.merchant_shopcart_num.toInt() <= 1) {
                     return
                 }
                 currentEditMode = 1
                 mPresent.getDataByPost(0x2,
                         RequestParamsHelper.Companion.MEMBER_MODEL,
                         RequestParamsHelper.Companion.ACT_UPDATE_SHOPCART,
-                        RequestParamsHelper.Companion.getUpdateShopcart(currentItem.shopcart_id, (currentItem.shopcart_num.toInt() - 1).toString()))
+                        RequestParamsHelper.Companion.getUpdateShopcart(currentItem.merchant_shopcart_id, (currentItem.merchant_shopcart_num.toInt() - 1).toString()))
             }
             R.id.mIvShoppingCarAddNum -> {
                 currentEditMode = 0
                 mPresent.getDataByPost(0x2,
                         RequestParamsHelper.Companion.MEMBER_MODEL,
                         RequestParamsHelper.Companion.ACT_UPDATE_SHOPCART,
-                        RequestParamsHelper.Companion.getUpdateShopcart(currentItem.shopcart_id, (currentItem.shopcart_num.toInt() + 1).toString()))
+                        RequestParamsHelper.Companion.getUpdateShopcart(currentItem.merchant_shopcart_id, (currentItem.merchant_shopcart_num.toInt() + 1).toString()))
             }
         }
     }
@@ -197,7 +197,7 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             mPresent.getDataByPost(0x1,
                     RequestParamsHelper.Companion.MEMBER_MODEL,
                     RequestParamsHelper.Companion.ACT_DEL_SHOPCART,
-                    RequestParamsHelper.Companion.getDelShopcartParam(currentItem.shopcart_id))
+                    RequestParamsHelper.Companion.getDelShopcartParam(currentItem.merchant_shopcart_id))
         }
     }
 

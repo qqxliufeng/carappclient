@@ -16,8 +16,8 @@
         android:id="@+id/mRvMainMallClassify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        android:background="#fff" />
+        android:background="#fff"
+        android:padding="@dimen/dp_10" />
 
     <!--<LinearLayout
         android:layout_width="match_parent"
@@ -80,11 +80,40 @@
 
     </LinearLayout>-->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:src="@drawable/img_icon_main_mall_devider1" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#eee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="@dimen/dp_10">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="爆款商品"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="#ccc" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,10 +175,39 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="#ccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/img_icon_main_mall_devider2" />
+        android:background="#fff"
+        android:padding="@dimen/dp_10">
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="商品分类"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp_12"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#eee" />
 
 </LinearLayout>

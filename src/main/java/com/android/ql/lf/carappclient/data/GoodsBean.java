@@ -33,6 +33,15 @@ public class GoodsBean {
     private String merchant_product_uid;
     private ArrayList<String> merchant_product_pic;
     private ArrayList<SpecificationBean> merchant_product_specification;
+    private ArrayList<SpecificationBean> merchant_product_service;
+
+    public ArrayList<SpecificationBean> getMerchant_product_service() {
+        return merchant_product_service;
+    }
+
+    public void setMerchant_product_service(ArrayList<SpecificationBean> merchant_product_service) {
+        this.merchant_product_service = merchant_product_service;
+    }
 
     public String getMerchant_product_id() {
         return merchant_product_id;
@@ -211,6 +220,9 @@ public class GoodsBean {
     }
 
     public ArrayList<SpecificationBean> getMerchant_product_specification() {
+        if (merchant_product_service != null) {
+            merchant_product_specification.addAll(merchant_product_service);
+        }
         return merchant_product_specification;
     }
 

@@ -23,15 +23,15 @@ class ShoppingCarItemAdapter(layoutId: Int, list: ArrayList<ShoppingCarItemBean>
         } else {
             ivSelector?.setImageResource(R.drawable.img_shopping_car_unselector_icon)
         }
-        helper.setText(R.id.mTvShoppingCarItemName, item.shopcart_name)
+        helper.setText(R.id.mTvShoppingCarItemName, item.merchant_shopcart_name)
         helper.setText(R.id.mTvShoppingCarItemStoreName, item.shop_shopname)
         GlideManager.loadImage(mContext, item.shop_shoppic, helper.getView(R.id.mIvShoppingCarItemStorePic))
-        helper.setText(R.id.mTvShoppingCarItemPrice, "￥ ${item.shopcart_price}")
-        helper.setText(R.id.mTvShoppingCarItemSpe, item.shopcart_specification)
-        helper.setText(R.id.mTvShoppingCarNum, item.shopcart_num)
+        helper.setText(R.id.mTvShoppingCarItemPrice, "￥ ${item.merchant_shopcart_price}")
+        helper.setText(R.id.mTvShoppingCarItemSpe, item.merchant_shopcart_specification)
+        helper.setText(R.id.mTvShoppingCarNum, item.merchant_shopcart_num)
         val goods_pic = helper.getView<ImageView>(R.id.mTvShoppingCarItemPic)
-        if (!item.shopcart_pic.isEmpty()) {
-            GlideManager.loadImage(goods_pic.context, item.shopcart_pic[0], goods_pic)
+        if (!item.merchant_shopcart_pic.isEmpty()) {
+            GlideManager.loadImage(goods_pic.context, item.merchant_shopcart_pic[0], goods_pic)
         }
     }
 }

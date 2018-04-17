@@ -31,6 +31,11 @@ class MainActivity : BaseActivity() {
         mMainContent.currentItem = 2
     }
 
+    fun navigationClassifyItem() {
+        mMainNavigation.selectedItemId = R.id.navigation_classify
+        mMainContent.currentItem = 1
+    }
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {

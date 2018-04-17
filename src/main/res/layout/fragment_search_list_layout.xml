@@ -112,6 +112,6 @@
         android:layout_marginRight="20dp"
         android:clickable="true"
         android:src="@drawable/img_icon_shoppingcart_white_null"
-        app:layout_behavior="com.android.ql.lf.carapp.ui.views.FloatingBarBehavior" />
+        app:layout_behavior="com.android.ql.lf.carappclient.ui.views.FloatingBarBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

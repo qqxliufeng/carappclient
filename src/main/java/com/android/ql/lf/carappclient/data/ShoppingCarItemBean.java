@@ -15,28 +15,124 @@ public class ShoppingCarItemBean implements Parcelable {
     private boolean isSelector = false;
     private boolean isEditorMode = false;
 
-    private String shopcart_id;
-    private String shopcart_name;
-    private ArrayList<String> shopcart_pic;
-    private String shopcart_specification;
-    private String shopcart_price;
-    private String shopcart_num;
-    private String shopcart_gid;
-    private String shopcart_time;
-    private String shopcart_uid;
-    private String shopcart_shopid;
-    private String shopcart_mdprice;
+    private String merchant_shopcart_id;
+    private String merchant_shopcart_name;
+    private ArrayList<String> merchant_shopcart_pic;
+    private String merchant_shopcart_specification;
+    private String merchant_shopcart_price;
+    private String merchant_shopcart_num;
+    private String merchant_shopcart_gid;
+    private String merchant_shopcart_time;
+    private String merchant_shopcart_uid;
+    private String merchant_shopcart_shopid;
+    private String merchant_shopcart_mdprice;
     private String shop_shopname;
     private String shop_shoppic;
 
     private String bbs;
 
-    public String getShopcart_shopid() {
-        return shopcart_shopid;
+    public boolean isSelector() {
+        return isSelector;
     }
 
-    public void setShopcart_shopid(String shopcart_shopid) {
-        this.shopcart_shopid = shopcart_shopid;
+    public void setSelector(boolean selector) {
+        isSelector = selector;
+    }
+
+    public boolean isEditorMode() {
+        return isEditorMode;
+    }
+
+    public void setEditorMode(boolean editorMode) {
+        isEditorMode = editorMode;
+    }
+
+    public String getMerchant_shopcart_id() {
+        return merchant_shopcart_id;
+    }
+
+    public void setMerchant_shopcart_id(String merchant_shopcart_id) {
+        this.merchant_shopcart_id = merchant_shopcart_id;
+    }
+
+    public String getMerchant_shopcart_name() {
+        return merchant_shopcart_name;
+    }
+
+    public void setMerchant_shopcart_name(String merchant_shopcart_name) {
+        this.merchant_shopcart_name = merchant_shopcart_name;
+    }
+
+    public ArrayList<String> getMerchant_shopcart_pic() {
+        return merchant_shopcart_pic;
+    }
+
+    public void setMerchant_shopcart_pic(ArrayList<String> merchant_shopcart_pic) {
+        this.merchant_shopcart_pic = merchant_shopcart_pic;
+    }
+
+    public String getMerchant_shopcart_specification() {
+        return merchant_shopcart_specification;
+    }
+
+    public void setMerchant_shopcart_specification(String merchant_shopcart_specification) {
+        this.merchant_shopcart_specification = merchant_shopcart_specification;
+    }
+
+    public String getMerchant_shopcart_price() {
+        return merchant_shopcart_price;
+    }
+
+    public void setMerchant_shopcart_price(String merchant_shopcart_price) {
+        this.merchant_shopcart_price = merchant_shopcart_price;
+    }
+
+    public String getMerchant_shopcart_num() {
+        return merchant_shopcart_num;
+    }
+
+    public void setMerchant_shopcart_num(String merchant_shopcart_num) {
+        this.merchant_shopcart_num = merchant_shopcart_num;
+    }
+
+    public String getMerchant_shopcart_gid() {
+        return merchant_shopcart_gid;
+    }
+
+    public void setMerchant_shopcart_gid(String merchant_shopcart_gid) {
+        this.merchant_shopcart_gid = merchant_shopcart_gid;
+    }
+
+    public String getMerchant_shopcart_time() {
+        return merchant_shopcart_time;
+    }
+
+    public void setMerchant_shopcart_time(String merchant_shopcart_time) {
+        this.merchant_shopcart_time = merchant_shopcart_time;
+    }
+
+    public String getMerchant_shopcart_uid() {
+        return merchant_shopcart_uid;
+    }
+
+    public void setMerchant_shopcart_uid(String merchant_shopcart_uid) {
+        this.merchant_shopcart_uid = merchant_shopcart_uid;
+    }
+
+    public String getMerchant_shopcart_shopid() {
+        return merchant_shopcart_shopid;
+    }
+
+    public void setMerchant_shopcart_shopid(String merchant_shopcart_shopid) {
+        this.merchant_shopcart_shopid = merchant_shopcart_shopid;
+    }
+
+    public String getMerchant_shopcart_mdprice() {
+        return merchant_shopcart_mdprice;
+    }
+
+    public void setMerchant_shopcart_mdprice(String merchant_shopcart_mdprice) {
+        this.merchant_shopcart_mdprice = merchant_shopcart_mdprice;
     }
 
     public String getShop_shopname() {
@@ -55,108 +151,12 @@ public class ShoppingCarItemBean implements Parcelable {
         this.shop_shoppic = shop_shoppic;
     }
 
-    public String getShopcart_mdprice() {
-        return shopcart_mdprice;
-    }
-
-    public void setShopcart_mdprice(String shopcart_mdprice) {
-        this.shopcart_mdprice = shopcart_mdprice;
-    }
-
     public String getBbs() {
         return bbs;
     }
 
     public void setBbs(String bbs) {
         this.bbs = bbs;
-    }
-
-    public boolean isSelector() {
-        return isSelector;
-    }
-
-    public void setSelector(boolean selector) {
-        isSelector = selector;
-    }
-
-    public boolean isEditorMode() {
-        return isEditorMode;
-    }
-
-    public void setEditorMode(boolean editorMode) {
-        isEditorMode = editorMode;
-    }
-
-    public String getShopcart_id() {
-        return shopcart_id;
-    }
-
-    public void setShopcart_id(String shopcart_id) {
-        this.shopcart_id = shopcart_id;
-    }
-
-    public String getShopcart_name() {
-        return shopcart_name;
-    }
-
-    public void setShopcart_name(String shopcart_name) {
-        this.shopcart_name = shopcart_name;
-    }
-
-    public ArrayList<String> getShopcart_pic() {
-        return shopcart_pic;
-    }
-
-    public void setShopcart_pic(ArrayList<String> shopcart_pic) {
-        this.shopcart_pic = shopcart_pic;
-    }
-
-    public String getShopcart_specification() {
-        return shopcart_specification;
-    }
-
-    public void setShopcart_specification(String shopcart_specification) {
-        this.shopcart_specification = shopcart_specification;
-    }
-
-    public String getShopcart_price() {
-        return shopcart_price;
-    }
-
-    public void setShopcart_price(String shopcart_price) {
-        this.shopcart_price = shopcart_price;
-    }
-
-    public String getShopcart_num() {
-        return shopcart_num;
-    }
-
-    public void setShopcart_num(String shopcart_num) {
-        this.shopcart_num = shopcart_num;
-    }
-
-    public String getShopcart_gid() {
-        return shopcart_gid;
-    }
-
-    public void setShopcart_gid(String shopcart_gid) {
-        this.shopcart_gid = shopcart_gid;
-    }
-
-    public String getShopcart_time() {
-        return shopcart_time;
-    }
-
-    public void setShopcart_time(String shopcart_time) {
-        this.shopcart_time = shopcart_time;
-    }
-
-    public String getShopcart_uid() {
-        return shopcart_uid;
-    }
-
-    public void setShopcart_uid(String shopcart_uid) {
-        this.shopcart_uid = shopcart_uid;
     }
 
     public ShoppingCarItemBean() {
@@ -171,17 +171,17 @@ public class ShoppingCarItemBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte(this.isSelector ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isEditorMode ? (byte) 1 : (byte) 0);
-        dest.writeString(this.shopcart_id);
-        dest.writeString(this.shopcart_name);
-        dest.writeStringList(this.shopcart_pic);
-        dest.writeString(this.shopcart_specification);
-        dest.writeString(this.shopcart_price);
-        dest.writeString(this.shopcart_num);
-        dest.writeString(this.shopcart_gid);
-        dest.writeString(this.shopcart_time);
-        dest.writeString(this.shopcart_uid);
-        dest.writeString(this.shopcart_shopid);
-        dest.writeString(this.shopcart_mdprice);
+        dest.writeString(this.merchant_shopcart_id);
+        dest.writeString(this.merchant_shopcart_name);
+        dest.writeStringList(this.merchant_shopcart_pic);
+        dest.writeString(this.merchant_shopcart_specification);
+        dest.writeString(this.merchant_shopcart_price);
+        dest.writeString(this.merchant_shopcart_num);
+        dest.writeString(this.merchant_shopcart_gid);
+        dest.writeString(this.merchant_shopcart_time);
+        dest.writeString(this.merchant_shopcart_uid);
+        dest.writeString(this.merchant_shopcart_shopid);
+        dest.writeString(this.merchant_shopcart_mdprice);
         dest.writeString(this.shop_shopname);
         dest.writeString(this.shop_shoppic);
         dest.writeString(this.bbs);
@@ -190,17 +190,17 @@ public class ShoppingCarItemBean implements Parcelable {
     protected ShoppingCarItemBean(Parcel in) {
         this.isSelector = in.readByte() != 0;
         this.isEditorMode = in.readByte() != 0;
-        this.shopcart_id = in.readString();
-        this.shopcart_name = in.readString();
-        this.shopcart_pic = in.createStringArrayList();
-        this.shopcart_specification = in.readString();
-        this.shopcart_price = in.readString();
-        this.shopcart_num = in.readString();
-        this.shopcart_gid = in.readString();
-        this.shopcart_time = in.readString();
-        this.shopcart_uid = in.readString();
-        this.shopcart_shopid = in.readString();
-        this.shopcart_mdprice = in.readString();
+        this.merchant_shopcart_id = in.readString();
+        this.merchant_shopcart_name = in.readString();
+        this.merchant_shopcart_pic = in.createStringArrayList();
+        this.merchant_shopcart_specification = in.readString();
+        this.merchant_shopcart_price = in.readString();
+        this.merchant_shopcart_num = in.readString();
+        this.merchant_shopcart_gid = in.readString();
+        this.merchant_shopcart_time = in.readString();
+        this.merchant_shopcart_uid = in.readString();
+        this.merchant_shopcart_shopid = in.readString();
+        this.merchant_shopcart_mdprice = in.readString();
         this.shop_shopname = in.readString();
         this.shop_shoppic = in.readString();
         this.bbs = in.readString();
