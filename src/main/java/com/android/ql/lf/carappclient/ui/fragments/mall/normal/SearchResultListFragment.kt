@@ -147,15 +147,19 @@ class SearchResultListFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     override fun onRefresh() {
         super.onRefresh()
-        mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH, postParam
-                .addParam("page", currentPage)
-                .addParam("sort", sort)
-                .addParam("keyword", keyword))
+        loadData()
     }
 
     override fun onLoadMore() {
         super.onLoadMore()
-        mPresent.getDataByPost(0x0, searchParamBean.model, searchParamBean.act, postParam.addParam("page", currentPage).addParam("sort", sort))
+        loadData()
+    }
+
+    private fun loadData() {
+        mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH, postParam
+                .addParam("page", currentPage)
+                .addParam("sort", sort)
+                .addParam("keyword", keyword))
     }
 
     override fun getEmptyMessage() = "暂没有商品~~~"

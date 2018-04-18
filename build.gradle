@@ -95,5 +95,6 @@ dependencies {
     implementation files('libs/open_sdk_r5990_lite.jar')
     implementation files('libs/alipaySdk-20170922.jar')
     implementation  'com.amap.api:location:latest.integration'
+    implementation  'com.amap.api:map2d:latest.integration'
 }
 

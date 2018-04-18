@@ -1,30 +1,28 @@
 package com.android.ql.lf.carappclient.ui.fragments.bottom
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.android.ql.lf.carapp.data.RefreshData
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.*
+import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsMallItemAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseRecyclerViewFragment
 import com.android.ql.lf.carappclient.ui.fragments.DetailContentFragment
-import com.android.ql.lf.carappclient.ui.fragments.mall.normal.ExpressInfoFragment
-import com.android.ql.lf.carappclient.ui.fragments.mall.normal.GoodsClassifyFragment
-import com.android.ql.lf.carappclient.ui.fragments.mall.normal.NewGoodsInfoFragment
-import com.android.ql.lf.carappclient.ui.fragments.mall.normal.SearchResultListFragment
+import com.android.ql.lf.carappclient.ui.fragments.mall.normal.*
+import com.android.ql.lf.carappclient.ui.fragments.mall.shoppingcar.ShoppingCarFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.LoginFragment
 import com.android.ql.lf.carappclient.ui.views.DividerGridItemDecoration
 import com.android.ql.lf.carappclient.ui.views.HotView
-import com.android.ql.lf.carappclient.utils.GlideManager
-import com.android.ql.lf.carappclient.utils.RequestParamsHelper
-import com.android.ql.lf.carappclient.utils.RxBus
-import com.android.ql.lf.carappclient.utils.toast
+import com.android.ql.lf.carappclient.utils.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -164,10 +162,10 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                     .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
                     .start()
         }
-//        mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
-//        mFabShoppingCar.doClickWithUserStatusStart(MAIN_MALL_MY_SHOPPING_CAR_FLAG) {
-//            FragmentContainerActivity.from(mContext).setClazz(ShoppingCarFragment::class.java).setTitle("购物车").setNeedNetWorking(true).start()
-//        }
+        mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
+        mFabShoppingCar.doClickWithUserStatusStart(MAIN_MALL_MY_SHOPPING_CAR_FLAG) {
+            FragmentContainerActivity.from(mContext).setClazz(ShoppingCarFragment::class.java).setTitle("购物车").setNeedNetWorking(true).start()
+        }
         bannerView!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
                 GlideManager.loadImage(mContext, (path as BannerImageBean).lunbo_pic, imageView)
@@ -226,28 +224,29 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                             }.start()
                             productContainer!!.arr1.forEachWithIndex { index, item ->
                                 hotViewContainer[index].bindData(item.faddish_title, item.faddish_description, item.faddish_pic) {
-                                    val searchParam = SearchParamBean()
-                                    val params = HashMap<String, String>()
-                                    params.put("type", item.faddish_id!!)
-                                    searchParam.params = params
-                                    FragmentContainerActivity
-                                            .from(mContext)
-                                            .setClazz(SearchResultListFragment::class.java)
-                                            .setHiddenToolBar(true)
-                                            .setNeedNetWorking(true)
-                                            .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
-                                            .start()
+//                                    val searchParam = SearchParamBean()
+//                                    val params = HashMap<String, String>()
+//                                    params.put("type", item.faddish_id!!)
+//                                    searchParam.params = params
+//                                    FragmentContainerActivity
+//                                            .from(mContext)
+//                                            .setClazz(SearchResultListFragment::class.java)
+//                                            .setHiddenToolBar(true)
+//                                            .setNeedNetWorking(true)
+//                                            .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
+//                                            .start()
+                                    startActivity(Intent(mContext, CityMapActivity::class.java))
                                 }
                             }
-//                            if (!TextUtils.isEmpty(productContainer!!.arr3)) {
-//                                if (productContainer!!.arr3!!.toInt() > 0) {
-//                                    mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_full)
-//                                } else {
-//                                    mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
-//                                }
-//                            } else {
-//                                mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
-//                            }
+                            if (!TextUtils.isEmpty(productContainer!!.arr3)) {
+                                if (productContainer!!.arr3!!.toInt() > 0) {
+                                    mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_full)
+                                } else {
+                                    mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
+                                }
+                            } else {
+                                mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
+                            }
                         }
                     }
                 }
@@ -356,9 +355,10 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 //进入商品详情
                 enterGoodsInfo(tempGoodsBean!!)
             }
-//            MAIN_MALL_MY_SHOPPING_CAR_FLAG -> {
-//                mFabShoppingCar.doClickWithUseStatusEnd()
-//            }
+            MAIN_MALL_MY_SHOPPING_CAR_FLAG -> {
+                //进入购物车
+                mFabShoppingCar.doClickWithUseStatusEnd()
+            }
             else -> {
                 if (mArrayList.isEmpty()) {
                     onPostRefresh()

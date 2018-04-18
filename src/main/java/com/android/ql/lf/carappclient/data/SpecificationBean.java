@@ -15,6 +15,15 @@ public class SpecificationBean {
     private ArrayList<String> yprice;
     private ArrayList<String> price;
     private ArrayList<String> status;
+    private ArrayList<String> key;
+
+    public ArrayList<String> getKey() {
+        return key;
+    }
+
+    public void setKey(ArrayList<String> key) {
+        this.key = key;
+    }
 
     public ArrayList<String> getStatus() {
         return status;

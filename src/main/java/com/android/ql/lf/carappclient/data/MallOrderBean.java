@@ -21,6 +21,24 @@ public class MallOrderBean implements Parcelable {
     private String mliuyan;
     private String specification;
     private String mdprice;
+    private String service;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
 
     public String getCid() {
         return cid;
@@ -112,6 +130,9 @@ public class MallOrderBean implements Parcelable {
         this.specification = specification;
     }
 
+    public MallOrderBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -129,10 +150,9 @@ public class MallOrderBean implements Parcelable {
         dest.writeString(this.mliuyan);
         dest.writeString(this.specification);
         dest.writeString(this.mdprice);
+        dest.writeString(this.service);
+        dest.writeString(this.key);
         dest.writeString(this.bbs);
-    }
-
-    public MallOrderBean() {
     }
 
     protected MallOrderBean(Parcel in) {
@@ -146,6 +166,8 @@ public class MallOrderBean implements Parcelable {
         this.mliuyan = in.readString();
         this.specification = in.readString();
         this.mdprice = in.readString();
+        this.service = in.readString();
+        this.key = in.readString();
         this.bbs = in.readString();
     }
 

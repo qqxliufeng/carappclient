@@ -33,6 +33,8 @@ public class MyFlexboxLayout extends LinearLayout {
 
     private String selectName = "";
 
+    private int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+
     public MyFlexboxLayout(Context context) {
         this(context, null);
     }
@@ -73,7 +75,7 @@ public class MyFlexboxLayout extends LinearLayout {
 
     public void addItems(final ArrayList<String> items, final ArrayList<String> status) {
         if (items != null && !items.isEmpty() && status != null && items.size() == status.size()) {
-            int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+
             for (int i = 0; i < items.size(); i++) {
                 final String item = items.get(i);
                 final CheckedTextView tv = new CheckedTextView(flexboxLayout.getContext());
@@ -88,9 +90,16 @@ public class MyFlexboxLayout extends LinearLayout {
                 tv.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (tv.isChecked()) {
-                            tv.setChecked(false);
-                            selectName = "";
+                        if (BottomGoodsParamDialog.INSTALL_SERVICE_FLAG.equals(tvTitle.getText().toString())) {
+                            tv.setChecked(!tv.isChecked());
+                            if (tv.isChecked()) {
+                                if (onItemClickListener != null) {
+                                    selectName = tv.getText().toString();
+                                    onItemClickListener.onItemClick(items.indexOf(item));
+                                }
+                            } else {
+                                selectName = "";
+                            }
                         } else {
                             if (onItemClickListener != null) {
                                 for (int i = 0; i < flexboxLayout.getChildCount(); i++) {

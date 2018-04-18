@@ -28,6 +28,24 @@ public class ShoppingCarItemBean implements Parcelable {
     private String merchant_shopcart_mdprice;
     private String shop_shopname;
     private String shop_shoppic;
+    private String service;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
 
     private String bbs;
 
@@ -184,6 +202,8 @@ public class ShoppingCarItemBean implements Parcelable {
         dest.writeString(this.merchant_shopcart_mdprice);
         dest.writeString(this.shop_shopname);
         dest.writeString(this.shop_shoppic);
+        dest.writeString(this.service);
+        dest.writeString(this.key);
         dest.writeString(this.bbs);
     }
 
@@ -203,6 +223,8 @@ public class ShoppingCarItemBean implements Parcelable {
         this.merchant_shopcart_mdprice = in.readString();
         this.shop_shopname = in.readString();
         this.shop_shoppic = in.readString();
+        this.service = in.readString();
+        this.key = in.readString();
         this.bbs = in.readString();
     }
 

@@ -165,7 +165,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         goodsInfoBean!!.result!!.merchant_product_name,
                         goodsInfoBean!!.result!!.merchant_product_pic[0],
                         goodsInfoBean!!.result!!.merchant_product_specification)
-                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num ->
+                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num,service,key ->
                     if (actionMode == ACTION_MODE.SHOPPING_CAR) {
                         mPresent.getDataByPost(0x2,
                                 RequestParamsHelper.MEMBER_MODEL,
@@ -174,7 +174,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                                         goodsInfoBean!!.result!!.merchant_product_id,
                                         goodsInfoBean!!.arr1!!.shop_id,
                                         num,
-                                        picPath + "," + specification
+                                        picPath + "," + specification,
+                                        service
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
@@ -183,6 +184,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         shoppingCarItem.merchant_shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
                         shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
                         shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
+                        shoppingCarItem.service = service
+                        shoppingCarItem.key = key
                         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
                             shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.shop_pic[0]
                         } else {
@@ -279,13 +282,13 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         mTvGoodsInfoStoreInfoFocusNum.text = goodsInfoBean!!.arr1!!.shop_attention
         mTvGoodsInfoStoreInfoCommentNum.text = goodsInfoBean!!.arr1!!.shop_attention
         footView.findViewById<TextView>(R.id.mTvGoodsInfoEnterStore).setOnClickListener {
-            //            FragmentContainerActivity
-//                    .from(mContext)
-//                    .setNeedNetWorking(true)
-//                    .setHiddenToolBar(true)
-//                    .setClazz(StoreInfoFragment::class.java)
-//                    .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!)))
-//                    .start()
+            FragmentContainerActivity
+                    .from(mContext)
+                    .setNeedNetWorking(true)
+                    .setHiddenToolBar(true)
+                    .setClazz(StoreInfoFragment::class.java)
+                    .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!)))
+                    .start()
         }
     }
 

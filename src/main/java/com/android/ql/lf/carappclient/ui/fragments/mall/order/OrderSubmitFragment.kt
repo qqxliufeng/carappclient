@@ -203,6 +203,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 orderBean.price = it.merchant_shopcart_price
                 orderBean.mdprice = it.merchant_shopcart_mdprice
                 orderBean.bbs = it.bbs
+                orderBean.service = it.service
+                orderBean.key = it.key
                 orderList.add(orderBean)
             }
             val json = Gson().toJson(orderList)
@@ -221,7 +223,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     private fun setAddressInfo(addressBean: AddressBean) {
         addressName.text = addressBean.merchant_address_name
         addressPhone.text = addressBean.merchant_address_phone
-        addressDetail.text = addressBean.merchant_address_detail
+        addressDetail.text = "${addressBean.merchant_address_addres}  ${addressBean.merchant_address_detail}"
         emptyAddressButton.visibility = View.GONE
         selectAddressContainerView.visibility = View.VISIBLE
     }
@@ -266,7 +268,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     if (addressBean != null) {
                         setAddressInfo(addressBean!!)
                     }
-                }else{
+                } else {
                     emptyAddressButton.visibility = View.VISIBLE
                     selectAddressContainerView.visibility = View.GONE
                 }
@@ -299,9 +301,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                         }
                     }
                 } else {
-                    if (payType == SelectPayTypeView.ACCOUNT_PAY) {
-                        toast((check.obj as JSONObject).optString(MSG_FLAG))
-                    }
+                    toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
             }
         }

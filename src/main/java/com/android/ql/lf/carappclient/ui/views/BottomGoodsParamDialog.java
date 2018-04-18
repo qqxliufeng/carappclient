@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 
 public class BottomGoodsParamDialog extends BottomSheetDialog {
 
+    public static final String INSTALL_SERVICE_FLAG = "安装服务";
+
     private TextView tv_price;
     private TextView tv_release_count;
     private TextView tv_goods_name;
@@ -36,6 +39,8 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     private ImageView iv_goods_pic;
 
     private String selectPic;
+    private String service = "0";
+    private String key = "";
 
     private OnGoodsConfirmClickListener onGoodsConfirmClickListener;
 
@@ -78,7 +83,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                         for (MyFlexboxLayout item : flexboxLayouts) {
                             if (item != null) {
                                 String selectName = item.getSelectName();
-                                if (TextUtils.isEmpty(selectName) && !"安装服务".equals(item.getTitle())) {
+                                if (TextUtils.isEmpty(selectName) && !INSTALL_SERVICE_FLAG.equals(item.getTitle())) {
                                     Toast.makeText(getContext(), "请先选择" + item.getTitle(), Toast.LENGTH_SHORT).show();
                                     return;
                                 } else {
@@ -89,7 +94,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                         if (stringBuilder.length() > 0) {
                             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                         }
-                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString());
+                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString(), service, key);
                         dismiss();
                     }
                 } catch (Exception e) {
@@ -132,7 +137,22 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                 MyFlexboxLayout myFlexboxLayout = new MyFlexboxLayout(getContext());
                 flexboxLayouts.add(myFlexboxLayout);
                 myFlexboxLayout.setTitle(item.getName());
-                myFlexboxLayout.addItems(item.getItem(),item.getStatus());
+                if (INSTALL_SERVICE_FLAG.equals(item.getName())) {
+                    ArrayList<String> serviceItem = new ArrayList<>();
+                    for (int i = 0; i < item.getItem().size(); i++) {
+                        serviceItem.add(item.getItem().get(i) + " ￥" + item.getPrice().get(i));
+                    }
+                    myFlexboxLayout.addItems(serviceItem, item.getStatus());
+                } else {
+                    //设置默认key
+                    for (int i = 0; i < item.getStatus().size(); i++) {
+                        if ("1".equals(item.getStatus().get(i))) {
+                            key = item.getKey().get(i);
+                            break;
+                        }
+                    }
+                    myFlexboxLayout.addItems(item.getItem(), item.getStatus());
+                }
                 myFlexboxLayout.setOnItemClickListener(new MyFlexboxLayout.OnItemClickListener() {
                     @Override
                     public void onItemClick(int index) {
@@ -152,6 +172,8 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                                 GlideManager.loadRoundImage(getContext(), path, iv_goods_pic, 15);
                             }
                         }
+                        service = item.getPrice().get(index);
+                        key = item.getKey().get(index);
                     }
                 });
                 llContainer.addView(myFlexboxLayout);
@@ -160,7 +182,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     }
 
     public interface OnGoodsConfirmClickListener {
-        public void onGoodsConfirmClick(String specification, String picPath, String num);
+        public void onGoodsConfirmClick(String specification, String picPath, String num, String service, String key);
     }
 
 }
