@@ -14,8 +14,17 @@ public class CommentForGoodsBean {
     private ArrayList<String> comment_pic;
     private String comment_content;
     private String comment_time;
+    private String comment_f;
     private String member_name;
     private String member_pic;
+
+    public String getComment_f() {
+        return comment_f;
+    }
+
+    public void setComment_f(String comment_f) {
+        this.comment_f = comment_f;
+    }
 
     public String getComment_id() {
         return comment_id;

@@ -220,7 +220,7 @@ public class GoodsBean {
     }
 
     public ArrayList<SpecificationBean> getMerchant_product_specification() {
-        if (merchant_product_service != null) {
+        if (merchant_product_service != null && merchant_product_specification != null) {
             merchant_product_specification.addAll(merchant_product_service);
         }
         return merchant_product_specification;

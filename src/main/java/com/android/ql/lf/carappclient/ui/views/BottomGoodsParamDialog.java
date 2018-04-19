@@ -145,10 +145,12 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                     myFlexboxLayout.addItems(serviceItem, item.getStatus());
                 } else {
                     //设置默认key
-                    for (int i = 0; i < item.getStatus().size(); i++) {
-                        if ("1".equals(item.getStatus().get(i))) {
-                            key = item.getKey().get(i);
-                            break;
+                    if (item.getStatus() != null && item.getKey() != null) {
+                        for (int i = 0; i < item.getStatus().size(); i++) {
+                            if ("1".equals(item.getStatus().get(i))) {
+                                key = item.getKey().get(i);
+                                break;
+                            }
                         }
                     }
                     myFlexboxLayout.addItems(item.getItem(), item.getStatus());
@@ -172,8 +174,12 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                                 GlideManager.loadRoundImage(getContext(), path, iv_goods_pic, 15);
                             }
                         }
-                        service = item.getPrice().get(index);
-                        key = item.getKey().get(index);
+                        if (item.getPrice() != null) {
+                            service = item.getPrice().get(index);
+                        }
+                        if (item.getKey() != null) {
+                            key = item.getKey().get(index);
+                        }
                     }
                 });
                 llContainer.addView(myFlexboxLayout);

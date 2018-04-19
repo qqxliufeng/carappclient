@@ -45,7 +45,7 @@ class LoginFragment : BaseNetWorkingFragment(), IUiListener {
             if (it is SendAuth.Resp) {
                 val param = ApiParams()
                 param.addParam("code", it.code)
-                mPresent.getDataByGet(0x2, "t", "wxlogin", param)
+                mPresent.getDataByGet(0x2, "t", "user_wxlogin", param)
             }
         }
     }

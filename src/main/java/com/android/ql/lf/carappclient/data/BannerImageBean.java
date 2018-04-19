@@ -8,76 +8,76 @@ package com.android.ql.lf.carappclient.data;
 
 public class BannerImageBean {
 
-    private String lunbo_id;
-    private String lunbo_pic;
-    private String lunbo_time;
-    private String lunbo_title;
-    private String lunbo_ktype;
-    private String lunbo_sign;
-    private String lunbo_sort;
-    private String lunbo_content;
+    private String merchant_lunbo_id;
+    private String merchant_lunbo_pic;
+    private String merchant_lunbo_time;
+    private String merchant_lunbo_title;
+    private String merchant_lunbo_ktype;
+    private String merchant_lunbo_sign;
+    private String merchant_lunbo_sort;
+    private String merchant_lunbo_content;
 
-    public String getLunbo_id() {
-        return lunbo_id;
+    public String getMerchant_lunbo_id() {
+        return merchant_lunbo_id;
     }
 
-    public void setLunbo_id(String lunbo_id) {
-        this.lunbo_id = lunbo_id;
+    public void setMerchant_lunbo_id(String merchant_lunbo_id) {
+        this.merchant_lunbo_id = merchant_lunbo_id;
     }
 
-    public String getLunbo_pic() {
-        return lunbo_pic;
+    public String getMerchant_lunbo_pic() {
+        return merchant_lunbo_pic;
     }
 
-    public void setLunbo_pic(String lunbo_pic) {
-        this.lunbo_pic = lunbo_pic;
+    public void setMerchant_lunbo_pic(String merchant_lunbo_pic) {
+        this.merchant_lunbo_pic = merchant_lunbo_pic;
     }
 
-    public String getLunbo_time() {
-        return lunbo_time;
+    public String getMerchant_lunbo_time() {
+        return merchant_lunbo_time;
     }
 
-    public void setLunbo_time(String lunbo_time) {
-        this.lunbo_time = lunbo_time;
+    public void setMerchant_lunbo_time(String merchant_lunbo_time) {
+        this.merchant_lunbo_time = merchant_lunbo_time;
     }
 
-    public String getLunbo_title() {
-        return lunbo_title;
+    public String getMerchant_lunbo_title() {
+        return merchant_lunbo_title;
     }
 
-    public void setLunbo_title(String lunbo_title) {
-        this.lunbo_title = lunbo_title;
+    public void setMerchant_lunbo_title(String merchant_lunbo_title) {
+        this.merchant_lunbo_title = merchant_lunbo_title;
     }
 
-    public String getLunbo_ktype() {
-        return lunbo_ktype;
+    public String getMerchant_lunbo_ktype() {
+        return merchant_lunbo_ktype;
     }
 
-    public void setLunbo_ktype(String lunbo_ktype) {
-        this.lunbo_ktype = lunbo_ktype;
+    public void setMerchant_lunbo_ktype(String merchant_lunbo_ktype) {
+        this.merchant_lunbo_ktype = merchant_lunbo_ktype;
     }
 
-    public String getLunbo_sign() {
-        return lunbo_sign;
+    public String getMerchant_lunbo_sign() {
+        return merchant_lunbo_sign;
     }
 
-    public void setLunbo_sign(String lunbo_sign) {
-        this.lunbo_sign = lunbo_sign;
+    public void setMerchant_lunbo_sign(String merchant_lunbo_sign) {
+        this.merchant_lunbo_sign = merchant_lunbo_sign;
     }
 
-    public String getLunbo_sort() {
-        return lunbo_sort;
+    public String getMerchant_lunbo_sort() {
+        return merchant_lunbo_sort;
     }
 
-    public void setLunbo_sort(String lunbo_sort) {
-        this.lunbo_sort = lunbo_sort;
+    public void setMerchant_lunbo_sort(String merchant_lunbo_sort) {
+        this.merchant_lunbo_sort = merchant_lunbo_sort;
     }
 
-    public String getLunbo_content() {
-        return lunbo_content;
+    public String getMerchant_lunbo_content() {
+        return merchant_lunbo_content;
     }
 
-    public void setLunbo_content(String lunbo_content) {
-        this.lunbo_content = lunbo_content;
+    public void setMerchant_lunbo_content(String merchant_lunbo_content) {
+        this.merchant_lunbo_content = merchant_lunbo_content;
     }
 }

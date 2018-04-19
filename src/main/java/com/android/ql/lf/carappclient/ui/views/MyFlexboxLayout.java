@@ -94,6 +94,10 @@ public class MyFlexboxLayout extends LinearLayout {
                             tv.setChecked(!tv.isChecked());
                             if (tv.isChecked()) {
                                 if (onItemClickListener != null) {
+                                    for (int i = 0; i < flexboxLayout.getChildCount(); i++) {
+                                        CheckedTextView childAt = (CheckedTextView) flexboxLayout.getChildAt(i);
+                                        childAt.setChecked(childAt == tv);
+                                    }
                                     selectName = tv.getText().toString();
                                     onItemClickListener.onItemClick(items.indexOf(item));
                                 }

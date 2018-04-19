@@ -225,7 +225,7 @@ class RequestParamsHelper {
         fun getShopcartParam(page: Int, pageSize: Int = 10) = getWithPageParams(page, pageSize)
 
         val ACT_ADD_SHOPCART = "add_shopcart"
-        fun getAddShopcartParam(gid: String, shopid: String, num: String, specification: String,service:String) =
+        fun getAddShopcartParam(gid: String, shopid: String, num: String, specification: String, service: String) =
                 getWithIdParams()
                         .addParam("gid", gid)
                         .addParam("shopid", shopid)
@@ -284,6 +284,12 @@ class RequestParamsHelper {
 
         val ACT_MY_SPOOR = "my_spoor"
         fun getMySpoorParmas(page: Int) = getWithPageParams(page)
+
+        val ACT_MY_COMMENT = "my_comment"
+        fun getMyCommentParam(f: String, page: Int) = getWithPageParams(page).addParam("f", f)
+
+        val ACT_RECHARGE_PAY = "recharge_pay"
+        fun getRechargePayParam(paytype: String, price: String) = getWithIdParams().addParam("paytype", paytype).addParam("price", price)
 
         /**              member model  end           **/
 

@@ -9,6 +9,7 @@ import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.GoodsBean
 import com.android.ql.lf.carappclient.data.StoreInfoBean
 import com.android.ql.lf.carappclient.data.UserInfo
+import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsMallItemAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseRecyclerViewFragment
@@ -128,6 +129,9 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 //            intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE)
 //            intent.putExtra(EaseConstant.EXTRA_USER_ID, "zw123")
 //            startActivity(intent)
+        }
+        mTvStoreInfoProductLocation.setOnClickListener {
+            startActivity(Intent(mContext, CityMapActivity::class.java))
         }
     }
 

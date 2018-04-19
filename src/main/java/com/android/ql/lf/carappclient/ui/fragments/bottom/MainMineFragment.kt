@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.ql.lf.carapp.data.RefreshData
 import com.android.ql.lf.carapp.ui.fragments.user.SettingFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineFootPrintFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineGoodsCollectionFragment
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.UpdateNotifyBean
 import com.android.ql.lf.carappclient.data.UserInfo
@@ -14,8 +16,7 @@ import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
 import com.android.ql.lf.carappclient.ui.fragments.message.MineMessageListFragment
-import com.android.ql.lf.carappclient.ui.fragments.user.mine.MinePersonalInfoFragment
-import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineWalletFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.mine.*
 import com.android.ql.lf.carappclient.utils.*
 import kotlinx.android.synthetic.main.fragment_main_mine_layout.*
 import org.json.JSONObject
@@ -129,13 +130,13 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
             FragmentContainerActivity.from(mContext).setClazz(MinePersonalInfoFragment::class.java).setTitle("个人中心").setNeedNetWorking(true).start()
         }
         mLlMainMineStoreContainer.doClickWithUserStatusStart(MINE_STORE_COLLECTION_TOKEN) {
-            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "店铺收藏", MineStoreCollectionFragment::class.java)
+            FragmentContainerActivity.startFragmentContainerActivity(mContext, "店铺收藏", MineStoreCollectionFragment::class.java)
         }
         mLlMainMineGoodsContainer.doClickWithUserStatusStart(MINE_GOODS_COLLECTION_TOKEN) {
-            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "商品收藏", MineGoodsCollectionFragment::class.java)
+            FragmentContainerActivity.startFragmentContainerActivity(mContext, "商品收藏", MineGoodsCollectionFragment::class.java)
         }
         mLlMainMineFootPrintContainer.doClickWithUserStatusStart(MINE_FOOT_PRINT_TOKEN) {
-            //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的足迹", MineFootPrintFragment::class.java)
+            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的足迹", MineFootPrintFragment::class.java)
         }
         mTvMainMineSetting.doClickWithUserStatusStart(MINE_SETTING_TOKEN) {
             FragmentContainerActivity.startFragmentContainerActivity(mContext, "设置", SettingFragment::class.java)
@@ -147,10 +148,10 @@ class MainMineFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
 //            FragmentContainerActivity.startFragmentContainerActivity(mContext, "我的帖子", MineWalletFragment::class.java)
 //        }
         mTvMainMineEvaluate.doClickWithUserStatusStart(MINE_EVALUATE_TOKEN) {
-            //            FragmentContainerActivity.from(mContext).setClazz(MimeEvaluateFragment::class.java).setTitle("我的评价").start()
+            FragmentContainerActivity.from(mContext).setClazz(MimeEvaluateFragment::class.java).setTitle("我的评价").start()
         }
         mTvMainMineShopOrder.doClickWithUserStatusStart(MINE_MALL_ORDER_FLAG_TOKEN) {
-            //            FragmentContainerActivity.from(mContext).setTitle("购物订单").setClazz(MineMallOrderFragment::class.java).start()
+            FragmentContainerActivity.from(mContext).setTitle("购物订单").setClazz(MineMallOrderFragment::class.java).start()
         }
         onRefresh()
     }

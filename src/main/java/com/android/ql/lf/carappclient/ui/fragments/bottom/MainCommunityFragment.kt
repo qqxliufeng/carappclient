@@ -115,7 +115,7 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
         }
         mBannerMainCommunity!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-                GlideManager.loadImage(mContext, (path as BannerImageBean).lunbo_pic, imageView)
+                GlideManager.loadImage(mContext, (path as BannerImageBean).merchant_lunbo_pic, imageView)
             }
         })
         mBaseAdapter.addHeaderView(topView)
@@ -156,7 +156,7 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
                                 .setExtraBundle(bundleOf(
                                         Pair(DetailContentFragment.MODEL_NAME_FLAG, RequestParamsHelper.QAA_MODEL),
                                         Pair(DetailContentFragment.ACT_NAME_FLAG, RequestParamsHelper.ACT_COMMUNITY_LUNBO_DETAIL),
-                                        Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", communityContainerBean.arr2[it].lunbo_id)))
+                                        Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", communityContainerBean.arr2[it].merchant_lunbo_id)))
                                 ))
                                 .start()
                     }

@@ -97,6 +97,7 @@
         android:textSize="@dimen/sp_14" />
 
     <com.android.ql.lf.carappclient.ui.views.SelectPayTypeView
+        android:id="@+id/mSPTVAccountMoney"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10" />

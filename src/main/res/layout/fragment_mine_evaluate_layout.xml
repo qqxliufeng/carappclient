@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="#F5F5F5">
 
-        <com.android.ql.lf.carapp.ui.views.SliderLayout
+        <com.android.ql.lf.carappclient.ui.views.SliderLayout
             android:id="@+id/mSlMineEvaluate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

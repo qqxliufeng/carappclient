@@ -211,6 +211,23 @@
             android:textColor="@color/text_dark_color"
             android:textSize="@dimen/sp_14" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="#E8E8E8" />
+
+        <TextView
+            android:id="@+id/mTvStoreInfoProductLocation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="查看位置"
+            android:textColor="@color/text_dark_color"
+            android:textSize="@dimen/sp_14" />
+
         <!--  <View
              android:layout_width="1dp"
              android:layout_height="match_parent"

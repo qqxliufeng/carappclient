@@ -168,7 +168,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
         }
         bannerView!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-                GlideManager.loadImage(mContext, (path as BannerImageBean).lunbo_pic, imageView)
+                GlideManager.loadImage(mContext, (path as BannerImageBean).merchant_lunbo_pic, imageView)
             }
         })
         mBaseAdapter.addHeaderView(topView)
@@ -218,24 +218,23 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                                         .setExtraBundle(bundleOf(
                                                 Pair(DetailContentFragment.MODEL_NAME_FLAG, RequestParamsHelper.QAA_MODEL),
                                                 Pair(DetailContentFragment.ACT_NAME_FLAG, RequestParamsHelper.ACT_COMMUNITY_LUNBO_DETAIL),
-                                                Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", productContainer!!.arr2[it].lunbo_id)))
+                                                Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", productContainer!!.arr2[it].merchant_lunbo_id)))
                                         ))
                                         .start()
                             }.start()
                             productContainer!!.arr1.forEachWithIndex { index, item ->
                                 hotViewContainer[index].bindData(item.faddish_title, item.faddish_description, item.faddish_pic) {
-//                                    val searchParam = SearchParamBean()
-//                                    val params = HashMap<String, String>()
-//                                    params.put("type", item.faddish_id!!)
-//                                    searchParam.params = params
-//                                    FragmentContainerActivity
-//                                            .from(mContext)
-//                                            .setClazz(SearchResultListFragment::class.java)
-//                                            .setHiddenToolBar(true)
-//                                            .setNeedNetWorking(true)
-//                                            .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
-//                                            .start()
-                                    startActivity(Intent(mContext, CityMapActivity::class.java))
+                                    val searchParam = SearchParamBean()
+                                    val params = HashMap<String, String>()
+                                    params.put("type", item.faddish_id!!)
+                                    searchParam.params = params
+                                    FragmentContainerActivity
+                                            .from(mContext)
+                                            .setClazz(SearchResultListFragment::class.java)
+                                            .setHiddenToolBar(true)
+                                            .setNeedNetWorking(true)
+                                            .setExtraBundle(bundleOf(Pair(SearchResultListFragment.SEARCH_PARAM_FLAG, searchParam)))
+                                            .start()
                                 }
                             }
                             if (!TextUtils.isEmpty(productContainer!!.arr3)) {

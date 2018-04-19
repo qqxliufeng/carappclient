@@ -39,7 +39,7 @@ class PayResultFragment : BaseFragment() {
                     mTvPayResultTitle.text = "支付成功"
                     mBtBack.text = "立即返回"
                     RxBus.getDefault().post(WxPaySuccessBean(true))
-                    mTvPayResultTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.img_icon_pitchon_pay_success, 0, 0, 0)
+                    mTvPayResultTitle.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.img_icon_pitchon_pay_success, 0, 0)
                     mBtBack.setOnClickListener {
                         finish()
                     }
@@ -56,7 +56,7 @@ class PayResultFragment : BaseFragment() {
         }
     }
 
-    class WxPaySuccessBean(var payResult:Boolean)
+    class WxPaySuccessBean(var payResult: Boolean)
 
 
 }
