@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +38,8 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     private ImageView iv_goods_pic;
 
     private String selectPic;
-    private String service = "0";
+    private String serviceName = "";
+    private String servicePrice = "0";
     private String key = "";
 
     private OnGoodsConfirmClickListener onGoodsConfirmClickListener;
@@ -94,7 +94,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                         if (stringBuilder.length() > 0) {
                             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                         }
-                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString(), service, key);
+                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString(), serviceName,servicePrice, key);
                         dismiss();
                     }
                 } catch (Exception e) {
@@ -174,8 +174,9 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                                 GlideManager.loadRoundImage(getContext(), path, iv_goods_pic, 15);
                             }
                         }
-                        if (item.getPrice() != null) {
-                            service = item.getPrice().get(index);
+                        if (item.getPrice() != null && item.getItem() != null) {
+                            serviceName = item.getItem().get(index);
+                            servicePrice = item.getPrice().get(index);
                         }
                         if (item.getKey() != null) {
                             key = item.getKey().get(index);
@@ -188,7 +189,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     }
 
     public interface OnGoodsConfirmClickListener {
-        public void onGoodsConfirmClick(String specification, String picPath, String num, String service, String key);
+        public void onGoodsConfirmClick(String specification, String picPath, String num, String serviceName,String servicePrice, String key);
     }
 
 }

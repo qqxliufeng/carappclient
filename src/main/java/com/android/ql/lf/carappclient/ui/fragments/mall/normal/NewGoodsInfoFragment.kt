@@ -165,7 +165,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         goodsInfoBean!!.result!!.merchant_product_name,
                         goodsInfoBean!!.result!!.merchant_product_pic[0],
                         goodsInfoBean!!.result!!.merchant_product_specification)
-                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num,service,key ->
+                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num, serviceName, servicePrice, key ->
                     if (actionMode == ACTION_MODE.SHOPPING_CAR) {
                         mPresent.getDataByPost(0x2,
                                 RequestParamsHelper.MEMBER_MODEL,
@@ -174,8 +174,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                                         goodsInfoBean!!.result!!.merchant_product_id,
                                         goodsInfoBean!!.arr1!!.shop_id,
                                         num,
-                                        picPath + "," + specification,
-                                        service
+                                        "$picPath,$specification,$serviceName",
+                                        servicePrice
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
@@ -184,7 +184,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         shoppingCarItem.merchant_shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
                         shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
                         shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
-                        shoppingCarItem.service = service
+                        shoppingCarItem.service = servicePrice
                         shoppingCarItem.key = key
                         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
                             shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.shop_pic[0]
@@ -198,7 +198,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         } else {
                             shoppingCarItem.merchant_shopcart_pic = arrayListOf(picPath)
                         }
-                        shoppingCarItem.merchant_shopcart_specification = specification
+                        shoppingCarItem.merchant_shopcart_specification = specification + serviceName
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(OrderSubmitFragment.GOODS_ID_FLAG, arrayListOf(shoppingCarItem))
                         FragmentContainerActivity

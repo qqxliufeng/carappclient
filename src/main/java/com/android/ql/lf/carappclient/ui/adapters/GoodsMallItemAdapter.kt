@@ -19,10 +19,10 @@ class GoodsMallItemAdapter(layoutId: Int, list: ArrayList<GoodsBean>) : BaseQuic
         helper!!.setText(R.id.mTvGoodsInfoItemName, item.merchant_product_name)
         helper.setText(R.id.mTvGoodsInfoItemPrice, "￥${item.merchant_product_price}")
         val imageCollect = helper.getView<ImageView>(R.id.mIvGoodsInfoItemCollection)
-        if (item.merchant_product_collect == "0") { //0 未收藏
-            imageCollect.setImageResource(R.drawable.img_icon_goods_unselect)
-        } else {
+        if (item.merchant_product_collect == "1") { //1 收藏
             imageCollect.setImageResource(R.drawable.img_icon_goods_select)
+        } else {
+            imageCollect.setImageResource(R.drawable.img_icon_goods_unselect)
         }
         helper.addOnClickListener(R.id.mIvGoodsInfoItemCollection)
     }

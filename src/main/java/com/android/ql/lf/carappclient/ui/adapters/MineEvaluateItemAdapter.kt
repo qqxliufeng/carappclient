@@ -13,12 +13,12 @@ import com.chad.library.adapter.base.BaseViewHolder
  */
 class MineEvaluateItemAdapter(resId: Int, list: ArrayList<CommentForGoodsBean>) : BaseQuickAdapter<CommentForGoodsBean, BaseViewHolder>(resId, list) {
     override fun convert(helper: BaseViewHolder?, item: CommentForGoodsBean?) {
-        GlideManager.loadCircleImage(mContext, item!!.member_pic, helper!!.getView(R.id.mIvGoodsInfoCommentItemFace))
-        helper.setText(R.id.mTvGoodsInfoCommentItemName, item.member_name)
-        helper.setText(R.id.mTvGoodsInfoCommentItemContent, item.comment_content)
+        GlideManager.loadCircleImage(mContext, item!!.users_pic, helper!!.getView(R.id.mIvGoodsInfoCommentItemFace))
+        helper.setText(R.id.mTvGoodsInfoCommentItemName, item.users_name)
+        helper.setText(R.id.mTvGoodsInfoCommentItemContent, item.merchant_comment_content)
         val ratingBar = helper.getView<RatingBar>(R.id.mRbGoodsInfoCommentItemLevel)
-        ratingBar.rating = item.comment_f.toFloat()
+        ratingBar.rating = item.merchant_comment_f.toFloat()
         val picContainer = helper.getView<ImageContainerLinearLayout>(R.id.mLlGoodsInfoCommentItemPicContainer)
-        picContainer.setImages(item.comment_pic)
+        picContainer.setImages(item.merchant_comment_pic)
     }
 }

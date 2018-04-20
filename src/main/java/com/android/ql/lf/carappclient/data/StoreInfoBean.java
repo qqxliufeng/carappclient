@@ -19,6 +19,19 @@ public class StoreInfoBean implements Parcelable {
     private String shop_attention;
     private String shop_uid;
     private String shop_num;
+    private String shop_coorp;
+
+    public String[] getShop_coorp() {
+        if (shop_coorp != null && shop_coorp.contains(",")) {
+            return shop_coorp.split(",");
+        } else {
+            return null;
+        }
+    }
+
+    public void setShop_coorp(String shop_coorp) {
+        this.shop_coorp = shop_coorp;
+    }
 
     public String getShop_id() {
         return shop_id;
@@ -68,6 +81,9 @@ public class StoreInfoBean implements Parcelable {
         this.shop_num = shop_num;
     }
 
+    public StoreInfoBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -81,9 +97,7 @@ public class StoreInfoBean implements Parcelable {
         dest.writeString(this.shop_attention);
         dest.writeString(this.shop_uid);
         dest.writeString(this.shop_num);
-    }
-
-    public StoreInfoBean() {
+        dest.writeString(this.shop_coorp);
     }
 
     protected StoreInfoBean(Parcel in) {
@@ -93,6 +107,7 @@ public class StoreInfoBean implements Parcelable {
         this.shop_attention = in.readString();
         this.shop_uid = in.readString();
         this.shop_num = in.readString();
+        this.shop_coorp = in.readString();
     }
 
     public static final Creator<StoreInfoBean> CREATOR = new Creator<StoreInfoBean>() {

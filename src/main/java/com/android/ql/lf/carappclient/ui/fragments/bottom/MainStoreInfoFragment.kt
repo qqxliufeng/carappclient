@@ -4,15 +4,18 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.amap.api.maps2d.model.LatLng
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.GoodsBean
 import com.android.ql.lf.carappclient.data.StoreInfoBean
 import com.android.ql.lf.carappclient.data.UserInfo
+import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsMallItemAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseRecyclerViewFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.normal.NewGoodsInfoFragment
+import com.android.ql.lf.carappclient.ui.fragments.mall.normal.StoreClassifyFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.LoginFragment
 import com.android.ql.lf.carappclient.ui.views.DividerGridItemDecoration
 import com.android.ql.lf.carappclient.utils.*
@@ -48,7 +51,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         if (arguments != null) {
             arguments.classLoader = this@MainStoreInfoFragment.javaClass.classLoader
             arguments.getParcelable<StoreInfoBean>(STORE_ID_FLAG)
-        }else{
+        } else {
             null
         }
     }
@@ -74,16 +77,23 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
             mPresent.getDataByPost(0x1, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_CONCERM_SHOP, RequestParamsHelper.getConcermShopParams(storeInfoBean!!.shop_id))
         }
         mTvStoreInfoTopProductClassify.setOnClickListener {
-//            FragmentContainerActivity
-//                    .from(mContext)
-//                    .setNeedNetWorking(true)
-//                    .setTitle("产品分类")
-//                    .setExtraBundle(bundleOf(Pair(StoreClassifyFragment.SID_FLAG, storeInfoBean.wholesale_shop_id)))
-//                    .setClazz(StoreClassifyFragment::class.java)
-//                    .start()
+            if (storeInfoBean != null) {
+                FragmentContainerActivity
+                        .from(mContext)
+                        .setNeedNetWorking(true)
+                        .setTitle("产品分类")
+                        .setExtraBundle(bundleOf(Pair(StoreClassifyFragment.SID_FLAG, storeInfoBean!!.shop_id)))
+                        .setClazz(StoreClassifyFragment::class.java)
+                        .start()
+            }
         }
         mTvStoreInfoProductClassify.setOnClickListener {
             mTvStoreInfoTopProductClassify.performClick()
+        }
+        mTvStoreInfoProductLocation.setOnClickListener {
+            if (storeInfoBean != null) {
+                CityMapActivity.startMapActivity(mContext, storeInfoBean!!.shop_name, LatLng(storeInfoBean!!.shop_coorp[0].toDouble(), storeInfoBean!!.shop_coorp[1].toDouble()))
+            }
         }
         mEtSearchContent.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -129,11 +139,13 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     override fun onRefresh() {
         super.onRefresh()
-//        mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH,
-//                RequestParamsHelper.getWithPageParams(currentPage)
-//                        .addParam("sid", storeInfoBean!!.wholesale_shop_id)
-//                        .addParam("sort", sort)
-//                        .addParam("keyword", keyword))
+        if (storeInfoBean != null) {
+            mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH,
+                    RequestParamsHelper.getWithPageParams(currentPage)
+                            .addParam("sid", storeInfoBean!!.shop_id)
+                            .addParam("sort", sort)
+                            .addParam("keyword", keyword))
+        }
     }
 
     override fun onLoadMore() {

@@ -94,13 +94,13 @@ class MineCashFragment : BaseNetWorkingFragment(), SwipeRefreshLayout.OnRefreshL
             val check = checkResultCode(result)
             if (check != null && check.code == SUCCESS_CODE) {
                 val resultJson = (check.obj as JSONObject).optJSONObject("result")
-                val allMoney = resultJson.optString("member_withdrawal")
+                val allMoney = resultJson.optString("users_withdrawal")
                 this.allMoney = allMoney.toDouble()
                 mTvMineCashAllMoney.text = allMoney
                 mEtMineCashMoney.setText("")
                 mBtMineCashMoneySubmit.isEnabled = !TextUtils.isEmpty(allMoney) && allMoney.toDouble() > 0.0
                 mEtMineCashMoney.isEnabled = mBtMineCashMoneySubmit.isEnabled
-                mTvMineCashAlreadyCashMoney.text = resultJson.optString("member_already_price")
+                mTvMineCashAlreadyCashMoney.text = resultJson.optString("users_already_price")
             }
         } else if (requestID == 0x1) {
             val check = checkResultCode(result)

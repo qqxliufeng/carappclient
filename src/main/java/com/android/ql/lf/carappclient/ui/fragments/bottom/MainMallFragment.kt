@@ -17,6 +17,7 @@ import com.android.ql.lf.carappclient.ui.activities.MainActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsMallItemAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseRecyclerViewFragment
 import com.android.ql.lf.carappclient.ui.fragments.DetailContentFragment
+import com.android.ql.lf.carappclient.ui.fragments.WebViewContentFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.normal.*
 import com.android.ql.lf.carappclient.ui.fragments.mall.shoppingcar.ShoppingCarFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.LoginFragment
@@ -27,6 +28,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.gson.Gson
+import com.sunfusheng.marqueeview.MarqueeView
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
@@ -59,6 +61,10 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
     private var productContainer: ProductContainerBean? = null
 
     private val topView by lazy { View.inflate(mContext, R.layout.layout_main_mall_top_header_layout, null) }
+
+    private val marqueeView by lazy {
+        topView.findViewById<MarqueeView>(R.id.mMvMainMallTopContainer)
+    }
 
     private val hotViewContainer by lazy {
         arrayListOf<HotView>(
@@ -246,6 +252,19 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
                             } else {
                                 mFabShoppingCar.setImageResource(R.drawable.img_icon_shoppingcart_white_null)
                             }
+                            val ptggs = arrayListOf<String>()
+                            productContainer!!.arr4.forEach {
+                                ptggs.add(it.ptgg_title!!)
+                            }
+                            marqueeView.startWithList(ptggs)
+                            marqueeView.setOnItemClickListener { position, textView ->
+                                FragmentContainerActivity.from(mContext)
+                                        .setNeedNetWorking(true)
+                                        .setTitle(productContainer!!.arr4[position].ptgg_title)
+                                        .setExtraBundle(bundleOf(Pair(WebViewContentFragment.PATH_FLAG, productContainer!!.arr4[position].ptgg_content!!)))
+                                        .setClazz(WebViewContentFragment::class.java)
+                                        .start()
+                            }
                         }
                     }
                 }
@@ -378,6 +397,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
         lateinit var arr: ArrayList<ClassifyBean>
         lateinit var arr1: ArrayList<HotGoodsBean>
         lateinit var arr2: ArrayList<BannerImageBean>
+        lateinit var arr4: ArrayList<PtggBean>
         var arr3: String? = null
     }
 

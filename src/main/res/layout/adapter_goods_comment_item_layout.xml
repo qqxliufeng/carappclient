@@ -60,7 +60,7 @@
             android:textSize="@dimen/sp_14"
             tools:text="this is content " />
 
-        <com.android.ql.lf.carapp.ui.views.ImageContainerLinearLayout
+        <com.android.ql.lf.carappclient.ui.views.ImageContainerLinearLayout
             android:id="@+id/mLlGoodsInfoCommentItemPicContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

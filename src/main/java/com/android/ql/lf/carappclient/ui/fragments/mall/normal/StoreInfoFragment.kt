@@ -1,10 +1,11 @@
 package com.android.ql.lf.carappclient.ui.fragments.mall.normal
 
-import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.amap.api.maps2d.model.LatLng
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.GoodsBean
 import com.android.ql.lf.carappclient.data.StoreInfoBean
@@ -19,6 +20,7 @@ import com.android.ql.lf.carappclient.ui.views.DividerGridItemDecoration
 import com.android.ql.lf.carappclient.utils.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_normal_store_info_layout.*
 import org.jetbrains.anko.bundleOf
 import org.json.JSONObject
@@ -48,6 +50,9 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         arguments.getParcelable<StoreInfoBean>(STORE_ID_FLAG)
     }
 
+//    private var storeInfoBean: StoreInfoBean? = null
+
+
     override fun createAdapter(): BaseQuickAdapter<GoodsBean, BaseViewHolder> = GoodsMallItemAdapter(R.layout.adapter_main_mall_item_layout, mArrayList)
 
     override fun getLayoutId() = R.layout.fragment_normal_store_info_layout
@@ -59,26 +64,24 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         mAblStoreInfoContainer.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             mTlStoreInfoContainer.alpha = 1 - Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
         }
+        setStoreInfo()
         mIvSearchGoodsBack.setOnClickListener {
             finish()
         }
-        if (storeInfoBean.shop_pic != null && !storeInfoBean.shop_pic.isEmpty()) {
-            GlideManager.loadImage(mContext, storeInfoBean.shop_pic[0], mIvStoreInfoPic)
-        }
-        mTvStoreInfoName.text = storeInfoBean.shop_name
-        mTvStoreInfoFansCount.text = storeInfoBean.shop_attention
         mTvStoreInfoFocus.setOnClickListener {
             mTvStoreInfoFocus.isEnabled = false
             mPresent.getDataByPost(0x1, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_CONCERM_SHOP, RequestParamsHelper.getConcermShopParams(storeInfoBean!!.shop_id))
         }
         mTvStoreInfoTopProductClassify.setOnClickListener {
-            FragmentContainerActivity
-                    .from(mContext)
-                    .setNeedNetWorking(true)
-                    .setTitle("产品分类")
-                    .setExtraBundle(bundleOf(Pair(StoreClassifyFragment.SID_FLAG, storeInfoBean.shop_id)))
-                    .setClazz(StoreClassifyFragment::class.java)
-                    .start()
+            if (storeInfoBean != null) {
+                FragmentContainerActivity
+                        .from(mContext)
+                        .setNeedNetWorking(true)
+                        .setTitle("产品分类")
+                        .setExtraBundle(bundleOf(Pair(StoreClassifyFragment.SID_FLAG, storeInfoBean!!.shop_id)))
+                        .setClazz(StoreClassifyFragment::class.java)
+                        .start()
+            }
         }
         mTvStoreInfoProductClassify.setOnClickListener {
             mTvStoreInfoTopProductClassify.performClick()
@@ -131,7 +134,11 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 //            startActivity(intent)
         }
         mTvStoreInfoProductLocation.setOnClickListener {
-            startActivity(Intent(mContext, CityMapActivity::class.java))
+            if (storeInfoBean != null && storeInfoBean.shop_coorp != null) {
+                CityMapActivity.startMapActivity(mContext,
+                        storeInfoBean!!.shop_name,
+                        LatLng(storeInfoBean!!.shop_coorp[0].toDouble(), storeInfoBean!!.shop_coorp[1].toDouble()))
+            }
         }
     }
 
@@ -178,8 +185,12 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 processList(result as String, GoodsBean::class.java)
                 val check = checkResultCode(result)
                 if (check != null && check.code == SUCCESS_CODE) {
-                    collectStatus = (check.obj as JSONObject).optInt("arr")
-                    setFocusText()
+                    if (currentPage == 0) {
+                        collectStatus = (check.obj as JSONObject).optInt("arr")
+                        setFocusText()
+//                        storeInfoBean = Gson().fromJson((check.obj as JSONObject).optJSONObject("arr1").toString(), StoreInfoBean::class.java)
+//                        setStoreInfo()
+                    }
                 }
             }
             0x1 -> {
@@ -205,6 +216,14 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 }
             }
         }
+    }
+
+    private fun setStoreInfo() {
+        if (storeInfoBean!!.shop_pic != null && !storeInfoBean!!.shop_pic.isEmpty()) {
+            GlideManager.loadImage(mContext, storeInfoBean!!.shop_pic[0], mIvStoreInfoPic)
+        }
+        mTvStoreInfoName.text = storeInfoBean!!.shop_name
+        mTvStoreInfoFansCount.text = storeInfoBean!!.shop_attention
     }
 
     private fun refreshCollectionStatus() {

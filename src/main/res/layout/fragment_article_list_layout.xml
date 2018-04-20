@@ -15,6 +15,6 @@
         android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
         android:src="@drawable/img_edit_icon"
-        app:layout_behavior="com.android.ql.lf.carapp.ui.views.FloatingBarBehavior" />
+        app:layout_behavior="com.android.ql.lf.carappclient.ui.views.FloatingBarBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -20,7 +20,6 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import kotlinx.android.synthetic.main.fragment_mine_personal_info_layout.*
 import okhttp3.MultipartBody
-import org.jetbrains.anko.support.v4.toast
 import org.json.JSONObject
 import java.io.File
 
