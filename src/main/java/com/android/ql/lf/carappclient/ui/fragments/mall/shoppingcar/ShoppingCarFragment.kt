@@ -169,7 +169,7 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 mBaseAdapter.notifyItemChanged(position)
                 mTvShoppingCarAllSelectMoney.text = "￥${DecimalFormat("0.00").format(shoppingCarPresent.calculateAllPrice())}"
                 mCalculate.isEnabled = !shoppingCarPresent.isNoneSelected()
-                mCivShoppingCarAllSelect.isChecked = mCalculate.isEnabled
+                mCivShoppingCarAllSelect.isChecked = shoppingCarPresent.isAllItemsSelected()
             }
             R.id.mIvShoppingCarDeleteNum -> {
                 if (currentItem.merchant_shopcart_num.toInt() <= 1) {

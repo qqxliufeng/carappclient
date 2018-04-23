@@ -15,6 +15,7 @@ import com.android.ql.lf.carappclient.present.MallOrderPresent
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.MainMallOrderItemAdapter
 import com.android.ql.lf.carappclient.ui.fragments.AbstractLazyLoadFragment
+import com.android.ql.lf.carappclient.ui.fragments.mall.normal.ExpressInfoFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.normal.RefundFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderCommentSubmitFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderInfoFragment
@@ -251,6 +252,15 @@ class MainMallOrderItemFragment : AbstractLazyLoadFragment<MallSaleOrderBean>() 
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
                                     RequestParamsHelper.getEditOrderStatusParam(currentOrder!!.merchant_order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
                         }
+                    } else if (view.id == R.id.mBtOrderListItemAction1) {
+                        //查看物流
+                        FragmentContainerActivity
+                                .from(mContext)
+                                .setTitle("查看物流")
+                                .setExtraBundle(bundleOf(Pair(ExpressInfoFragment.ORDER_BEAN_FLAG, currentOrder!!)))
+                                .setNeedNetWorking(true)
+                                .setClazz(ExpressInfoFragment::class.java)
+                                .start()
                     }
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index -> {

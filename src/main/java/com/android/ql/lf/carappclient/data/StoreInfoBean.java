@@ -20,6 +20,15 @@ public class StoreInfoBean implements Parcelable {
     private String shop_uid;
     private String shop_num;
     private String shop_coorp;
+    private String shop_mpic;
+
+    public String getShop_mpic() {
+        return shop_mpic;
+    }
+
+    public void setShop_mpic(String shop_mpic) {
+        this.shop_mpic = shop_mpic;
+    }
 
     public String[] getShop_coorp() {
         if (shop_coorp != null && shop_coorp.contains(",")) {
@@ -98,6 +107,7 @@ public class StoreInfoBean implements Parcelable {
         dest.writeString(this.shop_uid);
         dest.writeString(this.shop_num);
         dest.writeString(this.shop_coorp);
+        dest.writeString(this.shop_mpic);
     }
 
     protected StoreInfoBean(Parcel in) {
@@ -108,6 +118,7 @@ public class StoreInfoBean implements Parcelable {
         this.shop_uid = in.readString();
         this.shop_num = in.readString();
         this.shop_coorp = in.readString();
+        this.shop_mpic = in.readString();
     }
 
     public static final Creator<StoreInfoBean> CREATOR = new Creator<StoreInfoBean>() {

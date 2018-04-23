@@ -47,10 +47,12 @@ class MainMallOrderItemAdapter(layoutId: Int, list: ArrayList<MallSaleOrderBean>
                     helper.addOnClickListener(R.id.mBtOrderListItemAction1)
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_RECEIVER.index -> {
-                    bt_action1.visibility = View.GONE
+                    bt_action1.visibility = View.VISIBLE
                     bt_action2.visibility = View.VISIBLE
+                    bt_action1.text = "查看物流"
                     bt_action2.text = "确认收货"
                     helper.setText(R.id.mTvShoppingCarItemEditMode,MallOrderPresent.MallOrderStatus.WAITING_FOR_RECEIVER.description)
+                    helper.addOnClickListener(R.id.mBtOrderListItemAction1)
                     helper.addOnClickListener(R.id.mBtOrderListItemAction2)
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index -> {

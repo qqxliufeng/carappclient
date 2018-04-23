@@ -291,6 +291,15 @@ class RequestParamsHelper {
         val ACT_RECHARGE_PAY = "recharge_pay"
         fun getRechargePayParam(paytype: String, price: String) = getWithIdParams().addParam("paytype", paytype).addParam("price", price)
 
+        //快递查询
+        val ACT_GETLOGISTICS = "getlogistics"
+
+        fun getGetlogisticsParam(num: String): ApiParams {
+            val param = getWithIdParams()
+            param.addParam("nu", num)
+            return param
+        }
+
         /**              member model  end           **/
 
         /**              product model start         **/
@@ -300,6 +309,8 @@ class RequestParamsHelper {
         val ACT_PRODUCT = "product"
         fun getProductParams(page: Int) = getWithPageParams(page)
 
+        val ACT_MY_SHOP = "my_shop"
+        fun getMyShopParam(page: Int, sort: String) = getWithPageParams(page).addParam("sort", sort)
 
         val ACT_COLLECT_PRODUCT = "collect_product"
         fun getCollectProductParam(pid: String) = getWithIdParams().addParam("pid", pid)

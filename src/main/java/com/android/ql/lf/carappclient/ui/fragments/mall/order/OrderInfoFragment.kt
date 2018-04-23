@@ -11,10 +11,12 @@ import android.view.View
 import com.android.ql.lf.carapp.data.RefreshData
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.MallOrderInfoBean
+import com.android.ql.lf.carappclient.data.MallSaleOrderBean
 import com.android.ql.lf.carappclient.data.PayResult
 import com.android.ql.lf.carappclient.present.MallOrderPresent
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
+import com.android.ql.lf.carappclient.ui.fragments.mall.normal.ExpressInfoFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.normal.RefundFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.mine.MainMallOrderItemFragment.Companion.REFRESH_ORDER_FLAG
 import com.android.ql.lf.carappclient.ui.views.SelectPayTypeView
@@ -217,8 +219,9 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_RECEIVER.index -> {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_reveicer)
-                    mBtOrderInfoAction1.visibility = View.GONE
+                    mBtOrderInfoAction1.visibility = View.VISIBLE
                     mBtOrderInfoAction2.visibility = View.VISIBLE
+                    mBtOrderInfoAction1.text = "查看物流"
                     mBtOrderInfoAction2.text = "确认收货"
                     mBtOrderInfoAction2.setOnClickListener {
                         //确定收货
@@ -228,6 +231,14 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                                     RequestParamsHelper.ACT_EDIT_ORDER_STATUS,
                                     RequestParamsHelper.getEditOrderStatusParam(mallOrderInfoContainer!!.merchant_order_id, MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index))
                         }
+                    }
+                    mBtOrderInfoAction1.setOnClickListener {
+                        val mallSalerOrderBean = MallSaleOrderBean()
+                        mallSalerOrderBean.merchant_order_sn = mallOrderInfoContainer!!.merchant_order_sn
+                        mallSalerOrderBean.merchant_product_name = mallOrderInfoContainer!!.merchant_product_name
+                        mallSalerOrderBean.merchant_product_pic = mallOrderInfoContainer!!.merchant_product_pic
+                        mallSalerOrderBean.merchant_order_tn = mallOrderInfoContainer!!.merchant_order_tn
+                        FragmentContainerActivity.from(mContext).setTitle("查看物流").setExtraBundle(bundleOf(Pair(ExpressInfoFragment.ORDER_BEAN_FLAG, mallSalerOrderBean))).setNeedNetWorking(true).setClazz(ExpressInfoFragment::class.java).start()
                     }
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index -> {
