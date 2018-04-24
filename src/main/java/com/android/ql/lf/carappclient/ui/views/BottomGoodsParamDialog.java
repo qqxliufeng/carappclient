@@ -40,6 +40,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     private String selectPic;
     private String serviceName = "";
     private String servicePrice = "0";
+    private String mPrice = "0";
     private String key = "";
 
     private OnGoodsConfirmClickListener onGoodsConfirmClickListener;
@@ -94,7 +95,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                         if (stringBuilder.length() > 0) {
                             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                         }
-                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString(), serviceName,servicePrice, key);
+                        onGoodsConfirmClickListener.onGoodsConfirmClick(stringBuilder.toString(), selectPic, tv_goods_num.getText().toString(), serviceName, servicePrice, mPrice,key);
                         dismiss();
                     }
                 } catch (Exception e) {
@@ -128,6 +129,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
         tv_release_count.setText(releaseCount);
         tv_goods_name.setText(goodsName);
         selectPic = defaultPicPath;
+        this.mPrice = price.replace("￥", "");
         GlideManager.loadRoundImage(getContext(), defaultPicPath, iv_goods_pic, 15);
         if (items != null && !items.isEmpty()) {
             mSpecificationList = items;
@@ -158,20 +160,23 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
                 myFlexboxLayout.setOnItemClickListener(new MyFlexboxLayout.OnItemClickListener() {
                     @Override
                     public void onItemClick(int index) {
-                        ArrayList<String> pic = item.getPic();
-                        ArrayList<String> price1 = item.getPrice();
-                        if (price1 != null && !price1.isEmpty() && price1.size() > index) {
-                            tv_price.setText(String.format("￥%s", price1.get(index)));
-                        }
-                        ArrayList<String> repertory = item.getRepertory();
-                        if (repertory != null && !repertory.isEmpty() && repertory.size() > index) {
-                            tv_release_count.setText(String.format("库存%s件", repertory.get(index)));
-                        }
-                        if (pic != null && !pic.isEmpty() && pic.size() > index) {
-                            String path = pic.get(index);
-                            if (!TextUtils.isEmpty(path)) {
-                                selectPic = path;
-                                GlideManager.loadRoundImage(getContext(), path, iv_goods_pic, 15);
+                        if (!INSTALL_SERVICE_FLAG.equals(item.getName())) {
+                            ArrayList<String> pic = item.getPic();
+                            ArrayList<String> price1 = item.getPrice();
+                            if (price1 != null && !price1.isEmpty() && price1.size() > index) {
+                                tv_price.setText(String.format("￥%s", price1.get(index)));
+                                mPrice = price1.get(index);
+                            }
+                            ArrayList<String> repertory = item.getRepertory();
+                            if (repertory != null && !repertory.isEmpty() && repertory.size() > index) {
+                                tv_release_count.setText(String.format("库存%s件", repertory.get(index)));
+                            }
+                            if (pic != null && !pic.isEmpty() && pic.size() > index) {
+                                String path = pic.get(index);
+                                if (!TextUtils.isEmpty(path)) {
+                                    selectPic = path;
+                                    GlideManager.loadRoundImage(getContext(), path, iv_goods_pic, 15);
+                                }
                             }
                         }
                         if (item.getPrice() != null && item.getItem() != null) {
@@ -189,7 +194,7 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
     }
 
     public interface OnGoodsConfirmClickListener {
-        public void onGoodsConfirmClick(String specification, String picPath, String num, String serviceName,String servicePrice, String key);
+        public void onGoodsConfirmClick(String specification, String picPath, String num, String serviceName, String servicePrice,String price, String key);
     }
 
 }

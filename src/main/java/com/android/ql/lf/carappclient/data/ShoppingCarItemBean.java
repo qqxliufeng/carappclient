@@ -28,23 +28,23 @@ public class ShoppingCarItemBean implements Parcelable {
     private String merchant_shopcart_mdprice;
     private String shop_shopname;
     private String shop_shoppic;
-    private String service;
-    private String key;
+    private String merchant_shopcart_service;
+    private String merchant_shopcart_key;
 
-    public String getKey() {
-        return key;
+    public String getMerchant_shopcart_service() {
+        return merchant_shopcart_service;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setMerchant_shopcart_service(String merchant_shopcart_service) {
+        this.merchant_shopcart_service = merchant_shopcart_service;
     }
 
-    public String getService() {
-        return service;
+    public String getMerchant_shopcart_key() {
+        return merchant_shopcart_key;
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public void setMerchant_shopcart_key(String merchant_shopcart_key) {
+        this.merchant_shopcart_key = merchant_shopcart_key;
     }
 
     private String bbs;
@@ -202,8 +202,8 @@ public class ShoppingCarItemBean implements Parcelable {
         dest.writeString(this.merchant_shopcart_mdprice);
         dest.writeString(this.shop_shopname);
         dest.writeString(this.shop_shoppic);
-        dest.writeString(this.service);
-        dest.writeString(this.key);
+        dest.writeString(this.merchant_shopcart_service);
+        dest.writeString(this.merchant_shopcart_key);
         dest.writeString(this.bbs);
     }
 
@@ -223,8 +223,8 @@ public class ShoppingCarItemBean implements Parcelable {
         this.merchant_shopcart_mdprice = in.readString();
         this.shop_shopname = in.readString();
         this.shop_shoppic = in.readString();
-        this.service = in.readString();
-        this.key = in.readString();
+        this.merchant_shopcart_service = in.readString();
+        this.merchant_shopcart_key = in.readString();
         this.bbs = in.readString();
     }
 

@@ -1,9 +1,17 @@
 package com.android.ql.lf.carappclient.action;
 
+import android.util.Log;
+
 import com.android.ql.lf.carapp.action.IViewUserAction;
 import com.android.ql.lf.carappclient.application.CarAppClientApplication;
 import com.android.ql.lf.carappclient.data.UserInfo;
+import com.android.ql.lf.carappclient.utils.Constants;
 import com.android.ql.lf.carappclient.utils.PreferenceUtils;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseUser;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -34,15 +42,51 @@ public class ViewUserAction implements IViewUserAction {
             UserInfo.getInstance().setMemberAlias(result.optString("users_alias"));
             UserInfo.getInstance().setMemberIswxAuth(result.optString("users_iswxauth"));
 
+            UserInfo.getInstance().setMemberHxname(result.optString("users_hxname"));
+            UserInfo.getInstance().setMemberHxpw(result.optString("users_hxpw"));
+
             UserInfo.getInstance().setGoodsCollectionNum(result.optString("users_product_collect"));
             UserInfo.getInstance().setStoreCollectionNum(result.optString("users_product_concerm"));
             UserInfo.getInstance().setFootsCollectionNum(result.optString("users_product_spoor"));
+
+            //登录环信
+            loginHX();
 
             PreferenceUtils.setPrefString(CarAppClientApplication.application, UserInfo.USER_ID_FLAG, UserInfo.getInstance().getMemberId());
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private void loginHX() {
+        EMClient.getInstance().login(UserInfo.getInstance().getMemberHxname(), UserInfo.getInstance().getMemberHxpw(), new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                EaseUI.getInstance().setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
+                    @Override
+                    public EaseUser getUser(String username) {
+                        if (UserInfo.getInstance().getMemberHxname().equals(username)) {
+                            EaseUser easeUser = new EaseUser(UserInfo.getInstance().getMemberName());
+                            easeUser.setAvatar(Constants.BASE_IP + UserInfo.getInstance().getMemberPic());
+                            return easeUser;
+                        }else {
+                            return null;
+                        }
+                    }
+                });
+                Log.e("TAG", "环信登录成功");
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Log.e("TAG", "环信登录失败");
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+            }
+        });
     }
 
     @Override

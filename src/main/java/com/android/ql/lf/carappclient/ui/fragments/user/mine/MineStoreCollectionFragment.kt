@@ -44,15 +44,15 @@ class MineStoreCollectionFragment : BaseRecyclerViewFragment<StoreInfoBean>() {
                 .setNeedNetWorking(true)
                 .setHiddenToolBar(true)
                 .setClazz(StoreInfoFragment::class.java)
-                .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, mArrayList[position])))
+                .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, mArrayList[position].shop_id)))
                 .start()
     }
 
     class MineStoreCollectionAdapter(layout: Int, list: ArrayList<StoreInfoBean>)
         : BaseQuickAdapter<StoreInfoBean, BaseViewHolder>(layout, list) {
         override fun convert(helper: BaseViewHolder?, item: StoreInfoBean?) {
-            if (item!!.shop_pic != null && !item.shop_pic.isEmpty()) {
-                GlideManager.loadImage(mContext, item.shop_pic[0], helper!!.getView(R.id.mIvMallCollectionStorePic))
+            if (item!!.shop_mpic != null) {
+                GlideManager.loadImage(mContext, item.shop_mpic, helper!!.getView(R.id.mIvMallCollectionStorePic))
             }
             helper!!.setText(R.id.mTvMallCollectionStoreName, item.shop_name)
         }

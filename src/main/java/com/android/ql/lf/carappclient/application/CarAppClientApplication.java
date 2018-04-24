@@ -5,7 +5,9 @@ import android.support.multidex.MultiDexApplication;
 import com.android.ql.lf.carappclient.component.AppComponent;
 import com.android.ql.lf.carappclient.component.AppModule;
 import com.android.ql.lf.carappclient.component.DaggerAppComponent;
+import com.android.ql.lf.carappclient.utils.ActivityQueueUtils;
 import com.android.ql.lf.carappclient.utils.Constants;
+import com.hyphenate.easeui.EaseUI;
 import com.tencent.bugly.Bugly;
 
 /**
@@ -19,18 +21,20 @@ public class CarAppClientApplication extends MultiDexApplication{
 
     public static CarAppClientApplication application;
 
+    private ActivityQueueUtils activityQueueUtils;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Bugly.init(this, Constants.BUGLY_APP_ID, false);
         application = this;
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-//        initHX();
+        initHX();
     }
 
-//    private void initHX() {
-//        EaseUI.getInstance().init(this,null);
-//    }
+    private void initHX() {
+        EaseUI.getInstance().init(this,null);
+    }
 
     public static CarAppClientApplication getInstance() {
         return application;
@@ -38,6 +42,20 @@ public class CarAppClientApplication extends MultiDexApplication{
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public ActivityQueueUtils getActivityQueue() {
+        if (activityQueueUtils == null) {
+            activityQueueUtils = new ActivityQueueUtils();
+        }
+        return activityQueueUtils;
+    }
+
+    public void exit() {
+        if (activityQueueUtils != null) {
+            activityQueueUtils = null;
+            application = null;
+        }
     }
 
 }

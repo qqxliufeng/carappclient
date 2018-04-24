@@ -203,8 +203,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 orderBean.price = it.merchant_shopcart_price
                 orderBean.mdprice = it.merchant_shopcart_mdprice
                 orderBean.bbs = it.bbs
-                orderBean.service = it.service
-                orderBean.key = it.key
+                orderBean.service = it.merchant_shopcart_service
+                orderBean.key = it.merchant_shopcart_key
                 orderList.add(orderBean)
             }
             val json = Gson().toJson(orderList)

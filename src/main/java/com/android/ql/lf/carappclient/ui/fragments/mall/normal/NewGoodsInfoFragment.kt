@@ -13,8 +13,10 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import com.android.ql.lf.carappclient.R
+import com.android.ql.lf.carappclient.application.CarAppClientApplication
 import com.android.ql.lf.carappclient.data.*
 import com.android.ql.lf.carappclient.present.GoodsPresent
+import com.android.ql.lf.carappclient.ui.activities.ChatActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsCommentAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
@@ -81,6 +83,10 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
 
     override fun getLayoutId() = R.layout.fragment_new_goods_info_layout
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        CarAppClientApplication.getInstance().activityQueue.addItem(this)
+    }
 
     override fun initView(view: View?) {
         mWebGoodsInfo.settings.javaScriptEnabled = true
@@ -113,6 +119,11 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         mTvGoodsInfoCollection.setOnClickListener {
             actionMode = ACTION_MODE.SHOPPING_CAR
             showGoodsSpe()
+        }
+        mTvGoodsInfoAskOnline.setOnClickListener {
+            if (goodsInfoBean != null && !TextUtils.isEmpty(goodsInfoBean!!.arr1!!.shop_hxname)) {
+                ChatActivity.startChat(mContext, goodsInfoBean!!.arr1!!.shop_name, goodsInfoBean!!.arr1!!.shop_hxname)
+            }
         }
         mCBPersonalGoodsInfo!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
@@ -165,7 +176,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         goodsInfoBean!!.result!!.merchant_product_name,
                         goodsInfoBean!!.result!!.merchant_product_pic[0],
                         goodsInfoBean!!.result!!.merchant_product_specification)
-                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num, serviceName, servicePrice, key ->
+                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num, serviceName, servicePrice, price, key ->
                     if (actionMode == ACTION_MODE.SHOPPING_CAR) {
                         mPresent.getDataByPost(0x2,
                                 RequestParamsHelper.MEMBER_MODEL,
@@ -175,7 +186,9 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                                         goodsInfoBean!!.arr1!!.shop_id,
                                         num,
                                         "$picPath,$specification,$serviceName",
-                                        servicePrice
+                                        servicePrice,
+                                        price,
+                                        key
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
@@ -184,8 +197,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         shoppingCarItem.merchant_shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
                         shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
                         shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
-                        shoppingCarItem.service = servicePrice
-                        shoppingCarItem.key = key
+                        shoppingCarItem.merchant_shopcart_service = servicePrice
+                        shoppingCarItem.merchant_shopcart_key = key
                         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
                             shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.shop_pic[0]
                         } else {
@@ -260,8 +273,17 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
             0x2 -> {// 加入到购物车
                 if (check != null && check.code == SUCCESS_CODE) {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
+                } else {
+                    toast("添加购物车失败")
                 }
             }
+        }
+    }
+
+    override fun onRequestFail(requestID: Int, e: Throwable) {
+        super.onRequestFail(requestID, e)
+        if (requestID == 0x2) {
+            toast("添加购物车失败")
         }
     }
 
@@ -280,14 +302,14 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         mTvGoodsInfoStoreName.text = goodsInfoBean!!.arr1!!.shop_name
         mTvGoodsInfoStoreAllGoodsNum.text = goodsInfoBean!!.arr1!!.shop_num
         mTvGoodsInfoStoreInfoFocusNum.text = goodsInfoBean!!.arr1!!.shop_attention
-        mTvGoodsInfoStoreInfoCommentNum.text = goodsInfoBean!!.arr1!!.shop_attention
+        mTvGoodsInfoStoreInfoCommentNum.text = goodsInfoBean!!.arr1!!.shop_ping
         footView.findViewById<TextView>(R.id.mTvGoodsInfoEnterStore).setOnClickListener {
             FragmentContainerActivity
                     .from(mContext)
                     .setNeedNetWorking(true)
                     .setHiddenToolBar(true)
                     .setClazz(StoreInfoFragment::class.java)
-                    .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!)))
+                    .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!.shop_id)))
                     .start()
         }
     }
@@ -305,6 +327,11 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
     override fun onDestroyView() {
         mCBPersonalGoodsInfo.releaseBanner()
         super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        CarAppClientApplication.getInstance().activityQueue.removeItem(this)
+        super.onDestroy()
     }
 
     class GoodsInfoBean {

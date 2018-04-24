@@ -1,15 +1,19 @@
 package com.android.ql.lf.carappclient.ui.fragments.mall.normal
 
+import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.amap.api.maps2d.model.LatLng
 import com.android.ql.lf.carappclient.R
+import com.android.ql.lf.carappclient.application.CarAppClientApplication
 import com.android.ql.lf.carappclient.data.GoodsBean
 import com.android.ql.lf.carappclient.data.StoreInfoBean
 import com.android.ql.lf.carappclient.data.UserInfo
+import com.android.ql.lf.carappclient.ui.activities.ChatActivity
 import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsMallItemAdapter
@@ -45,13 +49,12 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     private var tempGoodsBean: GoodsBean? = null
 
-    private val storeInfoBean by lazy {
-        arguments.classLoader = this@StoreInfoFragment.javaClass.classLoader
-        arguments.getParcelable<StoreInfoBean>(STORE_ID_FLAG)
+    private var storeInfoBean: StoreInfoBean? = null
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        CarAppClientApplication.getInstance().activityQueue.addItem(this)
     }
-
-//    private var storeInfoBean: StoreInfoBean? = null
-
 
     override fun createAdapter(): BaseQuickAdapter<GoodsBean, BaseViewHolder> = GoodsMallItemAdapter(R.layout.adapter_main_mall_item_layout, mArrayList)
 
@@ -64,7 +67,6 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         mAblStoreInfoContainer.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             mTlStoreInfoContainer.alpha = 1 - Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
         }
-        setStoreInfo()
         mIvSearchGoodsBack.setOnClickListener {
             finish()
         }
@@ -127,14 +129,12 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
             onPostRefresh()
         }
         mTvStoreInfoKeFu.setOnClickListener {
-            //            val intent = Intent(mContext, ChatActivity::class.java)
-//            intent.putExtra(ChatActivity.CHAT_TITLE_FLAG, storeInfoBean!!.wholesale_shop_name)
-//            intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE)
-//            intent.putExtra(EaseConstant.EXTRA_USER_ID, "zw123")
-//            startActivity(intent)
+            if (storeInfoBean != null && !TextUtils.isEmpty(storeInfoBean!!.shop_hxname)) {
+                ChatActivity.startChat(mContext, storeInfoBean!!.shop_name, storeInfoBean!!.shop_hxname)
+            }
         }
         mTvStoreInfoProductLocation.setOnClickListener {
-            if (storeInfoBean != null && storeInfoBean.shop_coorp != null) {
+            if (storeInfoBean != null && storeInfoBean!!.shop_coorp != null) {
                 CityMapActivity.startMapActivity(mContext,
                         storeInfoBean!!.shop_name,
                         LatLng(storeInfoBean!!.shop_coorp[0].toDouble(), storeInfoBean!!.shop_coorp[1].toDouble()))
@@ -146,7 +146,7 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         super.onRefresh()
         mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH,
                 RequestParamsHelper.getWithPageParams(currentPage)
-                        .addParam("sid", storeInfoBean!!.shop_id)
+                        .addParam("sid", arguments.getString(STORE_ID_FLAG))
                         .addParam("sort", sort)
                         .addParam("keyword", keyword))
     }
@@ -155,7 +155,7 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         super.onLoadMore()
         mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_PRODUCT_SEARCH,
                 RequestParamsHelper.getWithPageParams(currentPage)
-                        .addParam("sid", storeInfoBean!!.shop_id)
+                        .addParam("sid", arguments.getString(STORE_ID_FLAG))
                         .addParam("sort", sort)
                         .addParam("keyword", keyword))
     }
@@ -188,8 +188,8 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                     if (currentPage == 0) {
                         collectStatus = (check.obj as JSONObject).optInt("arr")
                         setFocusText()
-//                        storeInfoBean = Gson().fromJson((check.obj as JSONObject).optJSONObject("arr1").toString(), StoreInfoBean::class.java)
-//                        setStoreInfo()
+                        storeInfoBean = Gson().fromJson((check.obj as JSONObject).optJSONObject("arr2").toString(), StoreInfoBean::class.java)
+                        setStoreInfo()
                     }
                 }
             }
@@ -219,8 +219,8 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
     }
 
     private fun setStoreInfo() {
-        if (storeInfoBean!!.shop_pic != null && !storeInfoBean!!.shop_pic.isEmpty()) {
-            GlideManager.loadImage(mContext, storeInfoBean!!.shop_pic[0], mIvStoreInfoPic)
+        if (storeInfoBean!!.shop_mpic != null ) {
+            GlideManager.loadImage(mContext, storeInfoBean!!.shop_mpic, mIvStoreInfoPic)
         }
         mTvStoreInfoName.text = storeInfoBean!!.shop_name
         mTvStoreInfoFansCount.text = storeInfoBean!!.shop_attention
@@ -286,6 +286,11 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 .setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.merchant_product_id)))
                 .setClazz(NewGoodsInfoFragment::class.java)
                 .start()
+    }
+
+    override fun onDestroy() {
+        CarAppClientApplication.getInstance().activityQueue.removeItem(this)
+        super.onDestroy()
     }
 
 }

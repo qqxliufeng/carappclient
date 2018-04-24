@@ -2,6 +2,7 @@ package com.android.ql.lf.carappclient.ui.fragments.bottom
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.amap.api.maps2d.model.LatLng
@@ -9,6 +10,7 @@ import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.GoodsBean
 import com.android.ql.lf.carappclient.data.StoreInfoBean
 import com.android.ql.lf.carappclient.data.UserInfo
+import com.android.ql.lf.carappclient.ui.activities.ChatActivity
 import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.activities.MainActivity
@@ -60,6 +62,11 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         mAblStoreInfoContainer.setPadding(0, statusHeight, 0, 0)
         mAblStoreInfoContainer.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             mTlStoreInfoContainer.alpha = 1 - Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+        }
+        mTvStoreInfoKeFu.setOnClickListener {
+            if (storeInfoBean != null && !TextUtils.isEmpty(storeInfoBean!!.shop_hxname)) {
+                ChatActivity.startChat(mContext, storeInfoBean!!.shop_name, storeInfoBean!!.shop_hxname)
+            }
         }
         mTvStoreInfoFocus.setOnClickListener {
             mTvStoreInfoFocus.isEnabled = false

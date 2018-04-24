@@ -155,8 +155,8 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
         if (mallOrderInfoContainer != null && !TextUtils.isEmpty(mallOrderInfoContainer!!.merchant_order_token)) {
             mTvOrderInfoTopState.text = MallOrderPresent.MallOrderStatus.getDescriptionByIndex(mallOrderInfoContainer!!.merchant_order_token)
             mTvOrderInfoTopState1.text = mTvOrderInfoTopState.text
-            mTvOrderInfoPhone.text = "手机号码  ${mallOrderInfoContainer!!.address_phone}"
-            mTvOrderInfoAddress.text = "收货地址  ${mallOrderInfoContainer!!.address_addres}"
+            mTvOrderInfoPhone.text = "手机号码  ${mallOrderInfoContainer!!.merchant_address_phone}"
+            mTvOrderInfoAddress.text = "收货地址  ${mallOrderInfoContainer!!.merchant_address_addres}"
 
             GlideManager.loadImage(mContext, mallOrderInfoContainer!!.merchant_product_pic[0], mIvOrderListItemPic)
             mTvOrderListItemTitle.text = mallOrderInfoContainer!!.merchant_product_name
@@ -175,7 +175,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                     } else {
                         mallOrderInfoContainer!!.merchant_order_mliuyan
                     })
-            mTvOrderInfoDetailOrderName.text = mallOrderInfoContainer!!.address_name
+            mTvOrderInfoDetailOrderName.text = mallOrderInfoContainer!!.merchant_address_name
             when (mallOrderInfoContainer!!.merchant_order_token) {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index -> {
                     mBtOrderInfoAction1.visibility = View.VISIBLE

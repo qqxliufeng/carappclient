@@ -50,6 +50,8 @@ public class UserInfo {
     private String memberIswxAuth; //提现是否授权  1 已授权 0 未授权
     private String memberWxOpenid; // 登录wxopenId
     private String memberAddress;
+    private String memberHxname;
+    private String memberHxpw;
     private String memberInviteCode;
     private String memberIsEnsureMoney;
     private String memberIsMaster;
@@ -65,6 +67,22 @@ public class UserInfo {
     private String goodsCollectionNum = "0";
     private String storeCollectionNum = "0";
     private String footsCollectionNum = "0";
+
+    public String getMemberHxname() {
+        return memberHxname;
+    }
+
+    public void setMemberHxname(String memberHxname) {
+        this.memberHxname = memberHxname;
+    }
+
+    public String getMemberHxpw() {
+        return memberHxpw;
+    }
+
+    public void setMemberHxpw(String memberHxpw) {
+        this.memberHxpw = memberHxpw;
+    }
 
     public String getGoodsCollectionNum() {
         return goodsCollectionNum;

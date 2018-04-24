@@ -30,10 +30,10 @@ public class MallOrderInfoBean {
     private String merchant_order_tn;
     private String merchant_order_mdprice;
     private String merchant_order_mliuyan;
-    private String address_name;
-    private String address_phone;
-    private String address_addres;
-    private String address_detail;
+    private String merchant_address_name;
+    private String merchant_address_phone;
+    private String merchant_address_addres;
+    private String merchant_address_detail;
     private List<String> merchant_product_pic;
 
     public String getMerchant_product_id() {
@@ -204,35 +204,35 @@ public class MallOrderInfoBean {
         this.merchant_product_pic = merchant_product_pic;
     }
 
-    public String getAddress_name() {
-        return address_name;
+    public String getMerchant_address_name() {
+        return merchant_address_name;
     }
 
-    public void setAddress_name(String address_name) {
-        this.address_name = address_name;
+    public void setMerchant_address_name(String merchant_address_name) {
+        this.merchant_address_name = merchant_address_name;
     }
 
-    public String getAddress_phone() {
-        return address_phone;
+    public String getMerchant_address_phone() {
+        return merchant_address_phone;
     }
 
-    public void setAddress_phone(String address_phone) {
-        this.address_phone = address_phone;
+    public void setMerchant_address_phone(String merchant_address_phone) {
+        this.merchant_address_phone = merchant_address_phone;
     }
 
-    public String getAddress_addres() {
-        return address_addres;
+    public String getMerchant_address_addres() {
+        return merchant_address_addres;
     }
 
-    public void setAddress_addres(String address_addres) {
-        this.address_addres = address_addres;
+    public void setMerchant_address_addres(String merchant_address_addres) {
+        this.merchant_address_addres = merchant_address_addres;
     }
 
-    public String getAddress_detail() {
-        return address_detail;
+    public String getMerchant_address_detail() {
+        return merchant_address_detail;
     }
 
-    public void setAddress_detail(String address_detail) {
-        this.address_detail = address_detail;
+    public void setMerchant_address_detail(String merchant_address_detail) {
+        this.merchant_address_detail = merchant_address_detail;
     }
 }

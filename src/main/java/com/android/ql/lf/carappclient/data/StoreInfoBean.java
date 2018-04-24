@@ -21,6 +21,25 @@ public class StoreInfoBean implements Parcelable {
     private String shop_num;
     private String shop_coorp;
     private String shop_mpic;
+    private String shop_hxname;
+
+    public String getShop_ping() {
+        return shop_ping;
+    }
+
+    public void setShop_ping(String shop_ping) {
+        this.shop_ping = shop_ping;
+    }
+
+    private String shop_ping;
+
+    public String getShop_hxname() {
+        return shop_hxname;
+    }
+
+    public void setShop_hxname(String shop_hxname) {
+        this.shop_hxname = shop_hxname;
+    }
 
     public String getShop_mpic() {
         return shop_mpic;
@@ -108,6 +127,8 @@ public class StoreInfoBean implements Parcelable {
         dest.writeString(this.shop_num);
         dest.writeString(this.shop_coorp);
         dest.writeString(this.shop_mpic);
+        dest.writeString(this.shop_hxname);
+        dest.writeString(this.shop_ping);
     }
 
     protected StoreInfoBean(Parcel in) {
@@ -119,6 +140,8 @@ public class StoreInfoBean implements Parcelable {
         this.shop_num = in.readString();
         this.shop_coorp = in.readString();
         this.shop_mpic = in.readString();
+        this.shop_hxname = in.readString();
+        this.shop_ping = in.readString();
     }
 
     public static final Creator<StoreInfoBean> CREATOR = new Creator<StoreInfoBean>() {
