@@ -8,8 +8,13 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.amap.api.location.AMapLocation
+import com.amap.api.location.AMapLocationClient
+import com.amap.api.location.AMapLocationClientOption
+import com.amap.api.location.AMapLocationListener
 import com.android.ql.lf.carapp.data.RefreshData
 import com.android.ql.lf.carappclient.R
+import com.android.ql.lf.carappclient.application.CarAppClientApplication
 import com.android.ql.lf.carappclient.data.*
 import com.android.ql.lf.carappclient.ui.activities.CityMapActivity
 import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
@@ -41,7 +46,7 @@ import org.json.JSONObject
  * Created by lf on 18.1.24.
  * @author lf on 18.1.24
  */
-class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
+class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationListener {
 
     companion object {
 
@@ -59,6 +64,8 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
     }
 
     private var productContainer: ProductContainerBean? = null
+
+    private val mlocationClient = AMapLocationClient(CarAppClientApplication.getInstance())
 
     private val topView by lazy { View.inflate(mContext, R.layout.layout_main_mall_top_header_layout, null) }
 
@@ -179,6 +186,35 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
         })
         mBaseAdapter.addHeaderView(topView)
         mBaseAdapter.setHeaderAndEmpty(true)
+        initLocation()
+    }
+
+    private fun initLocation() {
+        mTvMainMallTitle.text = "定位中……"
+        val mLocationOption = AMapLocationClientOption()
+        mLocationOption.locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
+        mLocationOption.interval = 2000
+        mlocationClient.setLocationOption(mLocationOption)
+        mLocationOption.isNeedAddress = true
+        mLocationOption.isOnceLocation = false
+        mLocationOption.isMockEnable = false
+        mlocationClient.setLocationListener {
+            if (it != null && !TextUtils.isEmpty(it.address)) {
+                mTvMainMallTitle.text = it.address
+                mlocationClient.stopLocation()
+            } else {
+                mTvMainMallTitle.text = "定位失败"
+            }
+        }
+        mlocationClient.startLocation()
+    }
+
+    override fun onLocationChanged(it: AMapLocation?) {
+        if (it != null) {
+            mTvMainMallTitle.text = it.address
+        } else {
+            mTvMainMallTitle.text = "定位失败"
+        }
     }
 
     override fun onStart() {
@@ -389,6 +425,8 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>() {
     override fun onDestroyView() {
         bannerView.releaseBanner()
         unsubscribe(collectionSubscription)
+        mlocationClient.stopLocation()
+        mlocationClient.onDestroy()
         super.onDestroyView()
     }
 

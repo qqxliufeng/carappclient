@@ -28,7 +28,7 @@ public class ShoppingCarItemBean implements Parcelable {
     private String merchant_shopcart_mdprice;
     private String shop_shopname;
     private String shop_shoppic;
-    private String merchant_shopcart_service;
+    private String merchant_shopcart_service = "0.00";
     private String merchant_shopcart_key;
 
     public String getMerchant_shopcart_service() {

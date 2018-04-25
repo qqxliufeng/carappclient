@@ -17,6 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
 
     <application
         android:name=".application.CarAppClientApplication"
@@ -29,7 +32,9 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b776903c1dbf4a486c508d5ac4226c3a" />
+            android:value="70b952a060cf57bbddc1ce4263d25865" />
+
+        <service android:name="com.amap.api.location.APSService"/>
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -123,7 +128,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="wx0b6a3be07b8ed6a0" />
+                <data android:scheme="wx46d6e2abf8aefa8e" />
             </intent-filter>
         </activity>
 

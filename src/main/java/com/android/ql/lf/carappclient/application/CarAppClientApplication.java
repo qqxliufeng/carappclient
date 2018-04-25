@@ -7,6 +7,7 @@ import com.android.ql.lf.carappclient.component.AppModule;
 import com.android.ql.lf.carappclient.component.DaggerAppComponent;
 import com.android.ql.lf.carappclient.utils.ActivityQueueUtils;
 import com.android.ql.lf.carappclient.utils.Constants;
+import com.baidu.location.LocationClient;
 import com.hyphenate.easeui.EaseUI;
 import com.tencent.bugly.Bugly;
 

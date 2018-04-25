@@ -38,9 +38,9 @@ class MineCashListFragment : BaseRecyclerViewFragment<MineCashListFragment.CashL
             val tv_time = helper!!.getView<TextView>(R.id.mTvCashItemTime)
             val tv_count = helper.getView<TextView>(R.id.mTvCashItemCount)
             val tv_result = helper.getView<TextView>(R.id.mTvCashItemResult)
-            tv_time.text = item!!.withdraw_record_time
-            tv_count.text = "￥${item.withdraw_record_price}"
-            tv_result.text = when (item.withdraw_record_status) {
+            tv_time.text = item!!.merchant_withdraw_record_time
+            tv_count.text = "￥${item.merchant_withdraw_record_price}"
+            tv_result.text = when (item.merchant_withdraw_record_status) {
                 "0" -> {
                     tv_time.setTextColor(mContext.resources.getColor(R.color.text_deep_dark_color))
                     tv_count.setTextColor(mContext.resources.getColor(R.color.text_deep_dark_color))
@@ -67,10 +67,10 @@ class MineCashListFragment : BaseRecyclerViewFragment<MineCashListFragment.CashL
     }
 
     class CashListBean {
-        var withdraw_record_id: String? = null
-        var withdraw_record_uid: String? = null
-        var withdraw_record_price: String? = null
-        var withdraw_record_status: String? = null
-        var withdraw_record_time: String? = null
+        var merchant_withdraw_record_id: String? = null
+        var merchant_withdraw_record_uid: String? = null
+        var merchant_withdraw_record_price: String? = null
+        var merchant_withdraw_record_status: String? = null
+        var merchant_withdraw_record_time: String? = null
     }
 }

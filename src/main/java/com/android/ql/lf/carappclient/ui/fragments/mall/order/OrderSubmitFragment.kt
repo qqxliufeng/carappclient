@@ -236,7 +236,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             var money = 0.00f
             var num = 0
             tempList!!.forEach {
-                money += ((it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat())
+                money += ((it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat())
                 num += it.merchant_shopcart_num.toInt()
             }
             mTvSubmitOrderGoodsCount.text = Html.fromHtml("共<span style='color:#78BFFF'> $num </span>件")

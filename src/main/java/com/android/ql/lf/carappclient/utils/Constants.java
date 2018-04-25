@@ -25,11 +25,6 @@ public class Constants {
     public static final String WX_APP_ID = "wx46d6e2abf8aefa8e";
     public static final String BUGLY_APP_ID = "c73cdb2f24";
 
-    public static final String NO_FUNCTION_NOTIFY_MESSAGE = "此功能暂未开放！";
-
-    public static final String APP_IS_ALIVE = "isAlive";
-
-
     private static final String APP_TOKEN = APP_ID + APP_SEC;
     private static String md5Token = null;
 

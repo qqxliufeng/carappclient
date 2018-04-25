@@ -43,7 +43,7 @@ class ForgetPasswordFragment : BaseNetWorkingFragment() {
             mEtForgetPasswordPhone.setText("")
         }
         mIvForgetPasswordClearPW.setOnClickListener {
-            mEtForgetPasswordConfirmPW.setText("")
+            mEtForgetPasswordPW.setText("")
         }
         mIvForgetPasswordClearConfirmPW.setOnClickListener {
             mEtForgetPasswordConfirmPW.setText("")
