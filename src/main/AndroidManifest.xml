@@ -39,7 +39,7 @@
         <!-- 设置环信应用的AppKey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="1133180319146924#wrjtclient" />
+            android:value="1133180319146924#wrjt" />
 
         <activity
             android:name=".ui.activities.MainActivity"

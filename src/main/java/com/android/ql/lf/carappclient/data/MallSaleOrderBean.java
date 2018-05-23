@@ -31,7 +31,16 @@ public class MallSaleOrderBean implements Parcelable {
     private String merchant_order_ctime;
     private String merchant_order_tn;
     private String merchant_order_mdprice;
+    private String merchant_order_sku_pic;
     private List<String> merchant_product_pic;
+
+    public String getMerchant_order_sku_pic() {
+        return merchant_order_sku_pic;
+    }
+
+    public void setMerchant_order_sku_pic(String merchant_order_sku_pic) {
+        this.merchant_order_sku_pic = merchant_order_sku_pic;
+    }
 
     public String getMerchant_product_id() {
         return merchant_product_id;
@@ -185,6 +194,9 @@ public class MallSaleOrderBean implements Parcelable {
         this.merchant_product_pic = merchant_product_pic;
     }
 
+    public MallSaleOrderBean() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -210,10 +222,8 @@ public class MallSaleOrderBean implements Parcelable {
         dest.writeString(this.merchant_order_ctime);
         dest.writeString(this.merchant_order_tn);
         dest.writeString(this.merchant_order_mdprice);
+        dest.writeString(this.merchant_order_sku_pic);
         dest.writeStringList(this.merchant_product_pic);
-    }
-
-    public MallSaleOrderBean() {
     }
 
     protected MallSaleOrderBean(Parcel in) {
@@ -235,10 +245,11 @@ public class MallSaleOrderBean implements Parcelable {
         this.merchant_order_ctime = in.readString();
         this.merchant_order_tn = in.readString();
         this.merchant_order_mdprice = in.readString();
+        this.merchant_order_sku_pic = in.readString();
         this.merchant_product_pic = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<MallSaleOrderBean> CREATOR = new Parcelable.Creator<MallSaleOrderBean>() {
+    public static final Creator<MallSaleOrderBean> CREATOR = new Creator<MallSaleOrderBean>() {
         @Override
         public MallSaleOrderBean createFromParcel(Parcel source) {
             return new MallSaleOrderBean(source);

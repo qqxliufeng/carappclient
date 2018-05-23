@@ -157,6 +157,7 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     }
 
     private fun emptyShoppingCar() {
+        toast("购物车加载失败……")
         mShoppingCarContainer.visibility = View.GONE
     }
 

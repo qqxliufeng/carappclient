@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.TextUtils
+import android.util.TypedValue
 import android.view.View
 import android.widget.*
 import com.android.ql.lf.carapp.data.RefreshData
@@ -23,6 +27,7 @@ import com.android.ql.lf.carappclient.ui.views.SelectPayTypeView
 import com.android.ql.lf.carappclient.utils.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_order_submit_layout.*
 import org.jetbrains.anko.bundleOf
@@ -93,6 +98,22 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         footerView.findViewById<SelectPayTypeView>(R.id.mStvPay)
     }
 
+    private val invoiceContainer by lazy {
+        footerView.findViewById<RelativeLayout>(R.id.mRlInvoiceContainer)
+    }
+
+    private val couponContainer by lazy {
+        footerView.findViewById<RelativeLayout>(R.id.mRlCouponContainer)
+    }
+
+    private val selectInvoice by lazy {
+        footerView.findViewById<CheckBox>(R.id.mCbInvoice)
+    }
+
+    private val couponName by lazy {
+        footerView.findViewById<TextView>(R.id.mTvCouponName)
+    }
+
     private val contentView: View by lazy {
         View.inflate(mContext, R.layout.dialog_bbs_layout, null)
     }
@@ -102,6 +123,9 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             if (it != null) {
                 addressBean = it
                 setAddressInfo(addressBean!!)
+                //加载运费模板
+                mPresent.getDataByPost(0x3,RequestParamsHelper.ORDER_MODEL,RequestParamsHelper.ACT_ADDRESS,
+                        RequestParamsHelper.getAddressParams(addressBean!!.merchant_address_id,freightId.toString()))
             }
         }
     }
@@ -119,6 +143,14 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     private val orderList = arrayListOf<MallOrderBean>()
 
     private var payType: String = SelectPayTypeView.WX_PAY
+
+    private val shopId by lazy {
+        StringBuilder()
+    }
+
+    private val freightId by lazy {
+        StringBuilder()
+    }
 
     private val handle by lazy {
         @SuppressLint("HandlerLeak")
@@ -153,16 +185,31 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         }
     }
 
+    private val couponList = arrayListOf<OrderCouponBean>()
+
+    private val couponBottomDialog by lazy {
+        BottomSheetDialog(mContext)
+    }
+
+    private var couponContentView: View? = null
+
+    private var couponBean: OrderCouponBean? = null
+
+    private var money = 0.00f
+
     override fun createAdapter(): BaseQuickAdapter<ShoppingCarItemBean, BaseViewHolder> {
         return object : BaseQuickAdapter<ShoppingCarItemBean, BaseViewHolder>(R.layout.adapter_submit_order_info_item_layout, mArrayList) {
             override fun convert(helper: BaseViewHolder?, item: ShoppingCarItemBean?) {
                 val iv_pic = helper!!.getView<ImageView>(R.id.mIvSubmitOrderGoodsPic)
-                GlideManager.loadImage(iv_pic.context, if (item!!.merchant_shopcart_pic.isEmpty()) "" else item.merchant_shopcart_pic[0], iv_pic)
+                GlideManager.loadImage(iv_pic.context, item!!.merchant_sku_pic, iv_pic)
                 helper.setText(R.id.mIvSubmitOrderGoodsName, item.merchant_shopcart_name)
                 helper.setText(R.id.mTvSubmitOrderItemStoreName, item.shop_shopname)
                 GlideManager.loadImage(mContext, item.shop_shoppic, helper.getView(R.id.mIvSubmitOrderItemStorePic))
-                helper.setText(R.id.mIvSubmitOrderGoodsSpe, item.merchant_shopcart_specification)
+                if (item.merchant_shopcart_specification != null) {
+                    helper.setText(R.id.mIvSubmitOrderGoodsSpe, item.merchant_shopcart_specification.replace(",,", ""))
+                }
                 helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.merchant_shopcart_price}")
+                helper.setText(R.id.mTvSubmitOrderGoodsExpressPrice, "商家配送 ￥${item.merchant_shopcart_mdprice}")
                 helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.merchant_shopcart_num}")
                 helper.setText(R.id.mTvSubmitOrderGoodsBBSContent, if (TextUtils.isEmpty(item.bbs)) "选填" else item.bbs)
                 helper.addOnClickListener(R.id.mRlSubmitOrderGoodsBBS)
@@ -187,6 +234,18 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         selectAddressContainerView.setOnClickListener {
             FragmentContainerActivity.from(mContext).setTitle("选择地址").setNeedNetWorking(true).setClazz(AddressSelectFragment::class.java).start()
         }
+        invoiceContainer.setOnClickListener {
+            //是否开具发票
+            selectInvoice.isChecked = !selectInvoice.isChecked
+        }
+        couponContainer.setOnClickListener {
+            //选择优惠券
+            if (couponList.isEmpty()) {
+                mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_MY_DISCOUNT, RequestParamsHelper.getMyDiscountParam(shopid = shopId.toString()))
+            } else {
+                showCouponList()
+            }
+        }
         mTvSubmitOrder.setOnClickListener {
             if (addressBean == null) {
                 toast("请选择收货地址")
@@ -205,13 +264,60 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 orderBean.bbs = it.bbs
                 orderBean.service = it.merchant_shopcart_service
                 orderBean.key = it.merchant_shopcart_key
+                orderBean.pic = it.merchant_sku_pic
                 orderList.add(orderBean)
             }
             val json = Gson().toJson(orderList)
             payType = selectTypeView.payType
             mPresent.getDataByPost(0x1, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_ADD_ORDER,
-                    RequestParamsHelper.getAddOrderParams(payType, json))
+                    RequestParamsHelper.getAddOrderParams(invoice = if (selectInvoice.isChecked) "1" else "0", paytype = payType, post_data = json,discount = if (couponBean == null) "" else couponBean!!.discount_id!!))
         }
+    }
+
+    private fun showCouponList() {
+        if (couponContentView == null) {
+            val orderCouponBean = OrderCouponBean()
+            orderCouponBean.discount_title = "暂不使用优惠券"
+            orderCouponBean.discount_id = null
+            couponList.add(orderCouponBean)
+            couponContentView = View.inflate(mContext, R.layout.dialog_bottom_coupon_layout, null)
+            val mCouponList = couponContentView!!.findViewById<RecyclerView>(R.id.mRvBottomCouponList)
+            couponContentView!!.findViewById<ImageView>(R.id.mIvBottomCouponClose).setOnClickListener { couponBottomDialog.dismiss() }
+            mCouponList.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+            mCouponList.adapter = object : BaseQuickAdapter<OrderCouponBean, BaseViewHolder>(android.R.layout.simple_list_item_1, couponList) {
+                override fun convert(helper: BaseViewHolder?, item: OrderCouponBean?) {
+                    helper!!.setText(android.R.id.text1, item!!.discount_title)
+                }
+            }
+            mCouponList.addOnItemTouchListener(object : OnItemClickListener() {
+                override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                    couponBean = couponList[position]
+                    if (couponBean!!.discount_id == null) {
+                        couponName.text = "暂不使用"
+                        mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
+                    } else {
+                        if (couponBean!!.discount_fr!!.toFloat() > money) {
+                            toast("当前订单金额不支持此优惠券")
+                            couponName.text = "暂不使用"
+                            mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
+                        } else {
+                            couponName.text = couponBean!!.discount_title
+                            var tempMoney = money
+                            tempMoney -= couponBean!!.discount_fr!!.toFloat()
+                            mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(tempMoney)
+                        }
+                    }
+                    couponBottomDialog.dismiss()
+                }
+            })
+            couponBottomDialog.setContentView(couponContentView)
+            val height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.0f, context.resources.displayMetrics)
+            couponContentView!!.layoutParams.height = height.toInt()
+            val behavior = BottomSheetBehavior.from(couponContentView!!.parent as View)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.peekHeight = height.toInt()
+        }
+        couponBottomDialog.show()
     }
 
     override fun getItemDecoration(): RecyclerView.ItemDecoration {
@@ -238,6 +344,9 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             tempList!!.forEach {
                 money += ((it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat())
                 num += it.merchant_shopcart_num.toInt()
+                it.merchant_sku_pic = it.merchant_shopcart_pic
+                shopId.append(it.shop_id).append(",")
+                freightId.append(it.merchant_shopcart_freight).append(",")
             }
             mTvSubmitOrderGoodsCount.text = Html.fromHtml("共<span style='color:#78BFFF'> $num </span>件")
             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
@@ -245,7 +354,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             mBaseAdapter.notifyDataSetChanged()
         }
         //加载地址
-        mPresent.getDataByPost(0x0, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_DEFAULT_ADDRESS, RequestParamsHelper.getDefaultAddress())
+        mPresent.getDataByPost(0x0, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_DEFAULT_ADDRESS, RequestParamsHelper.getDefaultAddress(freightId.toString()))
     }
 
     override fun onRequestStart(requestID: Int) {
@@ -258,7 +367,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
 
     override fun <T : Any?> onRequestSuccess(requestID: Int, result: T) {
         super.onRequestSuccess(requestID, result)
-        if (requestID == 0x0) {
+        if (requestID == 0x0 || requestID == 0x3) {
             //加载地址
             try {
                 val check = checkResultCode(result)
@@ -276,7 +385,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 emptyAddressButton.visibility = View.VISIBLE
                 selectAddressContainerView.visibility = View.GONE
             }
-        } else {
+        } else if (requestID == 0x1){
             //提交订单
             val check = checkResultCode(result)
             if (check != null) {
@@ -303,6 +412,25 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 } else {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
+            }
+        }else if (requestID == 0x2){
+            try {
+                val check = checkResultCode(result)
+                if (check != null && check.code == SUCCESS_CODE) {
+                    val jsonArray = (check.obj as JSONObject).optJSONArray("result")
+                    if (jsonArray != null && jsonArray.length() > 0) {
+                        (0 until jsonArray.length()).forEach {
+                            couponList.add(Gson().fromJson(jsonArray.optJSONObject(it).toString(), OrderCouponBean::class.java))
+                        }
+                        showCouponList()
+                    }else{
+                        toast("暂无优惠券")
+                    }
+                }else{
+                    toast("暂无优惠券")
+                }
+            } catch (e: Exception) {
+                toast("暂无优惠券")
             }
         }
     }
@@ -341,6 +469,27 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         unsubscribe(addressSubscription)
         unsubscribe(paySubscription)
         super.onDestroyView()
+    }
+
+    class OrderCouponBean {
+        var getdiscount_id: String? = null
+        var getdiscount_uid: String? = null
+        var getdiscount_theme: String? = null
+        var getdiscount_type: String? = null
+        var getdiscount_status: String? = null
+        var discount_id: String? = null
+        var discount_price: String? = null
+        var discount_num: String? = null
+        var discount_validity: String? = null
+        var discount_time: String? = null
+        var discount_shopping: String? = null
+        var discount_type: String? = null
+        var discount_status: String? = null
+        var discount_token: String? = null
+        var discount_fr: String? = null
+        var discount_uid: String? = null
+        var discount_already: String? = null
+        var discount_title: String? = null
     }
 
 }

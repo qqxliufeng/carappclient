@@ -23,6 +23,15 @@ public class MallOrderBean implements Parcelable {
     private String mdprice;
     private String service;
     private String key;
+    private String pic;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
     public String getKey() {
         return key;

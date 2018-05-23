@@ -17,7 +17,7 @@ public class ShoppingCarItemBean implements Parcelable {
 
     private String merchant_shopcart_id;
     private String merchant_shopcart_name;
-    private ArrayList<String> merchant_shopcart_pic;
+    private String merchant_shopcart_pic;
     private String merchant_shopcart_specification;
     private String merchant_shopcart_price;
     private String merchant_shopcart_num;
@@ -26,10 +26,37 @@ public class ShoppingCarItemBean implements Parcelable {
     private String merchant_shopcart_uid;
     private String merchant_shopcart_shopid;
     private String merchant_shopcart_mdprice;
+    private String merchant_sku_pic;
     private String shop_shopname;
     private String shop_shoppic;
+    private String shop_id;
     private String merchant_shopcart_service = "0.00";
     private String merchant_shopcart_key;
+    private String merchant_shopcart_freight;
+
+    public String getShop_id() {
+        return shop_id;
+    }
+
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
+    }
+
+    public String getMerchant_shopcart_freight() {
+        return merchant_shopcart_freight;
+    }
+
+    public void setMerchant_shopcart_freight(String merchant_shopcart_freight) {
+        this.merchant_shopcart_freight = merchant_shopcart_freight;
+    }
+
+    public String getMerchant_sku_pic() {
+        return merchant_sku_pic;
+    }
+
+    public void setMerchant_sku_pic(String merchant_sku_pic) {
+        this.merchant_sku_pic = merchant_sku_pic;
+    }
 
     public String getMerchant_shopcart_service() {
         return merchant_shopcart_service;
@@ -81,11 +108,11 @@ public class ShoppingCarItemBean implements Parcelable {
         this.merchant_shopcart_name = merchant_shopcart_name;
     }
 
-    public ArrayList<String> getMerchant_shopcart_pic() {
+    public String getMerchant_shopcart_pic() {
         return merchant_shopcart_pic;
     }
 
-    public void setMerchant_shopcart_pic(ArrayList<String> merchant_shopcart_pic) {
+    public void setMerchant_shopcart_pic(String merchant_shopcart_pic) {
         this.merchant_shopcart_pic = merchant_shopcart_pic;
     }
 
@@ -191,7 +218,7 @@ public class ShoppingCarItemBean implements Parcelable {
         dest.writeByte(this.isEditorMode ? (byte) 1 : (byte) 0);
         dest.writeString(this.merchant_shopcart_id);
         dest.writeString(this.merchant_shopcart_name);
-        dest.writeStringList(this.merchant_shopcart_pic);
+        dest.writeString(this.merchant_shopcart_pic);
         dest.writeString(this.merchant_shopcart_specification);
         dest.writeString(this.merchant_shopcart_price);
         dest.writeString(this.merchant_shopcart_num);
@@ -200,10 +227,13 @@ public class ShoppingCarItemBean implements Parcelable {
         dest.writeString(this.merchant_shopcart_uid);
         dest.writeString(this.merchant_shopcart_shopid);
         dest.writeString(this.merchant_shopcart_mdprice);
+        dest.writeString(this.merchant_sku_pic);
         dest.writeString(this.shop_shopname);
         dest.writeString(this.shop_shoppic);
+        dest.writeString(this.shop_id);
         dest.writeString(this.merchant_shopcart_service);
         dest.writeString(this.merchant_shopcart_key);
+        dest.writeString(this.merchant_shopcart_freight);
         dest.writeString(this.bbs);
     }
 
@@ -212,7 +242,7 @@ public class ShoppingCarItemBean implements Parcelable {
         this.isEditorMode = in.readByte() != 0;
         this.merchant_shopcart_id = in.readString();
         this.merchant_shopcart_name = in.readString();
-        this.merchant_shopcart_pic = in.createStringArrayList();
+        this.merchant_shopcart_pic = in.readString();
         this.merchant_shopcart_specification = in.readString();
         this.merchant_shopcart_price = in.readString();
         this.merchant_shopcart_num = in.readString();
@@ -221,10 +251,13 @@ public class ShoppingCarItemBean implements Parcelable {
         this.merchant_shopcart_uid = in.readString();
         this.merchant_shopcart_shopid = in.readString();
         this.merchant_shopcart_mdprice = in.readString();
+        this.merchant_sku_pic = in.readString();
         this.shop_shopname = in.readString();
         this.shop_shoppic = in.readString();
+        this.shop_id = in.readString();
         this.merchant_shopcart_service = in.readString();
         this.merchant_shopcart_key = in.readString();
+        this.merchant_shopcart_freight = in.readString();
         this.bbs = in.readString();
     }
 

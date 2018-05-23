@@ -34,7 +34,7 @@
                         <com.youth.banner.Banner
                             android:id="@+id/mCBPersonalGoodsInfo"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp" />
+                            android:layout_height="270dp" />
 
                         <android.support.design.widget.CheckableImageButton
                             android:id="@+id/mCibGoodsInfoCollection"
@@ -150,10 +150,15 @@
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
-            <com.android.ql.lf.carappclient.ui.views.ItemWebView
+           <!-- <com.android.ql.lf.carappclient.ui.views.ItemWebView
                 android:id="@+id/mWebGoodsInfo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRcGoodsInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </com.android.ql.lf.carappclient.ui.views.SlideDetailsLayout>
     </android.support.design.widget.CoordinatorLayout>

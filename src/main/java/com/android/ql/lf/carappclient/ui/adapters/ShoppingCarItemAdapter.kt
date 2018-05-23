@@ -27,11 +27,11 @@ class ShoppingCarItemAdapter(layoutId: Int, list: ArrayList<ShoppingCarItemBean>
         helper.setText(R.id.mTvShoppingCarItemStoreName, item.shop_shopname)
         GlideManager.loadImage(mContext, item.shop_shoppic, helper.getView(R.id.mIvShoppingCarItemStorePic))
         helper.setText(R.id.mTvShoppingCarItemPrice, "￥ ${item.merchant_shopcart_price}")
-        helper.setText(R.id.mTvShoppingCarItemSpe, item.merchant_shopcart_specification)
+        if (item.merchant_shopcart_specification!=null) {
+            helper.setText(R.id.mTvShoppingCarItemSpe, item.merchant_shopcart_specification.replace(",,",""))
+        }
         helper.setText(R.id.mTvShoppingCarNum, item.merchant_shopcart_num)
         val goods_pic = helper.getView<ImageView>(R.id.mTvShoppingCarItemPic)
-        if (!item.merchant_shopcart_pic.isEmpty()) {
-            GlideManager.loadImage(goods_pic.context, item.merchant_shopcart_pic[0], goods_pic)
-        }
+        GlideManager.loadImage(goods_pic.context, item.merchant_shopcart_pic, goods_pic)
     }
 }

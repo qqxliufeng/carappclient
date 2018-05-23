@@ -145,6 +145,18 @@
             android:textSize="@dimen/sp_12" />
     </LinearLayout>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/mLlCouponContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"

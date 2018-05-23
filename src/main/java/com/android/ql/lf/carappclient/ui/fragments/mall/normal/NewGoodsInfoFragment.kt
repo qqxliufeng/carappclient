@@ -3,14 +3,13 @@ package com.android.ql.lf.carappclient.ui.fragments.mall.normal
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.text.TextPaint
 import android.text.TextUtils
 import android.view.View
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.application.CarAppClientApplication
@@ -24,11 +23,14 @@ import com.android.ql.lf.carappclient.ui.fragments.BrowserImageFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderCommentListFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderSubmitFragment
 import com.android.ql.lf.carappclient.ui.views.BottomGoodsParamDialog
+import com.android.ql.lf.carappclient.ui.views.CouponView
 import com.android.ql.lf.carappclient.ui.views.ScrollLinearLayoutManager
 import com.android.ql.lf.carappclient.ui.views.SlideDetailsLayout
 import com.android.ql.lf.carappclient.utils.GlideManager
 import com.android.ql.lf.carappclient.utils.RequestParamsHelper
 import com.android.ql.lf.carappclient.utils.toast
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.google.gson.Gson
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
@@ -36,6 +38,8 @@ import kotlinx.android.synthetic.main.fragment_new_goods_info_layout.*
 import kotlinx.android.synthetic.main.layout_goods_info_foot_view_layout.*
 import org.jetbrains.anko.bundleOf
 import org.json.JSONObject
+import java.lang.StringBuilder
+import java.util.*
 
 
 /**
@@ -43,7 +47,7 @@ import org.json.JSONObject
  * @author lf on 18.4.4
  */
 @SuppressLint("RestrictedApi")
-class NewGoodsInfoFragment : BaseNetWorkingFragment() {
+class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.OnGoodsSpeSelectListener {
 
     companion object {
         val GOODS_ID_FLAG = "goods_id_flag"
@@ -54,6 +58,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
     private var goodsInfoBean: GoodsInfoBean? = null
 
     private var paramsDialog: BottomGoodsParamDialog? = null
+
+    private var skuBean: SkuBean? = null
 
     private val commentAdapter by lazy {
         GoodsCommentAdapter(R.layout.adapter_goods_comment_item_layout, mArrayList)
@@ -89,15 +95,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
     }
 
     override fun initView(view: View?) {
-        mWebGoodsInfo.settings.javaScriptEnabled = true
-        mWebGoodsInfo.settings.domStorageEnabled = true
-        mWebGoodsInfo.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-        mWebGoodsInfo.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
-            }
-        }
+        mRcGoodsInfo.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         mCibGoodsInfoCollection.setOnClickListener {
             if (goodsInfoBean != null) {
                 mPresent.getDataByPost(0x1,
@@ -149,18 +147,15 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         slideDetailsLayout.setOnSlideDetailsListener {
             if (goodsInfoBean !== null) {
                 if (it == SlideDetailsLayout.Status.OPEN) {
-                    val linkCss = "<style type=\"text/css\"> " +
-                            "img {" +
-                            "width:100%;" +
-                            "height:auto;" +
-                            "}" +
-                            "body {" +
-                            "margin-right:10px;" +
-                            "margin-left:10px;" +
-                            "}" +
-                            "</style>"
-                    val htmlContent = "<html><header>" + linkCss + "</header>" + goodsInfoBean!!.result!!.merchant_product_content + "</body></html>"
-                    mWebGoodsInfo.loadData(htmlContent, "text/html", "UTF-8")
+                    if (goodsInfoBean != null && goodsInfoBean!!.result != null && goodsInfoBean!!.result!!.merchant_product_content != null) {
+                        mRcGoodsInfo.adapter = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_goods_info_detail_layout, goodsInfoBean!!.result!!.merchant_product_content) {
+                            override fun convert(helper: BaseViewHolder?, item: String?) {
+                                GlideManager.loadImage(mContext, item!!, helper!!.getView(R.id.mIvGoodsInfoDetailPic))
+                            }
+                        }
+                    }
+                } else if (it == SlideDetailsLayout.Status.CLOSE) {
+                    mRcGoodsInfo.adapter = null
                 }
             }
         }
@@ -170,25 +165,26 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         if (goodsInfoBean != null) {
             if (paramsDialog == null) {
                 paramsDialog = BottomGoodsParamDialog(mContext)
-                paramsDialog!!.bindDataToView(
+                paramsDialog!!.bindNewDataToView(
                         "￥${goodsInfoBean!!.result!!.merchant_product_price}",
                         "库存${goodsInfoBean!!.result!!.merchant_product_entrepot}件",
                         goodsInfoBean!!.result!!.merchant_product_name,
-                        goodsInfoBean!!.result!!.merchant_product_pic[0],
+                        goodsInfoBean!!.result!!.merchant_product_main_pic,
                         goodsInfoBean!!.result!!.merchant_product_specification)
-                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num, serviceName, servicePrice, price, key ->
+                paramsDialog!!.setOnGoodsConfirmClickListener { specification, picPath, num, serviceName, servicePrice, price ->
                     if (actionMode == ACTION_MODE.SHOPPING_CAR) {
                         mPresent.getDataByPost(0x2,
                                 RequestParamsHelper.MEMBER_MODEL,
                                 RequestParamsHelper.ACT_ADD_SHOPCART,
                                 RequestParamsHelper.getAddShopcartParam(
-                                        goodsInfoBean!!.result!!.merchant_product_id,
-                                        goodsInfoBean!!.arr1!!.shop_id,
-                                        num,
-                                        "$picPath,$specification,$serviceName",
-                                        servicePrice,
-                                        price,
-                                        key
+                                        gid = goodsInfoBean!!.result!!.merchant_product_id,
+                                        shopid = goodsInfoBean!!.arr1!!.shop_id,
+                                        num = num,
+                                        specification = specification,
+                                        servicePrice = servicePrice,
+                                        price = price,
+                                        pic = picPath,
+                                        key = if (skuBean == null) "" else skuBean!!.merchant_sku_id!!
                                 ))
                     } else {
                         val shoppingCarItem = ShoppingCarItemBean()
@@ -198,20 +194,17 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                         shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
                         shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
                         shoppingCarItem.merchant_shopcart_service = servicePrice
-                        shoppingCarItem.merchant_shopcart_key = key
+                        shoppingCarItem.merchant_shopcart_key = if (skuBean == null) "" else skuBean!!.merchant_sku_id!!
                         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
                             shoppingCarItem.shop_shoppic = goodsInfoBean!!.arr1!!.shop_pic[0]
                         } else {
                             shoppingCarItem.shop_shoppic = ""
                         }
                         shoppingCarItem.shop_shopname = goodsInfoBean!!.arr1!!.shop_name
+                        shoppingCarItem.shop_id = goodsInfoBean!!.arr1!!.shop_id
                         shoppingCarItem.merchant_shopcart_id = ""
-                        if (TextUtils.isEmpty(picPath)) {
-                            shoppingCarItem.merchant_shopcart_pic = goodsInfoBean!!.result!!.merchant_product_pic as ArrayList<String>
-                        } else {
-                            shoppingCarItem.merchant_shopcart_pic = arrayListOf(picPath)
-                        }
-                        shoppingCarItem.merchant_shopcart_specification = specification + serviceName
+                        shoppingCarItem.merchant_shopcart_pic = picPath
+                        shoppingCarItem.merchant_shopcart_specification = specification
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(OrderSubmitFragment.GOODS_ID_FLAG, arrayListOf(shoppingCarItem))
                         FragmentContainerActivity
@@ -220,10 +213,25 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                                 .setClazz(OrderSubmitFragment::class.java)
                                 .setExtraBundle(bundle)
                                 .start()
+                        finish()
                     }
                 }
+                paramsDialog!!.setOnGoodsSpeSelectListener(this)
             }
             paramsDialog!!.show()
+        }
+    }
+
+    override fun onGoodsSpeSelect(speMap: HashMap<String, String>?) {
+        if (speMap != null) {
+            val arr = StringBuilder()
+            speMap.values.sorted().forEach {
+                arr.append(it).append(",")
+            }
+            arr.deleteCharAt(arr.length - 1)
+            mPresent.getDataByPost(0x3, RequestParamsHelper.PRODUCT_MODEL,
+                    RequestParamsHelper.ACT_SKU_SELECT,
+                    RequestParamsHelper.getSkuSelect(goodsInfoBean!!.result!!.merchant_product_id, arr.toString()))
         }
     }
 
@@ -233,6 +241,20 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
             0x0 -> getFastProgressDialog("正在加载详情……")
             0x1 -> getFastProgressDialog("正在收藏……")
             0x2 -> getFastProgressDialog("正在添加到购物车……")
+            0x3 -> {
+                if (paramsDialog != null && paramsDialog!!.isShowing) {
+                    paramsDialog!!.showProgress()
+                }
+            }
+        }
+    }
+
+    override fun onRequestEnd(requestID: Int) {
+        super.onRequestEnd(requestID)
+        if (requestID == 0x3) {
+            if (paramsDialog != null && paramsDialog!!.isShowing) {
+                paramsDialog!!.dismissProgress()
+            }
         }
     }
 
@@ -271,10 +293,19 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                 }
             }
             0x2 -> {// 加入到购物车
-                if (check != null && check.code == SUCCESS_CODE) {
+                if (check != null) {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
-                } else {
-                    toast("添加购物车失败")
+                }
+            }
+            0x3 -> {// 不同规格不同数据
+                if (check != null && check.code == SUCCESS_CODE) {
+                    skuBean = Gson().fromJson((check.obj as JSONObject).optJSONObject("result").toString(), SkuBean::class.java)
+                    paramsDialog!!.reBindData("￥${skuBean?.merchant_sku_price}", skuBean?.merchant_sku_repertory, "库存${skuBean?.merchant_sku_repertory}件", skuBean?.merchant_sku_pic)
+                }
+            }
+            0x4 -> {
+                if (check != null) {
+                    toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
             }
         }
@@ -312,6 +343,17 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
                     .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!.shop_id)))
                     .start()
         }
+        val mLlCouponContainer = footView.findViewById<LinearLayout>(R.id.mLlCouponContainer)
+        if (goodsInfoBean != null && goodsInfoBean!!.arr3 != null && !goodsInfoBean!!.arr3!!.isEmpty()) {
+            goodsInfoBean!!.arr3!!.forEach { coupon ->
+                val couponView = CouponView(mContext)
+                couponView.setOnClickListener {
+                    mPresent.getDataByPost(0x4, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_GET_DISCOUNT, RequestParamsHelper.getDiscountParam(coupon.discount_id!!))
+                }
+                couponView.bindData(coupon)
+                mLlCouponContainer.addView(couponView)
+            }
+        }
     }
 
     override fun onStart() {
@@ -340,5 +382,33 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment() {
         var result: GoodsBean? = null
         var arr1: StoreInfoBean? = null
         var arr2: AdsBean? = null
+        var arr3: ArrayList<CouponBean>? = null
     }
+
+    class SkuBean {
+        var merchant_sku_id: String? = null
+        var merchant_sku_attr: String? = null
+        var merchant_sku_price: String? = null
+        var merchant_sku_yprice: String? = null
+        var merchant_sku_repertory: String? = null
+        var merchant_sku_productcode: String? = null
+        var merchant_sku_pic: String? = null
+        var merchant_sku_product_id: String? = null
+    }
+
+    class CouponBean {
+        var discount_id: String? = null
+        var discount_price: String? = null
+        var discount_num: String? = null
+        var discount_validity: String? = null
+        var discount_time: String? = null
+        var discount_shopping: String? = null
+        var discount_type: String? = null
+        var discount_status: String? = null
+        var discount_token: String? = null
+        var discount_fr: String? = null
+        var discount_uid: String? = null
+        var discount_already: String? = null
+    }
+
 }

@@ -133,6 +133,8 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
         }
     }
 
+    override fun getEmptyMessage() = "暂无商品"
+
     override fun onRefresh() {
         super.onRefresh()
         mPresent.getDataByPost(0x0, RequestParamsHelper.PRODUCT_MODEL, RequestParamsHelper.ACT_MY_SHOP,

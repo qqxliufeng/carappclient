@@ -13,7 +13,7 @@ public class GoodsBean {
     private String merchant_product_id;
     private String merchant_product_stype;
     private String merchant_product_type;
-    private String merchant_product_content;
+    private ArrayList<String> merchant_product_content;
     private String merchant_product_name;
     private String merchant_product_price;
     private String merchant_product_address;
@@ -31,15 +31,34 @@ public class GoodsBean {
     private String merchant_product_shopping;
     private String merchant_product_hname;
     private String merchant_product_uid;
-    private ArrayList<String> merchant_product_pic;
-    private ArrayList<SpecificationBean> merchant_product_specification;
-    private ArrayList<SpecificationBean> merchant_product_service;
+    private String merchant_product_main_pic;
+    private String merchant_product_is_freight;
 
-    public ArrayList<SpecificationBean> getMerchant_product_service() {
+    public String getMerchant_product_is_freight() {
+        return merchant_product_is_freight;
+    }
+
+    public void setMerchant_product_is_freight(String merchant_product_is_freight) {
+        this.merchant_product_is_freight = merchant_product_is_freight;
+    }
+
+    public String getMerchant_product_main_pic() {
+        return merchant_product_main_pic;
+    }
+
+    public void setMerchant_product_main_pic(String merchant_product_main_pic) {
+        this.merchant_product_main_pic = merchant_product_main_pic;
+    }
+
+    private ArrayList<String> merchant_product_pic;
+    private ArrayList<NewSpecificationBean> merchant_product_specification;
+    private ArrayList<NewSpecificationBean> merchant_product_service;
+
+    public ArrayList<NewSpecificationBean> getMerchant_product_service() {
         return merchant_product_service;
     }
 
-    public void setMerchant_product_service(ArrayList<SpecificationBean> merchant_product_service) {
+    public void setMerchant_product_service(ArrayList<NewSpecificationBean> merchant_product_service) {
         this.merchant_product_service = merchant_product_service;
     }
 
@@ -67,11 +86,11 @@ public class GoodsBean {
         this.merchant_product_type = merchant_product_type;
     }
 
-    public String getMerchant_product_content() {
+    public ArrayList<String> getMerchant_product_content() {
         return merchant_product_content;
     }
 
-    public void setMerchant_product_content(String merchant_product_content) {
+    public void setMerchant_product_content(ArrayList<String> merchant_product_content) {
         this.merchant_product_content = merchant_product_content;
     }
 
@@ -219,7 +238,7 @@ public class GoodsBean {
         this.merchant_product_pic = merchant_product_pic;
     }
 
-    public ArrayList<SpecificationBean> getMerchant_product_specification() {
+    public ArrayList<NewSpecificationBean> getMerchant_product_specification() {
         if (merchant_product_specification == null) {
             merchant_product_specification = new ArrayList<>();
         }
@@ -229,7 +248,7 @@ public class GoodsBean {
         return merchant_product_specification;
     }
 
-    public void setMerchant_product_specification(ArrayList<SpecificationBean> merchant_product_specification) {
+    public void setMerchant_product_specification(ArrayList<NewSpecificationBean> merchant_product_specification) {
         this.merchant_product_specification = merchant_product_specification;
     }
 }
