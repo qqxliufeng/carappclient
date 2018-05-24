@@ -124,8 +124,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 addressBean = it
                 setAddressInfo(addressBean!!)
                 //加载运费模板
-                mPresent.getDataByPost(0x3,RequestParamsHelper.ORDER_MODEL,RequestParamsHelper.ACT_ADDRESS,
-                        RequestParamsHelper.getAddressParams(addressBean!!.merchant_address_id,freightId.toString()))
+                mPresent.getDataByPost(0x3, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_ADDRESS,
+                        RequestParamsHelper.getAddressParams(addressBean!!.merchant_address_id, freightId.toString()))
             }
         }
     }
@@ -186,6 +186,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     }
 
     private val couponList = arrayListOf<OrderCouponBean>()
+
+    private val expressList = arrayListOf<String>()
 
     private val couponBottomDialog by lazy {
         BottomSheetDialog(mContext)
@@ -270,7 +272,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             val json = Gson().toJson(orderList)
             payType = selectTypeView.payType
             mPresent.getDataByPost(0x1, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_ADD_ORDER,
-                    RequestParamsHelper.getAddOrderParams(invoice = if (selectInvoice.isChecked) "1" else "0", paytype = payType, post_data = json,discount = if (couponBean == null) "" else couponBean!!.discount_id!!))
+                    RequestParamsHelper.getAddOrderParams(invoice = if (selectInvoice.isChecked) "1" else "0", paytype = payType, post_data = json, discount = if (couponBean == null) "" else couponBean!!.discount_id!!))
         }
     }
 
@@ -303,7 +305,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                         } else {
                             couponName.text = couponBean!!.discount_title
                             var tempMoney = money
-                            tempMoney -= couponBean!!.discount_fr!!.toFloat()
+                            tempMoney -= couponBean!!.discount_price!!.toFloat()
                             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(tempMoney)
                         }
                     }
@@ -332,6 +334,18 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         addressDetail.text = "${addressBean.merchant_address_addres}  ${addressBean.merchant_address_detail}"
         emptyAddressButton.visibility = View.GONE
         selectAddressContainerView.visibility = View.VISIBLE
+        //根据距离重新计算运费价格
+        if (!expressList.isEmpty() && !mArrayList.isEmpty() && expressList.size == mArrayList.size) {
+            expressList.forEachIndexed { index, s ->
+                mArrayList[index].merchant_shopcart_mdprice = s
+            }
+            mArrayList.forEach {
+                money = 0.00f
+                money += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
+            }
+            mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
+            mBaseAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onRefresh() {
@@ -339,15 +353,17 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         setRefreshEnable(false)
         setLoadEnable(false)
         if (tempList != null && !tempList!!.isEmpty()) {
-            var money = 0.00f
+            money = 0.00f
             var num = 0
             tempList!!.forEach {
-                money += ((it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat())
+                money += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
                 num += it.merchant_shopcart_num.toInt()
                 it.merchant_sku_pic = it.merchant_shopcart_pic
                 shopId.append(it.shop_id).append(",")
                 freightId.append(it.merchant_shopcart_freight).append(",")
             }
+            shopId.deleteCharAt(shopId.lastIndex)
+            freightId.deleteCharAt(freightId.lastIndex)
             mTvSubmitOrderGoodsCount.text = Html.fromHtml("共<span style='color:#78BFFF'> $num </span>件")
             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
             mArrayList.addAll(tempList!!)
@@ -374,6 +390,12 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 if (check != null && check.code == SUCCESS_CODE) {
                     val resultJson = check.obj as JSONObject
                     addressBean = Gson().fromJson(resultJson.optJSONObject("result").toString(), AddressBean::class.java)
+                    val jsonArray = resultJson.optJSONArray("arr")
+                    if (jsonArray != null) {
+                        (0 until jsonArray.length()).forEach {
+                            expressList.add(jsonArray.optString(it))
+                        }
+                    }
                     if (addressBean != null) {
                         setAddressInfo(addressBean!!)
                     }
@@ -385,7 +407,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 emptyAddressButton.visibility = View.VISIBLE
                 selectAddressContainerView.visibility = View.GONE
             }
-        } else if (requestID == 0x1){
+        } else if (requestID == 0x1) {
             //提交订单
             val check = checkResultCode(result)
             if (check != null) {
@@ -413,7 +435,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
             }
-        }else if (requestID == 0x2){
+        } else if (requestID == 0x2) {
             try {
                 val check = checkResultCode(result)
                 if (check != null && check.code == SUCCESS_CODE) {
@@ -423,10 +445,10 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                             couponList.add(Gson().fromJson(jsonArray.optJSONObject(it).toString(), OrderCouponBean::class.java))
                         }
                         showCouponList()
-                    }else{
+                    } else {
                         toast("暂无优惠券")
                     }
-                }else{
+                } else {
                     toast("暂无优惠券")
                 }
             } catch (e: Exception) {

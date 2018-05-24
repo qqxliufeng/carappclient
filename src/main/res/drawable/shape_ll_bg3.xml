@@ -7,7 +7,7 @@
         </shape>
     </item>
 
-    <item android:right="25dp">
+    <item android:right="20dp">
         <shape>
             <solid android:color="@color/colorPrimary"/>
         </shape>

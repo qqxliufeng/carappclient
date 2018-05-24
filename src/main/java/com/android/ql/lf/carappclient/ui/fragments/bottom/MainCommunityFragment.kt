@@ -262,7 +262,6 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
                     .load(Constants.BASE_IP + item!!.tag_pic)
                     .bitmapTransform(RoundedCornersTransformation(mContext, 8, 0))
                     .into(imageView)
-            imageView.setColorFilter(Color.parseColor("#77000000"))
             helper.setText(R.id.mTvMainCommunityTopItemTitle, item.tag_title)
         }
     }

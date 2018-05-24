@@ -190,7 +190,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
                         val shoppingCarItem = ShoppingCarItemBean()
                         shoppingCarItem.merchant_shopcart_mdprice = goodsInfoBean!!.result!!.merchant_product_mdprice
                         shoppingCarItem.merchant_shopcart_num = num
-                        shoppingCarItem.merchant_shopcart_price = goodsInfoBean!!.result!!.merchant_product_price
+                        shoppingCarItem.merchant_shopcart_price = price
                         shoppingCarItem.merchant_shopcart_name = goodsInfoBean!!.result!!.merchant_product_name
                         shoppingCarItem.merchant_shopcart_gid = goodsInfoBean!!.result!!.merchant_product_id
                         shoppingCarItem.merchant_shopcart_service = servicePrice
@@ -205,6 +205,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
                         shoppingCarItem.merchant_shopcart_id = ""
                         shoppingCarItem.merchant_shopcart_pic = picPath
                         shoppingCarItem.merchant_shopcart_specification = specification
+                        shoppingCarItem.merchant_shopcart_freight = goodsInfoBean!!.result!!.merchant_product_is_freight
                         val bundle = Bundle()
                         bundle.putParcelableArrayList(OrderSubmitFragment.GOODS_ID_FLAG, arrayListOf(shoppingCarItem))
                         FragmentContainerActivity
@@ -324,7 +325,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
         mTvGoodsInfoPrice.text = "￥ ${goodsInfoBean!!.result!!.merchant_product_price}"
         mTvGoodsInfoOldPrice.paint.flags = TextPaint.STRIKE_THRU_TEXT_FLAG
         mTvGoodsInfoOldPrice.text = "￥ ${goodsInfoBean!!.result!!.merchant_product_yprice}"
-        mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.merchant_product_entrepot
+        mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.merchant_product_zrepertory
         mTvGoodsInfoTitle.text = goodsInfoBean!!.result!!.merchant_product_name
         mTvGoodsInfoDescription.text = Html.fromHtml(goodsInfoBean!!.result!!.merchant_product_description)
         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {

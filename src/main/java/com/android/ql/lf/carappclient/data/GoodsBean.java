@@ -22,6 +22,7 @@ public class GoodsBean {
     private String merchant_product_token;
     private String merchant_product_time;
     private String merchant_product_entrepot;
+    private String merchant_product_zrepertory;
     private String merchant_product_collect;
     private String merchant_product_sv;
     private String merchant_product_md;
@@ -33,6 +34,14 @@ public class GoodsBean {
     private String merchant_product_uid;
     private String merchant_product_main_pic;
     private String merchant_product_is_freight;
+
+    public String getMerchant_product_zrepertory() {
+        return merchant_product_zrepertory;
+    }
+
+    public void setMerchant_product_zrepertory(String merchant_product_zrepertory) {
+        this.merchant_product_zrepertory = merchant_product_zrepertory;
+    }
 
     public String getMerchant_product_is_freight() {
         return merchant_product_is_freight;
