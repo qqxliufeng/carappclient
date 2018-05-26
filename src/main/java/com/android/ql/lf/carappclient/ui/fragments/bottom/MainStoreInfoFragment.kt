@@ -217,7 +217,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
     private fun bindStoreData() {
         if (storeInfoBean != null) {
             if (storeInfoBean!!.shop_mpic != null) {
-                GlideManager.loadImage(mContext, storeInfoBean!!.shop_mpic, mIvStoreInfoPic)
+                GlideManager.loadFaceCircleImage(mContext, storeInfoBean!!.shop_mpic, mIvStoreInfoPic)
             }
             mTvStoreInfoName.text = storeInfoBean!!.shop_name
             mTvStoreInfoFansCount.text = storeInfoBean!!.shop_attention

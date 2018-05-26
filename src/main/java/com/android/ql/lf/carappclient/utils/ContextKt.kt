@@ -8,10 +8,12 @@ import android.net.Uri
 import android.os.IBinder
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.util.DisplayMetrics
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import com.android.ql.lf.carappclient.R
+import org.jetbrains.anko.windowManager
 
 /**
  * Created by lf on 18.2.10.
@@ -29,6 +31,12 @@ fun Context.toast(message: String) {
 fun Context.hiddenKeyBoard(token: IBinder) {
     val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputManager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS)
+}
+
+fun Context.getScreenSize(): Pair<Int, Int> {
+    val outMetrics = DisplayMetrics()
+    this.windowManager.defaultDisplay.getMetrics(outMetrics)
+    return Pair(outMetrics.widthPixels, outMetrics.heightPixels)
 }
 
 

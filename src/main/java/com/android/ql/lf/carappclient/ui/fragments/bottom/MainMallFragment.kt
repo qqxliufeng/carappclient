@@ -181,6 +181,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
         }
         bannerView!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                imageView!!.scaleType = ImageView.ScaleType.FIT_XY
                 GlideManager.loadImage(mContext, (path as BannerImageBean).merchant_lunbo_pic, imageView)
             }
         })
@@ -391,7 +392,13 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
 //                .setExtraBundle(bundleOf(Pair(GoodsInfoFragment.GOODS_ID_FLAG, goodsBean.product_id)))
 //                .setClazz(GoodsInfoFragment::class.java)
 //                .start()
-        FragmentContainerActivity.from(mContext).setTitle("详情").setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.merchant_product_id))).setClazz(NewGoodsInfoFragment::class.java).setNeedNetWorking(true).start()
+        FragmentContainerActivity
+                .from(mContext)
+                .setTitle("详情")
+                .setExtraBundle(bundleOf(Pair(NewGoodsInfoFragment.GOODS_ID_FLAG, goodsBean.merchant_product_id)))
+                .setClazz(NewGoodsInfoFragment::class.java)
+                .setNeedNetWorking(true)
+                .start()
     }
 
     override fun onLoginSuccess(userInfo: UserInfo?) {

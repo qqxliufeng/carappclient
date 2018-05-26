@@ -8,7 +8,7 @@
     <com.youth.banner.Banner
         android:id="@+id/mBannerMainMall"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="190dp"
         app:indicator_drawable_selected="@drawable/shape_banner_selected_bg"
         app:indicator_drawable_unselected="@drawable/shape_banner_unselected_bg" />
 

@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/mClNewGoodsInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
@@ -34,7 +35,7 @@
                         <com.youth.banner.Banner
                             android:id="@+id/mCBPersonalGoodsInfo"
                             android:layout_width="match_parent"
-                            android:layout_height="270dp" />
+                            android:layout_height="340dp" />
 
                         <android.support.design.widget.CheckableImageButton
                             android:id="@+id/mCibGoodsInfoCollection"
@@ -104,9 +105,9 @@
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:paddingTop="2dp"
-                                tools:text="0"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                tools:text="0" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -150,15 +151,15 @@
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
-           <!-- <com.android.ql.lf.carappclient.ui.views.ItemWebView
-                android:id="@+id/mWebGoodsInfo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
+            <!-- <com.android.ql.lf.carappclient.ui.views.ItemWebView
+                 android:id="@+id/mWebGoodsInfo"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mRcGoodsInfo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </com.android.ql.lf.carappclient.ui.views.SlideDetailsLayout>
     </android.support.design.widget.CoordinatorLayout>

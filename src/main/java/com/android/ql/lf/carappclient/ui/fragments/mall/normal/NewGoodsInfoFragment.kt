@@ -28,6 +28,7 @@ import com.android.ql.lf.carappclient.ui.views.ScrollLinearLayoutManager
 import com.android.ql.lf.carappclient.ui.views.SlideDetailsLayout
 import com.android.ql.lf.carappclient.utils.GlideManager
 import com.android.ql.lf.carappclient.utils.RequestParamsHelper
+import com.android.ql.lf.carappclient.utils.getScreenSize
 import com.android.ql.lf.carappclient.utils.toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -125,6 +126,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
         }
         mCBPersonalGoodsInfo!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                imageView!!.scaleType = ImageView.ScaleType.FIT_XY
                 GlideManager.loadImage(mContext, path as String, imageView)
             }
         })
@@ -150,7 +152,8 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
                     if (goodsInfoBean != null && goodsInfoBean!!.result != null && goodsInfoBean!!.result!!.merchant_product_content != null) {
                         mRcGoodsInfo.adapter = object : BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_goods_info_detail_layout, goodsInfoBean!!.result!!.merchant_product_content) {
                             override fun convert(helper: BaseViewHolder?, item: String?) {
-                                GlideManager.loadImage(mContext, item!!, helper!!.getView(R.id.mIvGoodsInfoDetailPic))
+                                val imageView = helper!!.getView<ImageView>(R.id.mIvGoodsInfoDetailPic)
+                                GlideManager.loadImage(mContext, item!!, imageView)
                             }
                         }
                     }

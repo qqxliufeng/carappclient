@@ -115,6 +115,7 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
         }
         mBannerMainCommunity!!.setImageLoader(object : ImageLoader() {
             override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                imageView!!.scaleType = ImageView.ScaleType.FIT_XY
                 GlideManager.loadImage(mContext, (path as BannerImageBean).merchant_lunbo_pic, imageView)
             }
         })
