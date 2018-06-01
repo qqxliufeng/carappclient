@@ -254,16 +254,21 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
                             classifyView.isFocusableInTouchMode = false
                             classifyAdapter.notifyDataSetChanged()
                             bannerView!!.setImages(productContainer!!.arr2).setDelayTime(3000).setBannerStyle(BannerConfig.CIRCLE_INDICATOR).setOnBannerListener {
-                                FragmentContainerActivity.from(mContext)
-                                        .setTitle("详情")
-                                        .setNeedNetWorking(true)
-                                        .setClazz(DetailContentFragment::class.java)
-                                        .setExtraBundle(bundleOf(
-                                                Pair(DetailContentFragment.MODEL_NAME_FLAG, RequestParamsHelper.QAA_MODEL),
-                                                Pair(DetailContentFragment.ACT_NAME_FLAG, RequestParamsHelper.ACT_COMMUNITY_LUNBO_DETAIL),
-                                                Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", productContainer!!.arr2[it].merchant_lunbo_id)))
-                                        ))
-                                        .start()
+                                val bannerImageBean = productContainer!!.arr2[it]
+                                if (!TextUtils.isEmpty(bannerImageBean.merchant_lunbo_isdiscount) && TextUtils.isDigitsOnly(bannerImageBean.merchant_lunbo_isdiscount) && bannerImageBean.merchant_lunbo_isdiscount.toInt() > 0) {
+                                    FragmentContainerActivity.from(mContext).setTitle("优惠券").setNeedNetWorking(true).setClazz(PlatformCouponFragment::class.java).start()
+                                } else {
+                                    FragmentContainerActivity.from(mContext)
+                                            .setTitle("详情")
+                                            .setNeedNetWorking(true)
+                                            .setClazz(DetailContentFragment::class.java)
+                                            .setExtraBundle(bundleOf(
+                                                    Pair(DetailContentFragment.MODEL_NAME_FLAG, RequestParamsHelper.QAA_MODEL),
+                                                    Pair(DetailContentFragment.ACT_NAME_FLAG, RequestParamsHelper.ACT_COMMUNITY_LUNBO_DETAIL),
+                                                    Pair(DetailContentFragment.PARAM_FLAG, mapOf(Pair("lid", bannerImageBean.merchant_lunbo_id)))
+                                            ))
+                                            .start()
+                                }
                             }.start()
                             productContainer!!.arr1.forEachWithIndex { index, item ->
                                 hotViewContainer[index].bindData(item.faddish_title, item.faddish_description, item.faddish_pic) {

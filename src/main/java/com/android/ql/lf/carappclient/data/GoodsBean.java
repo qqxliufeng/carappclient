@@ -34,6 +34,15 @@ public class GoodsBean {
     private String merchant_product_uid;
     private String merchant_product_main_pic;
     private String merchant_product_is_freight;
+    private String merchant_product_start_address;
+
+    public String getMerchant_product_start_address() {
+        return merchant_product_start_address;
+    }
+
+    public void setMerchant_product_start_address(String merchant_product_start_address) {
+        this.merchant_product_start_address = merchant_product_start_address;
+    }
 
     public String getMerchant_product_zrepertory() {
         return merchant_product_zrepertory;

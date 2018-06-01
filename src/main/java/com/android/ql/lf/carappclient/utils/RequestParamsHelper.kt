@@ -552,5 +552,10 @@ class RequestParamsHelper {
             param.addParam("cid", cid)
             return param
         }
+
+
+
+        val ACT_PLATFORM_DISCOUNT = "platform_discount"
+        fun getPlatformDiscountParam() = getBaseParams()
     }
 }

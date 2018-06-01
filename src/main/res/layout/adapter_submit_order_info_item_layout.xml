@@ -158,4 +158,18 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#E6E6E6" />
+    <TextView
+        android:id="@+id/mTvSubmitOrderGoodsTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="@dimen/dp_10"
+        android:gravity="right"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/text_dark_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#E6E6E6" />
 </LinearLayout>

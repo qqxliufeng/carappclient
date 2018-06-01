@@ -297,6 +297,11 @@ public class BottomGoodsParamDialog extends BottomSheetDialog {
 
                     @Override
                     public void onUnSelectItemClick(int index) {
+                        if (INSTALL_SERVICE_FLAG.equals(item.getTitle())){
+                            serviceName = "";
+                            servicePrice = "0";
+                            return;
+                        }
                         final String id = item.getItem_id().get(index);
                         if (selectSpe.containsValue(id) || selectSpe.get(item.getTitle()) != null) {
                             selectSpe.put(item.getTitle(), null);

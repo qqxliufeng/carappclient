@@ -213,6 +213,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.merchant_shopcart_price}")
                 helper.setText(R.id.mTvSubmitOrderGoodsExpressPrice, "商家配送 ￥${item.merchant_shopcart_mdprice}")
                 helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.merchant_shopcart_num}")
+                helper.setText(R.id.mTvSubmitOrderGoodsTotal, Html.fromHtml("共${item.merchant_shopcart_num}件商品  小计:<span style='color:#E1332C'>￥${(item.merchant_shopcart_price.toFloat() * item.merchant_shopcart_num.toInt()) + item.merchant_shopcart_mdprice.toFloat()+ item.merchant_shopcart_service.toFloat()}元</span>"))
                 helper.setText(R.id.mTvSubmitOrderGoodsBBSContent, if (TextUtils.isEmpty(item.bbs)) "选填" else item.bbs)
                 helper.addOnClickListener(R.id.mRlSubmitOrderGoodsBBS)
             }

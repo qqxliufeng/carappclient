@@ -16,6 +16,15 @@ public class BannerImageBean {
     private String merchant_lunbo_sign;
     private String merchant_lunbo_sort;
     private String merchant_lunbo_content;
+    private String merchant_lunbo_isdiscount;
+
+    public String getMerchant_lunbo_isdiscount() {
+        return merchant_lunbo_isdiscount;
+    }
+
+    public void setMerchant_lunbo_isdiscount(String merchant_lunbo_isdiscount) {
+        this.merchant_lunbo_isdiscount = merchant_lunbo_isdiscount;
+    }
 
     public String getMerchant_lunbo_id() {
         return merchant_lunbo_id;
