@@ -17,9 +17,9 @@ public class Constants {
     private static final String APP_SEC = "37b082a279e3b7a9403a16b4bb15073b";
 
     public static final String BASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
-    public static final String APP_PATH = BASE_PATH + "/wrjt/";
+    public static final String APP_PATH = BASE_PATH + "/wrjtclient/";
     public static final String IMAGE_PATH = APP_PATH + "/image/";
-    public static final String FILE_PROVIDE_PATH = "com.android.ql.lf.carapp.fileProvider";
+    public static final String FILE_PROVIDE_PATH = "com.android.ql.lf.carappclient.fileProvider";
 
     public static final String TENCENT_ID = "1106763425";
     public static final String WX_APP_ID = "wx46d6e2abf8aefa8e";

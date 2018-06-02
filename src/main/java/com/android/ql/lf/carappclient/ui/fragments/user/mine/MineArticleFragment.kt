@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import com.android.ql.lf.carappclient.R
+import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mine_article_layout.*
 import java.lang.reflect.Field
@@ -23,6 +24,7 @@ class MineArticleFragment : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_mine_article_layout
 
     override fun initView(view: View?) {
+        (mContext as FragmentContainerActivity).setSwipeBackEnable(false)
         mVpMineArticleContainer.adapter = MineArticleAdapter(childFragmentManager)
         mTlMineArticleTitle.setupWithViewPager(mVpMineArticleContainer)
         mTlMineArticleTitle.post {
@@ -64,12 +66,12 @@ class MineArticleFragment : BaseFragment() {
     class MineArticleAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
         override fun getItem(position: Int) = when (position) {
-//            0 -> {
-//                MineArticleWriteItemFragment.Companion.newInstance()
-//            }
-//            1 -> {
-//                MineArticleReplyItemFragment.Companion.newInstance()
-//            }
+            0 -> {
+                MineArticleWriteItemFragment.newInstance()
+            }
+            1 -> {
+                MineArticleReplyItemFragment.newInstance()
+            }
             else -> {
                 null
             }

@@ -391,7 +391,13 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 if (check != null && check.code == SUCCESS_CODE) {
                     val resultJson = check.obj as JSONObject
                     addressBean = Gson().fromJson(resultJson.optJSONObject("result").toString(), AddressBean::class.java)
-                    val jsonArray = resultJson.optJSONArray("arr")
+                } else {
+                    emptyAddressButton.visibility = View.VISIBLE
+                    selectAddressContainerView.visibility = View.GONE
+                }
+                if (check!=null){
+                    expressList.clear()
+                    val jsonArray = (check.obj as JSONObject).optJSONArray("arr")
                     if (jsonArray != null) {
                         (0 until jsonArray.length()).forEach {
                             expressList.add(jsonArray.optString(it))
@@ -400,9 +406,6 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     if (addressBean != null) {
                         setAddressInfo(addressBean!!)
                     }
-                } else {
-                    emptyAddressButton.visibility = View.VISIBLE
-                    selectAddressContainerView.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 emptyAddressButton.visibility = View.VISIBLE

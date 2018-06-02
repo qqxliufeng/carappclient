@@ -61,9 +61,9 @@ class ArticleInfoFragment : BaseRecyclerViewFragment<ArticleAnswerBean>() {
     }
 
     private fun setArticleInfo() {
-        topView.findViewById<TextView>(R.id.mTvAnswerTopViewName).text = articleBean!!.member_name ?: "暂无"
-        if (articleBean!!.member_pic != null) {
-            GlideManager.loadFaceCircleImage(mContext, articleBean!!.member_pic, topView.findViewById(R.id.mIvAnswerTopViewFace))
+        topView.findViewById<TextView>(R.id.mTvAnswerTopViewName).text = articleBean!!.users_name ?: "暂无"
+        if (articleBean!!.users_pic != null) {
+            GlideManager.loadFaceCircleImage(mContext, articleBean!!.users_pic, topView.findViewById(R.id.mIvAnswerTopViewFace))
         }
         mBottomPraiseView.setPraiseText(articleBean!!.merchant_quiz_click)
         topView.findViewById<TextView>(R.id.mTvAnswerTopViewTitle).text = articleBean!!.merchant_quiz_title

@@ -15,9 +15,9 @@ public class ArticleAnswerBean {
     private String merchant_answer_uid;
     private String merchant_answer_click;
     private String merchant_answer_time;
-    private String member_id;
-    private String member_name;
-    private String member_pic;
+    private String users_id;
+    private String users_name;
+    private String users_pic;
 
     public String getMerchant_answer_id() {
         return merchant_answer_id;
@@ -75,27 +75,27 @@ public class ArticleAnswerBean {
         this.merchant_answer_time = merchant_answer_time;
     }
 
-    public String getMember_id() {
-        return member_id;
+    public String getUsers_id() {
+        return users_id;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public void setUsers_id(String users_id) {
+        this.users_id = users_id;
     }
 
-    public String getMember_name() {
-        return member_name;
+    public String getUsers_name() {
+        return users_name;
     }
 
-    public void setMember_name(String member_name) {
-        this.member_name = member_name;
+    public void setUsers_name(String users_name) {
+        this.users_name = users_name;
     }
 
-    public String getMember_pic() {
-        return member_pic;
+    public String getUsers_pic() {
+        return users_pic;
     }
 
-    public void setMember_pic(String member_pic) {
-        this.member_pic = member_pic;
+    public void setUsers_pic(String users_pic) {
+        this.users_pic = users_pic;
     }
 }

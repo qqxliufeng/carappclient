@@ -24,9 +24,9 @@ public class ArticleBean implements Parcelable {
     private String merchant_quiz_video;
     private String merchant_quiz_look;
     private String merchant_quiz_replies;
-    private String member_id;
-    private String member_name;
-    private String member_pic;
+    private String users_id;
+    private String users_name;
+    private String users_pic;
     private ArrayList<String> merchant_quiz_pic;
 
     public String getMerchant_quiz_id() {
@@ -117,28 +117,28 @@ public class ArticleBean implements Parcelable {
         this.merchant_quiz_replies = merchant_quiz_replies;
     }
 
-    public String getMember_id() {
-        return member_id;
+    public String getUsers_id() {
+        return users_id;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
+    public void setUsers_id(String users_id) {
+        this.users_id = users_id;
     }
 
-    public String getMember_name() {
-        return member_name;
+    public String getUsers_name() {
+        return users_name;
     }
 
-    public void setMember_name(String member_name) {
-        this.member_name = member_name;
+    public void setUsers_name(String users_name) {
+        this.users_name = users_name;
     }
 
-    public String getMember_pic() {
-        return member_pic;
+    public String getUsers_pic() {
+        return users_pic;
     }
 
-    public void setMember_pic(String member_pic) {
-        this.member_pic = member_pic;
+    public void setUsers_pic(String users_pic) {
+        this.users_pic = users_pic;
     }
 
     public ArrayList<String> getMerchant_quiz_pic() {
@@ -170,9 +170,9 @@ public class ArticleBean implements Parcelable {
         dest.writeString(this.merchant_quiz_video);
         dest.writeString(this.merchant_quiz_look);
         dest.writeString(this.merchant_quiz_replies);
-        dest.writeString(this.member_id);
-        dest.writeString(this.member_name);
-        dest.writeString(this.member_pic);
+        dest.writeString(this.users_id);
+        dest.writeString(this.users_name);
+        dest.writeString(this.users_pic);
         dest.writeStringList(this.merchant_quiz_pic);
     }
 
@@ -188,9 +188,9 @@ public class ArticleBean implements Parcelable {
         this.merchant_quiz_video = in.readString();
         this.merchant_quiz_look = in.readString();
         this.merchant_quiz_replies = in.readString();
-        this.member_id = in.readString();
-        this.member_name = in.readString();
-        this.member_pic = in.readString();
+        this.users_id = in.readString();
+        this.users_name = in.readString();
+        this.users_pic = in.readString();
         this.merchant_quiz_pic = in.createStringArrayList();
     }
 

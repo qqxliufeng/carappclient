@@ -19,10 +19,10 @@ class ArticleListAdapter(resId: Int, list: ArrayList<ArticleBean>) : BaseQuickAd
         helper.setText(R.id.mCtvArticleItemCommentCount, item.merchant_quiz_replies)
         helper.setText(R.id.mCtvArticleItemPraiseCount, item.merchant_quiz_click)
         helper.setText(R.id.mTvArticleItemContent, item.merchant_quiz_title)
-        if (item.member_pic != null) {
-            GlideManager.loadFaceCircleImage(mContext, item.member_pic, helper.getView(R.id.mIvArticleItemUserFace))
+        if (item.users_pic != null) {
+            GlideManager.loadFaceCircleImage(mContext, item.users_pic, helper.getView(R.id.mIvArticleItemUserFace))
         }
-        helper.setText(R.id.mTvArticleItemUserName, item.member_name ?: "暂无")
+        helper.setText(R.id.mTvArticleItemUserName, item.users_name ?: "暂无")
         val imageContainer = helper.getView<ImageContainerLinearLayout>(R.id.mLlArticleItemImageContainer)
         if (item.merchant_quiz_pic != null && !item.merchant_quiz_pic.isEmpty()) {
             imageContainer.visibility = View.VISIBLE

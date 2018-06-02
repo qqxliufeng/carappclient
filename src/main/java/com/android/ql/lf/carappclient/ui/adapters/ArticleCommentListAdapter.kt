@@ -16,18 +16,18 @@ import com.chad.library.adapter.base.BaseViewHolder
  */
 class ArticleCommentListAdapter(resId: Int, list: ArrayList<ArticleAnswerBean>) : BaseQuickAdapter<ArticleAnswerBean, BaseViewHolder>(resId, list) {
     override fun convert(helper: BaseViewHolder?, item: ArticleAnswerBean?) {
-        if (!TextUtils.isEmpty(item!!.member_pic)) {
-            GlideManager.loadFaceCircleImage(mContext, item.member_pic, helper!!.getView(R.id.mIvAnswerInfoItemFace))
+        if (!TextUtils.isEmpty(item!!.users_pic)) {
+            GlideManager.loadFaceCircleImage(mContext, item.users_pic, helper!!.getView(R.id.mIvAnswerInfoItemFace))
         }
-        helper!!.setText(R.id.mTvAnswerInfoItemName, if (TextUtils.isEmpty(item.member_name)) {
+        helper!!.setText(R.id.mTvAnswerInfoItemName, if (TextUtils.isEmpty(item.users_name)) {
             "暂无"
         } else {
-            item.member_name
+            item.users_name
         })
         helper.setText(R.id.mTvAnswerInfoItemContent, item.merchant_answer_content)
         helper.setText(R.id.mTvAnswerInfoItemTime, item.merchant_answer_time)
         val mTvDelete = helper.getView<TextView>(R.id.mTvAnswerInfoItemDelete)
-        if (UserInfo.getInstance().memberId == item.member_id) {
+        if (UserInfo.getInstance().memberId == item.users_id) {
             mTvDelete.visibility = View.VISIBLE
             helper.addOnClickListener(R.id.mTvAnswerInfoItemDelete)
         } else {

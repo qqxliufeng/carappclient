@@ -414,7 +414,7 @@ class RequestParamsHelper {
         }
 
         val ACT_GET_MYQUIZ = "get_myquiz"
-        fun getGetMyQuizParam() = getWithIdParams()
+        fun getGetMyQuizParam(page: Int) = getWithPageParams(page)
 
         val ACT_GET_MYANSWER = "get_myanswer"
         fun getGetMyAnswerParam(page: Int) = getWithPageParams(page)
