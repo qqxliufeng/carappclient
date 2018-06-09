@@ -1,4 +1,4 @@
-package com.android.ql.lf.carapp.ui.fragments.user
+package com.android.ql.lf.carappclient.ui.fragments.user
 
 import android.net.Uri
 import android.support.v7.app.AlertDialog
@@ -39,6 +39,8 @@ class SettingFragment : BaseNetWorkingFragment() {
         }
         mRlVersionUpContainer.setOnClickListener {
             if (!TextUtils.isEmpty(VersionInfo.getInstance().downUrl)) {
+                toast("正在下载……")
+                mRlVersionUpContainer.isEnabled = false
                 VersionHelp.downNewVersion(mContext.applicationContext, Uri.parse(VersionInfo.getInstance().downUrl), "${System.currentTimeMillis()}")
             }
         }

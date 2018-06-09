@@ -5,7 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import com.android.ql.lf.carapp.data.RefreshData
-import com.android.ql.lf.carapp.ui.fragments.user.SettingFragment
+import com.android.ql.lf.carappclient.ui.fragments.user.SettingFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineFootPrintFragment
 import com.android.ql.lf.carappclient.ui.fragments.user.mine.MineGoodsCollectionFragment
 import com.android.ql.lf.carappclient.R

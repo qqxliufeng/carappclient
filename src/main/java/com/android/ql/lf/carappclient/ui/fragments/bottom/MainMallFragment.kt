@@ -1,13 +1,17 @@
 package com.android.ql.lf.carappclient.ui.fragments.bottom
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -188,6 +192,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
         mBaseAdapter.addHeaderView(topView)
         mBaseAdapter.setHeaderAndEmpty(true)
         initLocation()
+        mPresent.getDataByPost(0x2, "t", "user_app_update")
     }
 
     private fun initLocation() {
@@ -316,6 +321,35 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
                 if (check != null && check.code == SUCCESS_CODE) {
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
                     refreshCollectionStatus()
+                }
+            }
+            0x2->{
+                val check = checkResultCode(result)
+                if (check != null) {
+                    if (check.code == SUCCESS_CODE) {
+                        val json = check.obj as JSONObject
+                        val resultJson = json.optJSONObject("result")
+                        if (resultJson.optString("version_code").toInt() > VersionHelp.currentVersionCode(mContext)) {
+                            VersionInfo.getInstance().versionCode = resultJson.optString("version_code").toInt()
+                            VersionInfo.getInstance().content = resultJson.optString("ssw")
+                            VersionInfo.getInstance().downUrl = resultJson.optString("apk")
+                            val updateDialog = Dialog(mContext)
+                            val contentView = View.inflate(mContext, R.layout.layout_update_layout, null)
+                            val tv_content = contentView.findViewById<TextView>(R.id.mTvUpdateVersionContent)
+                            contentView.findViewById<Button>(R.id.mBtUpdateVersionCancel).setOnClickListener {
+                                updateDialog.dismiss()
+                            }
+                            contentView.findViewById<Button>(R.id.mBtUpdateVersionUpdate).setOnClickListener {
+                                updateDialog.dismiss()
+                                toast("正在下载……")
+                                VersionHelp.downNewVersion(mContext, Uri.parse(resultJson.optString("apk")),"${System.currentTimeMillis()}")
+                            }
+                            updateDialog.setCanceledOnTouchOutside(false)
+                            tv_content.text = resultJson.optString("ssw")
+                            updateDialog.setContentView(contentView)
+                            updateDialog.show()
+                        }
+                    }
                 }
             }
         }

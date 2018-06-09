@@ -32,7 +32,7 @@ class MainMallOrderItemAdapter(layoutId: Int, list: ArrayList<MallSaleOrderBean>
                     bt_action1.visibility = View.VISIBLE
                     bt_action2.visibility = View.VISIBLE
                     bt_action1.text = "取消订单"
-                    bt_action2.text = "支付款"
+                    bt_action2.text = "去付款"
                     helper.setText(R.id.mTvShoppingCarItemEditMode, MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.description)
                     helper.addOnClickListener(R.id.mBtOrderListItemAction1)
                     helper.addOnClickListener(R.id.mBtOrderListItemAction2)
