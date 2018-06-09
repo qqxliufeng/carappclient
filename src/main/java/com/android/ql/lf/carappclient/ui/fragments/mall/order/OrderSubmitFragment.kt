@@ -213,7 +213,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.merchant_shopcart_price}")
                 helper.setText(R.id.mTvSubmitOrderGoodsExpressPrice, "商家配送 ￥${item.merchant_shopcart_mdprice}")
                 helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.merchant_shopcart_num}")
-                helper.setText(R.id.mTvSubmitOrderGoodsTotal, Html.fromHtml("共${item.merchant_shopcart_num}件商品  小计:<span style='color:#E1332C'>￥${(item.merchant_shopcart_price.toFloat() * item.merchant_shopcart_num.toInt()) + item.merchant_shopcart_mdprice.toFloat()+ item.merchant_shopcart_service.toFloat()}元</span>"))
+                helper.setText(R.id.mTvSubmitOrderGoodsTotal, Html.fromHtml("共${item.merchant_shopcart_num}件商品  小计:<span style='color:#E1332C'>￥${(item.merchant_shopcart_price.toFloat() * item.merchant_shopcart_num.toInt()) + item.merchant_shopcart_mdprice.toFloat() + item.merchant_shopcart_service.toFloat()}元</span>"))
                 helper.setText(R.id.mTvSubmitOrderGoodsBBSContent, if (TextUtils.isEmpty(item.bbs)) "选填" else item.bbs)
                 helper.addOnClickListener(R.id.mRlSubmitOrderGoodsBBS)
             }
@@ -340,8 +340,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             expressList.forEachIndexed { index, s ->
                 mArrayList[index].merchant_shopcart_mdprice = s
             }
+            money = 0.00f
             mArrayList.forEach {
-                money = 0.00f
                 money += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
             }
             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
@@ -395,7 +395,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     emptyAddressButton.visibility = View.VISIBLE
                     selectAddressContainerView.visibility = View.GONE
                 }
-                if (check!=null){
+                if (check != null) {
                     expressList.clear()
                     val jsonArray = (check.obj as JSONObject).optJSONArray("arr")
                     if (jsonArray != null) {

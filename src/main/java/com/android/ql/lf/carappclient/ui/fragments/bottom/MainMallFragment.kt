@@ -446,14 +446,17 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
             MAIN_MALL_COLLECTION_FLAG -> {
                 //收藏
                 collectionGoods(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
             }
             MAIN_MALL_SHOPPING_CAR_FLAG -> {
                 //加购物车
                 addShoppingCar()
+                UserInfo.resetLoginSuccessDoActionToken()
             }
             MAIN_MALL_ENTER_GOODS_INFO_FLAG -> {
                 //进入商品详情
                 enterGoodsInfo(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
             }
             MAIN_MALL_MY_SHOPPING_CAR_FLAG -> {
                 //进入购物车
@@ -465,7 +468,6 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
                 }
             }
         }
-        UserInfo.resetLoginSuccessDoActionToken()
     }
 
     override fun onDestroyView() {

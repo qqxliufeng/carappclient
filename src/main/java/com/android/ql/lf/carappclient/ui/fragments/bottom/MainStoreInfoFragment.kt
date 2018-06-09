@@ -36,6 +36,8 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     companion object {
         val STORE_ID_FLAG = "store_id_flag"
+        val STORE_MALL_ENTER_GOODS_INFO_FLAG = "store_mall_enter_goods_info_flag"
+        val STORE_MALL_COLLECTION_FLAG = "store_mall_collection_flag"
 
         fun newInstance() = MainStoreInfoFragment()
     }
@@ -58,6 +60,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     override fun initView(view: View?) {
         super.initView(view)
+        registerLoginSuccessBus()
         val statusHeight = (mContext as MainActivity).statusHeight
         mAblStoreInfoContainer.setPadding(0, statusHeight, 0, 0)
         mAblStoreInfoContainer.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -234,7 +237,12 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     override fun onMyItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         tempGoodsBean = mArrayList[position]
-        enterGoodsInfo(tempGoodsBean!!)
+        if (UserInfo.getInstance().isLogin) {
+            enterGoodsInfo(tempGoodsBean!!)
+        } else {
+            UserInfo.loginToken = STORE_MALL_ENTER_GOODS_INFO_FLAG
+            LoginFragment.startLogin(mContext)
+        }
     }
 
     override fun onMyItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -246,7 +254,7 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                     //收藏
                     collectionGoods(tempGoodsBean!!)
                 } else {
-                    UserInfo.loginToken = MainMallFragment.MAIN_MALL_COLLECTION_FLAG
+                    UserInfo.loginToken = STORE_MALL_COLLECTION_FLAG
                     LoginFragment.startLogin(mContext)
                 }
             }
@@ -275,4 +283,17 @@ class MainStoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 .start()
     }
 
+    override fun onLoginSuccess(userInfo: UserInfo?) {
+        super.onLoginSuccess(userInfo)
+        when (UserInfo.loginToken) {
+            STORE_MALL_COLLECTION_FLAG -> {
+                collectionGoods(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
+            }
+            STORE_MALL_ENTER_GOODS_INFO_FLAG -> {
+                enterGoodsInfo(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
+            }
+        }
+    }
 }

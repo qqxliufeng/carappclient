@@ -35,7 +35,9 @@ class SearchResultListFragment : BaseRecyclerViewFragment<GoodsBean>() {
     companion object {
         val SEARCH_PARAM_FLAG = "search_param_flag"
 
-        val RESULT_MALL_MY_SHOPPING_CAR_FLAG = "result_mall_my_shopping_car_flag"
+        val RESULT_MALL_MY_SHOPPING_CAR_FLAG = "search_result_mall_my_shopping_car_flag"
+        val RESULT_MAIN_MALL_ENTER_GOODS_INFO_FLAG = "search_result_main_mall_enter_goods_info_flag"
+        val RESULT_MAIN_MALL_COLLECTION_FLAG = "search_result_main_mall_collection_flag"
 
 
     }
@@ -75,6 +77,7 @@ class SearchResultListFragment : BaseRecyclerViewFragment<GoodsBean>() {
 
     override fun initView(view: View?) {
         super.initView(view)
+        registerLoginSuccessBus()
         val statusHeight = (mContext as FragmentContainerActivity).statusHeight
         mAlGoodsSearchContainer.setPadding(0, statusHeight, 0, 0)
         mAlGoodsSearchContainer.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -237,7 +240,7 @@ class SearchResultListFragment : BaseRecyclerViewFragment<GoodsBean>() {
         if (UserInfo.getInstance().isLogin) {
             enterGoodsInfo(tempGoodsBean!!)
         } else {
-            UserInfo.loginToken = MainMallFragment.MAIN_MALL_ENTER_GOODS_INFO_FLAG
+            UserInfo.loginToken = RESULT_MAIN_MALL_ENTER_GOODS_INFO_FLAG
             LoginFragment.startLogin(mContext)
         }
     }
@@ -251,8 +254,33 @@ class SearchResultListFragment : BaseRecyclerViewFragment<GoodsBean>() {
                     //收藏
                     collectionGoods(tempGoodsBean!!)
                 } else {
-                    UserInfo.loginToken = MainMallFragment.MAIN_MALL_COLLECTION_FLAG
+                    UserInfo.loginToken = RESULT_MAIN_MALL_COLLECTION_FLAG
                     LoginFragment.startLogin(mContext)
+                }
+            }
+        }
+    }
+
+    override fun onLoginSuccess(userInfo: UserInfo?) {
+        super.onLoginSuccess(userInfo)
+        when (UserInfo.loginToken) {
+            RESULT_MAIN_MALL_COLLECTION_FLAG -> {
+                //收藏
+                collectionGoods(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
+            }
+            RESULT_MAIN_MALL_ENTER_GOODS_INFO_FLAG -> {
+                //进入商品详情
+                enterGoodsInfo(tempGoodsBean!!)
+                UserInfo.resetLoginSuccessDoActionToken()
+            }
+            RESULT_MALL_MY_SHOPPING_CAR_FLAG -> {
+                //进入购物车
+                mFabGoodsSearch.doClickWithUseStatusEnd()
+            }
+            else -> {
+                if (mArrayList.isEmpty()) {
+                    onPostRefresh()
                 }
             }
         }
