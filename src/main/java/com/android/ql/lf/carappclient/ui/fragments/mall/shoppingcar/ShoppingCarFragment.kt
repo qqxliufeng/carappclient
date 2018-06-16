@@ -39,6 +39,8 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
 
     private var currentEditMode = 1// 1 减  0  加
 
+    private var isActioning = false
+
     private val selectedList = ArrayList<ShoppingCarItemBean>()
 
     private val shoppingCarPresent by lazy {
@@ -112,7 +114,10 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         super.onRequestStart(requestID)
         when (requestID) {
             0x1 -> getFastProgressDialog("正在删除……")
-            0x2 -> getFastProgressDialog("")
+            0x2 -> {
+                isActioning = true
+                getFastProgressDialog("")
+            }
         }
     }
 
@@ -137,6 +142,7 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 mBaseAdapter.notifyDataSetChanged()
             }
         } else if (requestID == 0x2) {
+            isActioning = false
             val check = checkResultCode(result)
             if (check != null) {
                 if (check.code == SUCCESS_CODE) {
@@ -153,7 +159,12 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     }
 
     override fun onRequestFail(requestID: Int, e: Throwable) {
-        emptyShoppingCar()
+        if (requestID == 0x0) {
+            emptyShoppingCar()
+        }
+        if (requestID == 0x2){
+            isActioning = false
+        }
     }
 
     private fun emptyShoppingCar() {
@@ -173,6 +184,9 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 mCivShoppingCarAllSelect.isChecked = shoppingCarPresent.isAllItemsSelected()
             }
             R.id.mIvShoppingCarDeleteNum -> {
+                if (isActioning){ // 正在操作中，不能继续操作
+                    return
+                }
                 if (currentItem.merchant_shopcart_num.toInt() <= 1) {
                     return
                 }
@@ -183,6 +197,9 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                         RequestParamsHelper.Companion.getUpdateShopcart(currentItem.merchant_shopcart_id, (currentItem.merchant_shopcart_num.toInt() - 1).toString()))
             }
             R.id.mIvShoppingCarAddNum -> {
+                if (isActioning){ // 正在操作中，不能继续操作
+                    return
+                }
                 currentEditMode = 0
                 mPresent.getDataByPost(0x2,
                         RequestParamsHelper.Companion.MEMBER_MODEL,

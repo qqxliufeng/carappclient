@@ -48,6 +48,7 @@
             android:gravity="top"
             android:hint="商品如何？赶紧来评价一下吧！"
             android:minLines="8"
+            android:maxLength="400"
             android:padding="@dimen/dp_10"
             android:textSize="@dimen/sp_14" />
 
@@ -57,7 +58,7 @@
             android:background="#fff"
             android:gravity="right"
             android:padding="@dimen/dp_10"
-            android:text="最少15字" />
+            android:text="10-400字之间" />
 
         <View
             android:layout_width="match_parent"

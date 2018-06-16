@@ -71,8 +71,8 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
                 toast("请输入商品评价")
                 return@setOnClickListener
             }
-            if (mEtGoodsCommentContent.getTextString().length < 15) {
-                toast("请输入至少15字")
+            if (mEtGoodsCommentContent.getTextString().length < 10) {
+                toast("请输入至少10字")
                 return@setOnClickListener
             }
             if (imageList.size > 1) {

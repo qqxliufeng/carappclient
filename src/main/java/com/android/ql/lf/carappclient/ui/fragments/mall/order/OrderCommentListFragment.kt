@@ -1,5 +1,6 @@
 package com.android.ql.lf.carappclient.ui.fragments.mall.order
 
+import android.view.View
 import com.android.ql.lf.carappclient.R
 import com.android.ql.lf.carappclient.data.CommentForGoodsBean
 import com.android.ql.lf.carappclient.ui.adapters.GoodsCommentAdapter
@@ -20,6 +21,11 @@ class OrderCommentListFragment : BaseRecyclerViewFragment<CommentForGoodsBean>()
 
     override fun createAdapter(): BaseQuickAdapter<CommentForGoodsBean, BaseViewHolder> =
             GoodsCommentAdapter(R.layout.adapter_goods_comment_item_layout, mArrayList)
+
+    override fun initView(view: View?) {
+        super.initView(view)
+        (mBaseAdapter as GoodsCommentAdapter).setContentLines(Int.MAX_VALUE)
+    }
 
     override fun onRefresh() {
         super.onRefresh()

@@ -331,7 +331,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
         mTvGoodsInfoInfoReleaseCount.text = goodsInfoBean!!.result!!.merchant_product_zrepertory
         mTvGoodsInfoTitle.text = goodsInfoBean!!.result!!.merchant_product_name
         mTvGoodsInfoSellCount.text = "销量：${goodsInfoBean!!.result!!.merchant_product_sv}笔"
-        mTvGoodsInfoAddress.text = goodsInfoBean!!.result!!.merchant_product_address
+        mTvGoodsInfoAddress.text = goodsInfoBean!!.result!!.merchant_product_start_address
         mTvGoodsInfoDescription.text = Html.fromHtml(goodsInfoBean!!.result!!.merchant_product_description)
         if (goodsInfoBean!!.arr1!!.shop_pic != null && !goodsInfoBean!!.arr1!!.shop_pic.isEmpty()) {
             GlideManager.loadImage(mContext, goodsInfoBean!!.arr1!!.shop_pic[0], mIvGoodsInfoStorePic)

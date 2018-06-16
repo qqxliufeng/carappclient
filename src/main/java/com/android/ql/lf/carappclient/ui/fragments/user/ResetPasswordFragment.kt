@@ -36,7 +36,8 @@ class ResetPasswordFragment : BaseNetWorkingFragment() {
                 toast("两次密码不一致")
                 return@setOnClickListener
             }
-            mPresent.getDataByPost(0x0, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EDIT_PW, RequestParamsHelper.getEditPWParams(mEtResetPasswordOldPW.getTextString(), mEtResetPasswordNewOne.getTextString()))
+            mPresent.getDataByPost(0x0, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EDIT_PW,
+                    RequestParamsHelper.getEditPWParams(mEtResetPasswordOldPW.getTextString(), mEtResetPasswordNewOne.getTextString()))
         }
     }
 
