@@ -13,7 +13,8 @@
         android:layout_weight="1"
         android:gravity="top"
         android:background="@drawable/shape_et_bg2"
-        android:hint="留言内容:"
+        android:hint="留言内容:（最多50字）"
+        android:maxLength="50"
         android:padding="@dimen/dp_10"
         android:textColor="@color/text_deep_dark_color"
         android:textSize="@dimen/sp_12" />

@@ -28,6 +28,7 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
 
     companion object {
         val ORDER_ID_FLAG = "order_id_flag"
+        val ORDER_SN_FLAG = "order_sn_flag"
         val PRODUCT_ID_FLAG = "product_id_flag"
     }
 
@@ -82,6 +83,7 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
                         builder.addFormDataPart("gid", arguments.getString(PRODUCT_ID_FLAG, ""))
                         builder.addFormDataPart("content", mEtGoodsCommentContent.getTextString())
                         builder.addFormDataPart("f", mRbGoodsCommentStart.rating.toString())
+                        builder.addFormDataPart("sn", arguments.getString(ORDER_SN_FLAG, ""))
                         mPresent.uploadFile(0x0, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EVALUATE, builder.build().parts())
                     }
 
@@ -98,7 +100,8 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
                         RequestParamsHelper.getEvaluateParam(arguments.getString(ORDER_ID_FLAG, ""),
                                 arguments.getString(PRODUCT_ID_FLAG, ""),
                                 mEtGoodsCommentContent.text.toString(),
-                                mRbGoodsCommentStart.rating.toString()
+                                mRbGoodsCommentStart.rating.toString(),
+                                arguments.getString(ORDER_SN_FLAG, "")
                         ))
             }
         }

@@ -270,12 +270,13 @@ class RequestParamsHelper {
                 .addParam("oid", oid)
 
         val ACT_EVALUATE = "evaluate"
-        fun getEvaluateParam(oid: String, gid: String, content: String, f: String): ApiParams {
+        fun getEvaluateParam(oid: String, gid: String, content: String, f: String,sn:String): ApiParams {
             val param = getWithIdParams()
             param.addParam("oid", oid)
             param.addParam("gid", gid)
             param.addParam("content", content)
             param.addParam("f", f)
+            param.addParam("sn", sn)
             return param
         }
 

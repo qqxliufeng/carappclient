@@ -47,6 +47,7 @@
             android:background="#fff"
             android:gravity="top"
             android:hint="商品如何？赶紧来评价一下吧！"
+            android:maxLines="8"
             android:minLines="8"
             android:maxLength="400"
             android:padding="@dimen/dp_10"

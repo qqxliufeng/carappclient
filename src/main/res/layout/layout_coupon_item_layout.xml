@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="150dp"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
     android:layout_marginRight="5dp"
     android:background="@drawable/shape_ll_bg3"
     android:minHeight="70dp"
-    android:minWidth="150dp"
+    android:minWidth="160dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -40,9 +40,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/mCouponItemSymbol"
                 android:textColor="#fff"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="160" />
+                tools:text="1600.00" />
 
             <TextView
                 android:id="@+id/mTvCouponItemCanUse"

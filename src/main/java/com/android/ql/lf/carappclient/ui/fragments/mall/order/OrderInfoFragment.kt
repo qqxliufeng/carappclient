@@ -165,7 +165,8 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
             mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.merchant_product_price}"
             mTvOrderInfoExpressMoney.text = "￥${mallOrderInfoContainer!!.merchant_order_mdprice}"
 
-            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_num.toInt() * mallOrderInfoContainer!!.merchant_product_price.toFloat() + mallOrderInfoContainer!!.merchant_order_mdprice.toFloat()}"
+            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_num.toInt() *
+                    mallOrderInfoContainer!!.merchant_product_price.toFloat() + mallOrderInfoContainer!!.merchant_order_mdprice.toFloat()}"
             mTvOrderInfoDetailOrderNum.text = mallOrderInfoContainer!!.merchant_order_sn
             mTvOrderInfoDetailGoodsOrderTime.text = mallOrderInfoContainer!!.merchant_order_ctime
 

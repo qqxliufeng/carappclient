@@ -76,7 +76,7 @@ class DetailContentFragment : BaseNetWorkingFragment() {
         val check = checkResultCode(result)
         if (check != null) {
             if (SUCCESS_CODE == check.code) {
-                mWbDetailContent.loadData((check.obj as JSONObject).optJSONObject("result").optString("lunbo_content"), "text/html; charset=UTF-8", null)
+                mWbDetailContent.loadData((check.obj as JSONObject).optJSONObject("result").optString("merchant_lunbo_content"), "text/html; charset=UTF-8", null)
             }
         }
     }

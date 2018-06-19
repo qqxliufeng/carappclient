@@ -271,9 +271,11 @@ class MainMallOrderItemFragment : AbstractLazyLoadFragment<MallSaleOrderBean>() 
                                 .setTitle("评价")
                                 .setNeedNetWorking(true)
                                 .setClazz(OrderCommentSubmitFragment::class.java)
-                                .setExtraBundle(bundleOf(Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, currentOrder!!.merchant_order_id),
-                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, currentOrder!!.merchant_product_id)))
-                                .start()
+                                .setExtraBundle(bundleOf(
+                                        Pair(OrderCommentSubmitFragment.ORDER_ID_FLAG, currentOrder!!.merchant_order_id),
+                                        Pair(OrderCommentSubmitFragment.PRODUCT_ID_FLAG, currentOrder!!.merchant_product_id),
+                                        Pair(OrderCommentSubmitFragment.ORDER_SN_FLAG, currentOrder!!.merchant_order_sn)
+                                )).start()
                     }
                 }
                 MallOrderPresent.MallOrderStatus.MALL_ORDER_COMPLEMENT.index -> {

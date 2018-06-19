@@ -264,7 +264,7 @@ class MainMallFragment : BaseRecyclerViewFragment<GoodsBean>(), AMapLocationList
                                     FragmentContainerActivity.from(mContext).setTitle("优惠券").setNeedNetWorking(true).setClazz(PlatformCouponFragment::class.java).start()
                                 } else {
                                     FragmentContainerActivity.from(mContext)
-                                            .setTitle("详情")
+                                            .setTitle(bannerImageBean.merchant_lunbo_title)
                                             .setNeedNetWorking(true)
                                             .setClazz(DetailContentFragment::class.java)
                                             .setExtraBundle(bundleOf(

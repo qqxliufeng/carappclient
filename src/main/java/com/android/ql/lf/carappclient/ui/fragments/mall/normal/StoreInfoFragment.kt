@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.amap.api.maps2d.model.LatLng
@@ -199,11 +198,14 @@ class StoreInfoFragment : BaseRecyclerViewFragment<GoodsBean>() {
                 if (check != null) {
                     if (check.code == SUCCESS_CODE) {
                         collectStatus = if (collectStatus == 0) {
+                            storeInfoBean!!.shop_attention = (storeInfoBean!!.shop_attention.toInt() + 1).toString()
                             1
                         } else {
+                            storeInfoBean!!.shop_attention = (storeInfoBean!!.shop_attention.toInt() - 1).toString()
                             0
                         }
                         setFocusText()
+                        mTvStoreInfoFansCount.text = storeInfoBean!!.shop_attention
                     }
                     toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }

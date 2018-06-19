@@ -71,20 +71,22 @@
                 android:textColor="@color/text_deep_dark_color"
                 android:textSize="@dimen/sp_14" />
 
+            <TextView
+                android:layout_below="@+id/mTvOrderListItemTitle"
+                android:id="@+id/mTvOrderListItemSpecification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:ellipsize="end"
+                android:maxLength="9"
+                android:textColor="@color/text_dark_color"
+                android:textSize="12sp" />
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true">
-
-                <TextView
-                    android:id="@+id/mTvOrderListItemSpecification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:ellipsize="end"
-                    android:maxLength="9"
-                    android:textColor="@color/text_dark_color"
-                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/mIvOrderListItemNum"
