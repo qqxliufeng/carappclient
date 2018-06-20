@@ -273,7 +273,11 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             val json = Gson().toJson(orderList)
             payType = selectTypeView.payType
             mPresent.getDataByPost(0x1, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_ADD_ORDER,
-                    RequestParamsHelper.getAddOrderParams(invoice = if (selectInvoice.isChecked) "1" else "0", paytype = payType, post_data = json, discount = if (couponBean == null) "" else couponBean!!.discount_id!!))
+                    RequestParamsHelper.getAddOrderParams(
+                            invoice = if (selectInvoice.isChecked) "1" else "0",
+                            paytype = payType,
+                            post_data = json,
+                            discount = if (couponBean == null) "" else if(couponBean!!.discount_id == null) "" else couponBean!!.discount_id!!))
         }
     }
 
@@ -301,6 +305,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     } else {
                         if (couponBean!!.discount_fr!!.toFloat() > money) {
                             toast("当前订单金额不支持此优惠券")
+                            couponBean!!.discount_id = null
                             couponName.text = "暂不使用"
                             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
                         } else {

@@ -78,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:ellipsize="end"
-                android:maxLength="9"
                 android:textColor="@color/text_dark_color"
                 android:textSize="12sp" />
 

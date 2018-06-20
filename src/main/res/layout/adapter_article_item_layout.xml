@@ -26,6 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="80dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_toRightOf="@+id/mIvArticleItemUserFace"
             android:textColor="@color/text_deep_dark_color"
             android:textSize="@dimen/sp_14" />

@@ -34,7 +34,25 @@ public class MallOrderInfoBean {
     private String merchant_address_phone;
     private String merchant_address_addres;
     private String merchant_address_detail;
+    private String merchant_order_service;
     private List<String> merchant_product_pic;
+    private String merchant_order_sku_pic;
+
+    public String getMerchant_order_sku_pic() {
+        return merchant_order_sku_pic;
+    }
+
+    public void setMerchant_order_sku_pic(String merchant_order_sku_pic) {
+        this.merchant_order_sku_pic = merchant_order_sku_pic;
+    }
+
+    public String getMerchant_order_service() {
+        return merchant_order_service;
+    }
+
+    public void setMerchant_order_service(String merchant_order_service) {
+        this.merchant_order_service = merchant_order_service;
+    }
 
     public String getMerchant_product_id() {
         return merchant_product_id;

@@ -144,8 +144,9 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                         toast("收货成功")
                         MallOrderPresent.onOrderReceiver()
                         finish()
+                    }else {
+                        toast((check.obj as JSONObject).optString(MSG_FLAG))
                     }
-                    toast((check.obj as JSONObject).optString(MSG_FLAG))
                 }
             }
         }
@@ -158,15 +159,14 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
             mTvOrderInfoPhone.text = "手机号码  ${mallOrderInfoContainer!!.merchant_address_phone}"
             mTvOrderInfoAddress.text = "收货地址  ${mallOrderInfoContainer!!.merchant_address_addres}"
 
-            GlideManager.loadImage(mContext, mallOrderInfoContainer!!.merchant_product_pic[0], mIvOrderListItemPic)
+            GlideManager.loadImage(mContext, mallOrderInfoContainer!!.merchant_order_sku_pic, mIvOrderListItemPic)
             mTvOrderListItemTitle.text = mallOrderInfoContainer!!.merchant_product_name
             mTvOrderListItemSpecification.text = mallOrderInfoContainer!!.merchant_order_specification
             mIvOrderListItemNum.text = "X${mallOrderInfoContainer!!.merchant_order_num}"
             mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.merchant_product_price}"
             mTvOrderInfoExpressMoney.text = "￥${mallOrderInfoContainer!!.merchant_order_mdprice}"
 
-            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_num.toInt() *
-                    mallOrderInfoContainer!!.merchant_product_price.toFloat() + mallOrderInfoContainer!!.merchant_order_mdprice.toFloat()}"
+            mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_oprice}"
             mTvOrderInfoDetailOrderNum.text = mallOrderInfoContainer!!.merchant_order_sn
             mTvOrderInfoDetailGoodsOrderTime.text = mallOrderInfoContainer!!.merchant_order_ctime
 
@@ -195,6 +195,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                     }
                     mBtOrderInfoAction2.setOnClickListener {
                         MallOrderPresent.showPayDialog(mContext) {
+                            payType = it
                             mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_PAY,
                                     RequestParamsHelper.getPayParam(mallOrderInfoContainer!!.merchant_order_id, mallOrderInfoContainer!!.merchant_product_id, it))
                         }

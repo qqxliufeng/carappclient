@@ -47,6 +47,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/text_dark_color"
                 android:textSize="@dimen/sp_14"
+                android:maxLength="10"
                 tools:text="2016.3.2" />
         </RelativeLayout>
 

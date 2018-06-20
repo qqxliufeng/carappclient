@@ -28,10 +28,9 @@ class MineMessageListFragment : BaseRecyclerViewFragment<MineMessageListFragment
     private val iconList = listOf(
             R.drawable.img_icon_message_for_system,
             R.drawable.img_icon_message_for_fix,
-            R.drawable.img_icon_message_for_house,
             R.drawable.img_icon_message_for_shop,
             R.drawable.img_icon_message_for_community)
-    private val titleList = listOf("系统消息", "维修订单", "商铺订单", "购物订单", "帖子评论")
+    private val titleList = listOf("系统消息", "维修订单", "购物订单", "帖子评论")
 
     override fun createAdapter(): BaseQuickAdapter<MineMessageItem, BaseViewHolder>
             = MineMessageListAdapter(R.layout.adapter_mine_message_list_item_layout, mArrayList)

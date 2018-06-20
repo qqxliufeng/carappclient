@@ -112,10 +112,11 @@ class MainMallOrderItemFragment : AbstractLazyLoadFragment<MallSaleOrderBean>() 
             if (it.isRefresh && it.any == REFRESH_ORDER_FLAG) {
                 when (orderType) {
                     MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index,
+                    MallOrderPresent.MallOrderStatus.WAITING_FOR_RECEIVER.index,
                     MallOrderPresent.MallOrderStatus.WAITING_FOR_SEND.index,
                     MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index,
                     MallOrderPresent.MallOrderStatus.MALL_ORDER_APPLY_BACK.index -> {
-                        onPostRefresh()
+                        onRefresh()
                     }
                 }
             }

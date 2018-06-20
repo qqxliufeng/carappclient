@@ -96,7 +96,7 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
                     }
                 }).upload(imageList.filter { it.uriPath != null } as ArrayList<ImageBean>, 150)
             } else {
-                mPresent.getDataByPost(0x0, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EVALUATE,
+                mPresent.getDataByPost(0x1, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EVALUATE,
                         RequestParamsHelper.getEvaluateParam(arguments.getString(ORDER_ID_FLAG, ""),
                                 arguments.getString(PRODUCT_ID_FLAG, ""),
                                 mEtGoodsCommentContent.text.toString(),
@@ -109,7 +109,9 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
 
     override fun onRequestStart(requestID: Int) {
         super.onRequestStart(requestID)
-        getFastProgressDialog("正在上传……")
+        if (requestID == 0x1) {
+            getFastProgressDialog("正在上传……")
+        }
     }
 
     override fun <T : Any?> onRequestSuccess(requestID: Int, result: T) {
@@ -117,7 +119,6 @@ class OrderCommentSubmitFragment : BaseNetWorkingFragment() {
         val json = checkResultCode(result)
         if (json != null) {
             MallOrderPresent.notifyRefreshOrderList()
-            MallOrderPresent.notifyRefreshOrderNum()
             toast("评价成功！")
             finish()
         }

@@ -41,14 +41,14 @@ class SystemMessageListFragment : BaseRecyclerViewFragment<SystemMessageListFrag
             processList(result as String, SystemMessageItem::class.java)
             if (!mArrayList.isEmpty()) {
                 mArrayList.forEach {
-                    it.isRead = it.message_status == "1"
+                    it.merchant_isRead = it.merchant_message_status == "1"
                 }
                 mBaseAdapter.notifyDataSetChanged()
             }
         } else if (requestID == 0x1) {
             val check = checkResultCode(result)
             if (check != null && check.code == SUCCESS_CODE) {
-                mArrayList[currentItemIndex].isRead = true
+                mArrayList[currentItemIndex].merchant_isRead = true
                 mBaseAdapter.notifyItemChanged(currentItemIndex)
             }
         }
@@ -59,19 +59,19 @@ class SystemMessageListFragment : BaseRecyclerViewFragment<SystemMessageListFrag
         super.onMyItemClick(adapter, view, position)
         val item = mArrayList[position]
         currentItemIndex = position
-        mPresent.getDataByPost(0x1, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EDIT_MYMSG_STATUS, RequestParamsHelper.getEditMyMsgStatus(item.message_id!!))
+        mPresent.getDataByPost(0x1, RequestParamsHelper.MEMBER_MODEL, RequestParamsHelper.ACT_EDIT_MYMSG_STATUS, RequestParamsHelper.getEditMyMsgStatus(item.merchant_message_id!!))
     }
 
     class SystemMessageItem {
-        var message_id: String? = null
-        var message_title: String? = null
-        var message_content: String? = null
-        var message_time: String? = null
-        var message_uid: String? = null
-        var message_qid: String? = null
-        var message_status: String? = null
-        var message_token: String? = null
-        var message_sym: String? = null
-        var isRead: Boolean = false
+        var merchant_message_id: String? = null
+        var merchant_message_title: String? = null
+        var merchant_message_content: String? = null
+        var merchant_message_time: String? = null
+        var merchant_message_uid: String? = null
+        var merchant_message_qid: String? = null
+        var merchant_message_status: String? = null
+        var merchant_message_token: String? = null
+        var merchant_message_sym: String? = null
+        var merchant_isRead: Boolean = false
     }
 }
