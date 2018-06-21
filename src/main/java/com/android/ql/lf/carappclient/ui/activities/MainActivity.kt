@@ -22,7 +22,7 @@ class MainActivity : BaseActivity() {
     override fun getLayoutId() = R.layout.activity_main_layout
 
     override fun initView() {
-        setSwipeBackEnable(false)
+//        setSwipeBackEnable(false)
         BottomNavigationViewHelper.disableShiftMode(mMainNavigation)
         mMainNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         mMainContent.adapter = MainViewPagerAdapter(supportFragmentManager)

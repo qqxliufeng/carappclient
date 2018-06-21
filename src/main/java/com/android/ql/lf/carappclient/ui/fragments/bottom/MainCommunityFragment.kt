@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -59,7 +60,8 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
     private var mBannerMainCommunity: Banner? = null
     private var currentArticle: ArticleBean? = null
     private val topRecycleViewAdapter by lazy {
-        TopRecyclerViewAdapter(R.layout.layout_main_community_top_item_layout, topList)
+        TopRecyclerViewAdapter(R.layout.layout_main_community_top_item_layout, topList,(mContext.getScreenSize().first -
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,40.0f,mContext.resources.displayMetrics).toInt())/4)
     }
 
     private val articleSubscription by lazy {
@@ -256,9 +258,13 @@ class MainCommunityFragment : BaseRecyclerViewFragment<ArticleBean>() {
         super.onDestroyView()
     }
 
-    class TopRecyclerViewAdapter(layoutId: Int, list: ArrayList<CommunityTagBean>) : BaseQuickAdapter<CommunityTagBean, BaseViewHolder>(layoutId, list) {
+    class TopRecyclerViewAdapter(layoutId: Int, list: ArrayList<CommunityTagBean>,var width:Int) : BaseQuickAdapter<CommunityTagBean, BaseViewHolder>(layoutId, list) {
         override fun convert(helper: BaseViewHolder?, item: CommunityTagBean?) {
             val imageView = helper!!.getView<ImageView>(R.id.mIvMainCommunityTopItemImage)
+            val layoutParams = imageView.layoutParams
+            layoutParams.width = this.width
+            layoutParams.height = this.width / 5 * 4
+            imageView.layoutParams = layoutParams
             Glide.with(mContext)
                     .load(Constants.BASE_IP + item!!.tag_pic)
                     .bitmapTransform(RoundedCornersTransformation(mContext, 8, 0))

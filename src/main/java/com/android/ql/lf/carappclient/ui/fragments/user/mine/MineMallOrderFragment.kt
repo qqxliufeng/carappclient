@@ -35,7 +35,6 @@ class MineMallOrderFragment : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_main_mall_order_layout
 
     override fun initView(view: View?) {
-        (mContext as FragmentContainerActivity).setSwipeBackEnable(false)
         mVpMainMallOrder.adapter = MainMallOrderViewPagerAdapter(childFragmentManager)
         mVpMainMallOrder.offscreenPageLimit = TITLES.size
         mTlMainMallOrder.setupWithViewPager(mVpMainMallOrder)

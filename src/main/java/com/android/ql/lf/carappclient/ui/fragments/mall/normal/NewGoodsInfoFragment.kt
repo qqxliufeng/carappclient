@@ -20,6 +20,7 @@ import com.android.ql.lf.carappclient.ui.activities.FragmentContainerActivity
 import com.android.ql.lf.carappclient.ui.adapters.GoodsCommentAdapter
 import com.android.ql.lf.carappclient.ui.fragments.BaseNetWorkingFragment
 import com.android.ql.lf.carappclient.ui.fragments.BrowserImageFragment
+import com.android.ql.lf.carappclient.ui.fragments.WebViewContentFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderCommentListFragment
 import com.android.ql.lf.carappclient.ui.fragments.mall.order.OrderSubmitFragment
 import com.android.ql.lf.carappclient.ui.views.BottomGoodsParamDialog
@@ -349,6 +350,26 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
                     .setExtraBundle(bundleOf(Pair(StoreInfoFragment.STORE_ID_FLAG, goodsInfoBean!!.arr1!!.shop_id)))
                     .start()
         }
+
+        val adIv = footView.findViewById<ImageView>(R.id.mIvGoodsInfoAd)
+
+        val adWidth = mContext.getScreenSize().first
+        val adHeight = adWidth / 2
+        val layoutParam = adIv.layoutParams
+        layoutParam.width = adWidth
+        layoutParam.height = adHeight
+        adIv.layoutParams = layoutParam
+
+        GlideManager.loadImage(mContext, goodsInfoBean!!.arr2!!.ad_pic, footView.findViewById(R.id.mIvGoodsInfoAd))
+        adIv.setOnClickListener {
+            FragmentContainerActivity.from(mContext)
+                    .setNeedNetWorking(true)
+                    .setTitle(goodsInfoBean!!.arr2!!.ad_title)
+                    .setExtraBundle(bundleOf(Pair(WebViewContentFragment.PATH_FLAG, goodsInfoBean!!.arr2!!.ad_content)))
+                    .setClazz(WebViewContentFragment::class.java)
+                    .start()
+        }
+
         val mLlCouponContainer = footView.findViewById<LinearLayout>(R.id.mLlCouponContainer)
         if (goodsInfoBean != null && goodsInfoBean!!.arr3 != null && !goodsInfoBean!!.arr3!!.isEmpty()) {
             goodsInfoBean!!.arr3!!.forEach { coupon ->

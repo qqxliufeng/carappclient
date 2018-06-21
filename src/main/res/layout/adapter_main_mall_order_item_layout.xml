@@ -124,6 +124,15 @@
         android:padding="@dimen/dp_10">
 
         <Button
+            android:id="@+id/mBtOrderListItemAction0"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:visibility="gone"
+            android:background="@drawable/shape_tv_order_list_bg"
+            android:textColor="@color/text_deep_dark_color" />
+
+        <Button
             android:id="@+id/mBtOrderListItemAction1"
             android:layout_width="80dp"
             android:layout_height="30dp"

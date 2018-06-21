@@ -163,6 +163,17 @@
         android:layout_height="10dp"
         android:background="#fff5f5f5" />
 
+    <ImageView
+        android:id="@+id/mIvGoodsInfoAd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:scaleType="fitXY" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff5f5f5" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

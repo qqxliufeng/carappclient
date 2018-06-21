@@ -26,6 +26,10 @@ class WebViewContentFragment : BaseNetWorkingFragment() {
         setting.domStorageEnabled = true
         setting.defaultTextEncodingName = "utf-8"
         mWvContent.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                imgReset()
+            }
         }
         mWvContent.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -47,5 +51,16 @@ class WebViewContentFragment : BaseNetWorkingFragment() {
                 }
             }
         }
+    }
+
+    private fun imgReset() {
+        mWvContent.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName('img'); " +
+                "for(var i=0;i<objs.length;i++)  " +
+                "{"
+                + "var img = objs[i];   " +
+                " img.style.maxWidth = '100%';" +
+                "}" +
+                "})()")
     }
 }

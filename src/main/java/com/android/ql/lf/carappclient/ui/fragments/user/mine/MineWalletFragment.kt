@@ -92,7 +92,11 @@ class MineWalletFragment : BaseRecyclerViewFragment<MineWalletFragment.HistoryWa
                 item.merchant_integral_sn
             }}")
             helper.setText(R.id.mTvWalletHistoryItemTime, item.merchant_integral_time)
-            helper.setText(R.id.mTvWalletHistoryItemCount, "￥${item.merchant_integral_price}")
+            if (item.merchant_integral_sym == "1") {
+                helper.setText(R.id.mTvWalletHistoryItemCount, " + ￥${item.merchant_integral_price}")
+            } else {
+                helper.setText(R.id.mTvWalletHistoryItemCount, " - ￥${item.merchant_integral_price}")
+            }
         }
     }
 

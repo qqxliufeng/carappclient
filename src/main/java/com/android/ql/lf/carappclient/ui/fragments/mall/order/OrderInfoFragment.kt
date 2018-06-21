@@ -75,8 +75,11 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
     private val orderSubscription by lazy {
         RxBus.getDefault().toObservable(RefreshData::class.java).subscribe {
             if (it.isRefresh && it.any == REFRESH_ORDER_FLAG) {
-                if (mallOrderInfoContainer!!.merchant_order_token == MallOrderPresent.MallOrderStatus.MALL_ORDER_APPLY_BACK.index) {
-                    finish()
+                when (mallOrderInfoContainer!!.merchant_order_token) {
+                    MallOrderPresent.MallOrderStatus.WAITING_FOR_RECEIVER.index,
+                    MallOrderPresent.MallOrderStatus.WAITING_FOR_SEND.index-> {
+                        finish()
+                    }
                 }
             }
         }
@@ -181,6 +184,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_MONEY.index -> {
                     mBtOrderInfoAction1.visibility = View.VISIBLE
                     mBtOrderInfoAction2.visibility = View.VISIBLE
+                    mBtOrderInfoAction0.visibility = View.GONE
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_money)
                     mBtOrderInfoAction1.text = "取消订单"
                     mBtOrderInfoAction2.text = "去支付"
@@ -204,6 +208,7 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_SEND.index -> {
                     mBtOrderInfoAction1.visibility = View.VISIBLE
                     mBtOrderInfoAction2.visibility = View.GONE
+                    mBtOrderInfoAction0.visibility = View.GONE
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_send)
                     mBtOrderInfoAction1.text = "申请退款"
                     mBtOrderInfoAction1.setOnClickListener {
@@ -223,8 +228,10 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_reveicer)
                     mBtOrderInfoAction1.visibility = View.VISIBLE
                     mBtOrderInfoAction2.visibility = View.VISIBLE
+                    mBtOrderInfoAction0.visibility = View.VISIBLE
                     mBtOrderInfoAction1.text = "查看物流"
                     mBtOrderInfoAction2.text = "确认收货"
+                    mBtOrderInfoAction0.text = "申请退款"
                     mBtOrderInfoAction2.setOnClickListener {
                         //确定收货
                         alert("是否要确定收货？", "是", "否") { dialog, which ->
@@ -242,11 +249,24 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                         mallSalerOrderBean.merchant_order_tn = mallOrderInfoContainer!!.merchant_order_tn
                         FragmentContainerActivity.from(mContext).setTitle("查看物流").setExtraBundle(bundleOf(Pair(ExpressInfoFragment.ORDER_BEAN_FLAG, mallSalerOrderBean))).setNeedNetWorking(true).setClazz(ExpressInfoFragment::class.java).start()
                     }
+                    mBtOrderInfoAction0.setOnClickListener {
+                        //申请退款
+                        alert("是否要申请退款？", "是", "否") { dialog, which ->
+                            FragmentContainerActivity
+                                    .from(mContext)
+                                    .setClazz(RefundFragment::class.java)
+                                    .setTitle("申请退款")
+                                    .setNeedNetWorking(true)
+                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, mallOrderInfoContainer!!.merchant_order_id)))
+                                    .start()
+                        }
+                    }
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index -> {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_ele)
                     mBtOrderInfoAction1.visibility = View.GONE
                     mBtOrderInfoAction2.visibility = View.VISIBLE
+                    mBtOrderInfoAction0.visibility = View.GONE
                     mBtOrderInfoAction2.text = "去评价"
                     mBtOrderInfoAction2.setOnClickListener {
                         //去评价
@@ -264,21 +284,25 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_complement)
                     mBtOrderInfoAction1.visibility = View.GONE
                     mBtOrderInfoAction2.visibility = View.GONE
+                    mBtOrderInfoAction0.visibility = View.GONE
                 }
                 MallOrderPresent.MallOrderStatus.MALL_ORDER_CANCEL.index -> {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_cancel)
                     mBtOrderInfoAction1.visibility = View.GONE
                     mBtOrderInfoAction2.visibility = View.GONE
+                    mBtOrderInfoAction0.visibility = View.GONE
                 }
                 MallOrderPresent.MallOrderStatus.MALL_ORDER_HAS_BACK.index -> {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_complement)
                     mBtOrderInfoAction1.visibility = View.GONE
                     mBtOrderInfoAction2.visibility = View.GONE
+                    mBtOrderInfoAction0.visibility = View.GONE
                 }
                 MallOrderPresent.MallOrderStatus.MALL_ORDER_APPLY_BACK.index -> {
                     mTvOrderInfoTopStatePic.setImageResource(R.drawable.img_order_status_apply_money)
                     mBtOrderInfoAction1.visibility = View.GONE
                     mBtOrderInfoAction2.visibility = View.GONE
+                    mBtOrderInfoAction0.visibility = View.GONE
                 }
             }
         }

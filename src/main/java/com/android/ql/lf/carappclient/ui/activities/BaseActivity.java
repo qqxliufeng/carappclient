@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,10 +14,6 @@ import com.android.ql.lf.carappclient.interfaces.INetDataPresenter;
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.Utils;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 
 /**
  * Created by Administrator on 2017/10/17 0017.
@@ -26,61 +21,16 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
  * @author lf
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements INetDataPresenter, SwipeBackActivityBase {
+public abstract class BaseActivity extends AppCompatActivity implements INetDataPresenter {
 
-    private SwipeBackActivityHelper swipeBackActivityHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        initSwipe();
         initView();
     }
-
-    private void initSwipe() {
-        swipeBackActivityHelper = new SwipeBackActivityHelper(this);
-        swipeBackActivityHelper.onActivityCreate();
-        setSwipeBackEnable(true);
-    }
-
-    @Override
-    public SwipeBackLayout getSwipeBackLayout() {
-        return swipeBackActivityHelper.getSwipeBackLayout();
-    }
-
-    @Override
-    public void setSwipeBackEnable(boolean enable) {
-        getSwipeBackLayout().setEnableGesture(enable);
-    }
-
-    @Override
-    public void scrollToFinishActivity() {
-        Utils.convertActivityToTranslucent(this);
-        getSwipeBackLayout().scrollToFinishActivity();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        swipeBackActivityHelper.onPostCreate();
-    }
-
-    @Override
-    public View findViewById(int id) {
-        View v = super.findViewById(id);
-        if (v == null && swipeBackActivityHelper != null) {
-            return swipeBackActivityHelper.findViewById(id);
-        }
-        return v;
-    }
-
-    @Override
-    public void onBackPressed() {
-        scrollToFinishActivity();
-    }
-
 
     public int getStatusBarColor() {
         return ContextCompat.getColor(this, R.color.colorPrimary);

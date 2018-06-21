@@ -262,6 +262,17 @@ class MainMallOrderItemFragment : AbstractLazyLoadFragment<MallSaleOrderBean>() 
                                 .setNeedNetWorking(true)
                                 .setClazz(ExpressInfoFragment::class.java)
                                 .start()
+                    }else if (view.id == R.id.mBtOrderListItemAction0){
+                        //申请退款
+                        alert("是否要申请退款？", "是", "否") { dialog, which ->
+                            FragmentContainerActivity
+                                    .from(mContext)
+                                    .setClazz(RefundFragment::class.java)
+                                    .setTitle("申请退款")
+                                    .setNeedNetWorking(true)
+                                    .setExtraBundle(bundleOf(Pair(RefundFragment.OID_FLAG, currentOrder!!.merchant_order_id)))
+                                    .start()
+                        }
                     }
                 }
                 MallOrderPresent.MallOrderStatus.WAITING_FOR_EVALUATE.index -> {

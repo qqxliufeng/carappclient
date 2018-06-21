@@ -24,7 +24,6 @@ class MineArticleFragment : BaseFragment() {
     override fun getLayoutId() = R.layout.fragment_mine_article_layout
 
     override fun initView(view: View?) {
-        (mContext as FragmentContainerActivity).setSwipeBackEnable(false)
         mVpMineArticleContainer.adapter = MineArticleAdapter(childFragmentManager)
         mTlMineArticleTitle.setupWithViewPager(mVpMineArticleContainer)
         mTlMineArticleTitle.post {
