@@ -171,7 +171,7 @@ class NewGoodsInfoFragment : BaseNetWorkingFragment(), BottomGoodsParamDialog.On
                 paramsDialog = BottomGoodsParamDialog(mContext)
                 paramsDialog!!.bindNewDataToView(
                         "￥${goodsInfoBean!!.result!!.merchant_product_price}",
-                        "库存${goodsInfoBean!!.result!!.merchant_product_entrepot}件",
+                        "库存${goodsInfoBean!!.result!!.merchant_product_zrepertory}件",
                         goodsInfoBean!!.result!!.merchant_product_name,
                         goodsInfoBean!!.result!!.merchant_product_main_pic,
                         goodsInfoBean!!.result!!.merchant_product_specification)
