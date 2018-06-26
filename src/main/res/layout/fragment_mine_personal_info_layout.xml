@@ -49,7 +49,6 @@
         android:background="@drawable/selector_press_bg"
         android:padding="@dimen/dp_10">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +64,8 @@
             android:layout_alignParentRight="true"
             android:drawablePadding="@dimen/dp_10"
             android:drawableRight="@drawable/icon_inter1"
-            android:gravity="center"
+            android:layout_marginLeft="50dp"
+            android:gravity="left"
             android:textColor="#919191" />
 
     </RelativeLayout>

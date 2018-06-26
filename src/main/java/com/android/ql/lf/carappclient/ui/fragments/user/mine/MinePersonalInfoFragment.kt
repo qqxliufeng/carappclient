@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AlertDialog
+import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -69,6 +70,7 @@ class MinePersonalInfoFragment : BaseNetWorkingFragment() {
         builder.setTitle(title)
         val contentView = View.inflate(mContext, R.layout.layout_edit_personal_content_layout, null)
         val content = contentView.findViewById<EditText>(R.id.mEtEditPersonalInfo)
+        content.filters = arrayOf(InputFilter.LengthFilter(20))
         content.setText(oldInfo)
         content.setSelection(oldInfo.length)
         builder.setNegativeButton("取消", null)
