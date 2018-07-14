@@ -144,6 +144,10 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
 
     private var payType: String = SelectPayTypeView.WX_PAY
 
+    private var cid :StringBuilder?= null
+
+    private var price :StringBuilder?= null
+
     private val shopId by lazy {
         StringBuilder()
     }
@@ -213,7 +217,7 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                 helper.setText(R.id.mIvSubmitOrderGoodsPrice, "￥${item.merchant_shopcart_price}")
                 helper.setText(R.id.mTvSubmitOrderGoodsExpressPrice, "商家配送 ￥${item.merchant_shopcart_mdprice}")
                 helper.setText(R.id.mIvSubmitOrderGoodsNum, "X${item.merchant_shopcart_num}")
-                helper.setText(R.id.mTvSubmitOrderGoodsTotal, Html.fromHtml("共${item.merchant_shopcart_num}件商品  小计:<span style='color:#E1332C'>￥${(item.merchant_shopcart_price.toFloat() * item.merchant_shopcart_num.toInt()) + item.merchant_shopcart_mdprice.toFloat() + item.merchant_shopcart_service.toFloat()}元</span>"))
+                helper.setText(R.id.mTvSubmitOrderGoodsTotal, Html.fromHtml("共${item.merchant_shopcart_num}件商品  小计:<span style='color:#E1332C'>￥${DecimalFormat("0.00").format(item.singleGoodsPrice)}元</span>"))
                 helper.setText(R.id.mTvSubmitOrderGoodsBBSContent, if (TextUtils.isEmpty(item.bbs)) "选填" else item.bbs)
                 helper.addOnClickListener(R.id.mRlSubmitOrderGoodsBBS)
             }
@@ -243,11 +247,20 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
         }
         couponContainer.setOnClickListener {
             //选择优惠券
-            if (couponList.isEmpty()) {
-                mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_MY_DISCOUNT, RequestParamsHelper.getMyDiscountParam(shopid = shopId.toString()))
-            } else {
-                showCouponList()
+            couponList.clear()
+            cid = StringBuilder()
+            price = StringBuilder()
+            mArrayList.forEach {
+                cid?.append(it.merchant_shopcart_id)?.append(",")
+                price?.append(DecimalFormat("0.00").format(it.singleGoodsPrice))?.append(",")
             }
+            cid?.deleteCharAt(cid!!.lastIndex)
+            price?.deleteCharAt(price!!.lastIndex)
+            mPresent.getDataByPost(0x2, RequestParamsHelper.ORDER_MODEL, RequestParamsHelper.ACT_MY_DISCOUNT,
+                    RequestParamsHelper.getMyDiscountParam(
+                            shopid = shopId.toString(),
+                            cid = cid!!.toString(),
+                            price = price!!.toString()))
         }
         mTvSubmitOrder.setOnClickListener {
             if (addressBean == null) {
@@ -282,11 +295,11 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
     }
 
     private fun showCouponList() {
+        val orderCouponBean = OrderCouponBean()
+        orderCouponBean.discount_title = "暂不使用优惠券"
+        orderCouponBean.discount_id = null
+        couponList.add(orderCouponBean)
         if (couponContentView == null) {
-            val orderCouponBean = OrderCouponBean()
-            orderCouponBean.discount_title = "暂不使用优惠券"
-            orderCouponBean.discount_id = null
-            couponList.add(orderCouponBean)
             couponContentView = View.inflate(mContext, R.layout.dialog_bottom_coupon_layout, null)
             val mCouponList = couponContentView!!.findViewById<RecyclerView>(R.id.mRvBottomCouponList)
             couponContentView!!.findViewById<ImageView>(R.id.mIvBottomCouponClose).setOnClickListener { couponBottomDialog.dismiss() }
@@ -347,7 +360,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             }
             money = 0.00f
             mArrayList.forEach {
-                money += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
+                it.singleGoodsPrice = (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
+                money += it.singleGoodsPrice
             }
             mTvSubmitOrderGoodsPrice.text = "￥ " + DecimalFormat("0.00").format(money)
             mBaseAdapter.notifyDataSetChanged()
@@ -362,7 +376,8 @@ class OrderSubmitFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
             money = 0.00f
             var num = 0
             tempList!!.forEach {
-                money += (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
+                it.singleGoodsPrice = (it.merchant_shopcart_price.toFloat() * it.merchant_shopcart_num.toInt()) + it.merchant_shopcart_mdprice.toFloat() + it.merchant_shopcart_service.toFloat()
+                money += it.singleGoodsPrice
                 num += it.merchant_shopcart_num.toInt()
                 it.merchant_sku_pic = it.merchant_shopcart_pic
                 shopId.append(it.shop_id).append(",")

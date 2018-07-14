@@ -519,7 +519,12 @@ class RequestParamsHelper {
         //优惠券列表
         val ACT_MY_DISCOUNT = "my_discount"
 
-        fun getMyDiscountParam(shopid: String) = getWithIdParams().addParam("shopid", shopid)
+        fun getMyDiscountParam(shopid: String,cid:String = "",price:String = "") =
+                getWithIdParams()
+                        .addParam("shopid", shopid)
+                        .addParam("cid",cid)
+                        .addParam("price",price)
+
 
         val ACT_ADDRESS = "address"
         fun getAddressParams(aid:String,freight:String) = getWithIdParams().addParam("aid",aid).addParam("freight",freight)

@@ -37,6 +37,15 @@ public class MallOrderInfoBean {
     private String merchant_order_service;
     private List<String> merchant_product_pic;
     private String merchant_order_sku_pic;
+    private String merchant_order_dprice;
+
+    public String getMerchant_order_dprice() {
+        return merchant_order_dprice;
+    }
+
+    public void setMerchant_order_dprice(String merchant_order_dprice) {
+        this.merchant_order_dprice = merchant_order_dprice;
+    }
 
     public String getMerchant_order_sku_pic() {
         return merchant_order_sku_pic;

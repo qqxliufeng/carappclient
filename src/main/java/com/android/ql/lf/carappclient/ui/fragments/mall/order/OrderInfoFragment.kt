@@ -166,9 +166,18 @@ class OrderInfoFragment : BaseNetWorkingFragment() {
             mTvOrderListItemTitle.text = mallOrderInfoContainer!!.merchant_product_name
             mTvOrderListItemSpecification.text = mallOrderInfoContainer!!.merchant_order_specification
             mIvOrderListItemNum.text = "X${mallOrderInfoContainer!!.merchant_order_num}"
-            mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.merchant_product_price}"
+            mTvOrderListItemPrice.text = "￥${mallOrderInfoContainer!!.merchant_order_oprice}"
             mTvOrderInfoExpressMoney.text = "￥${mallOrderInfoContainer!!.merchant_order_mdprice}"
-
+            if (!TextUtils.isEmpty(mallOrderInfoContainer!!.merchant_order_dprice)){
+                if ("0.00" != mallOrderInfoContainer!!.merchant_order_dprice){
+                    mTvOrderInfoCouponPrice.visibility = View.VISIBLE
+                    mTvOrderInfoCouponPrice.text = "优惠券：￥${mallOrderInfoContainer!!.merchant_order_dprice}"
+                }else{
+                    mTvOrderInfoCouponPrice.visibility = View.GONE
+                }
+            }else{
+                mTvOrderInfoCouponPrice.visibility = View.GONE
+            }
             mTvOrderInfoAllMoney.text = "总价:￥${mallOrderInfoContainer!!.merchant_order_oprice}"
             mTvOrderInfoDetailOrderNum.text = mallOrderInfoContainer!!.merchant_order_sn
             mTvOrderInfoDetailGoodsOrderTime.text = mallOrderInfoContainer!!.merchant_order_ctime

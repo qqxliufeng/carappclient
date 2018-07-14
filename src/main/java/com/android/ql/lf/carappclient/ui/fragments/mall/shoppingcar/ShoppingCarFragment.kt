@@ -130,7 +130,8 @@ class ShoppingCarFragment : BaseRecyclerViewFragment<ShoppingCarItemBean>() {
                     if ((check.obj as JSONObject).optJSONArray("result").length() != 0) {
                         processList(result as String, ShoppingCarItemBean::class.java)
                     } else {
-                        emptyShoppingCar()
+                        toast("购物车暂无商品")
+                        mShoppingCarContainer.visibility = View.GONE
                     }
                 }
             }
